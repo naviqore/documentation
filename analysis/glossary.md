@@ -39,7 +39,7 @@ consume that data in an interoperable way.
 | Leg                  | Travel in which a rider boards and alights between a pair of subsequent locations along a trip.                  |
 | Journey              | Overall travel from origin to destination, including all legs and transfers in-between.                          |
 | Sub-journey          | Two or more legs that comprise a subset of a journey.                                                            |
-| Fare product         | Purchassable fare products that can be used to pay for or validate travel.                                       |
+| Fare product         | Purchasable fare products that can be used to pay for or validate travel.                                        |
 | Transit Route        | A group of trips, displayed to riders as a single service.                                                       |
 
 ### Schedule
