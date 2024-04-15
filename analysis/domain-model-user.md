@@ -1,4 +1,4 @@
-# Domain model: User Perspective
+# Domain Model: User Perspective
 
 ```mermaid
 classDiagram
@@ -34,7 +34,7 @@ classDiagram
     }
 
     Schedule "1" --> "1..*" Agency: is provided by
-    User "*" --> "1" Schedule: requests connections
+    User "0..*" --> "1" Schedule: requests connections
     Schedule "1" --> "*" Connection: provides
     Connection "1" --> "1" Journey: realizes
     Connection "1" --> "1..*" Leg: consist of
