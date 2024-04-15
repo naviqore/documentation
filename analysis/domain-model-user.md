@@ -1,22 +1,47 @@
-# Domain model
+# Domain model: User Perspective
 
 ```mermaid
 classDiagram
-    class User {
-
+    class Schedule {
+        validity
     }
-    class Journey {
-
+    class User {
+        preferences
+    }
+    class Connection {
+        fare
+    }
+    class StopFacility {
+        name
+        location
     }
     class Leg {
-
+        departureTime
+        arrivalTime
+        transportMode
+        distance
     }
-    class Transfer {
-
+    class Journey {
+        progress
+    }
+    class TransitRoute {
+        name
+        type
+    }
+    class TransitTrip {
+        headsign
+        delay
     }
 
-    User "1" --> "0..*" Journey: requests
-    Leg "1" --> "1..*" Journey: consist of
-    
+    Schedule "1" --> "1..*" Agency: is provided by
+    User "*" --> "1" Schedule: requests connections
+    Schedule "1" --> "*" Connection: provides
+    Connection "1" --> "1" Journey: realizes
+    Connection "1" --> "1..*" Leg: consist of
+    Leg "1" --> "1" StopFacility: departs at
+    Leg "1" --> "1" StopFacility: arrives at
+    Leg "1" --> "0..1" TransitTrip: travels with
+    TransitTrip "1..*" --> "1" TransitRoute: has a
+
 
 ```
