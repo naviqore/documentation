@@ -41,3 +41,9 @@ gantt
     Presentation: milestone, presentation, 2024-09-30, 0d
 
 ```
+
+## Semantic Versioning
+
+## Commit Messages
+
+
