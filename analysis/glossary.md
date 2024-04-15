@@ -1,6 +1,6 @@
 # Glossary
 
-## Public transit
+## Public Transit
 
 ## RAPTOR
 
