@@ -44,8 +44,6 @@ gantt
 
 ## Semantic Versioning
 
-## Versioning
-
 This project adheres to [Semantic Versioning](https://semver.org/). We use a three-part version numbering system:
 MAJOR.MINOR.PATCH. Here is what each part represents:
 
