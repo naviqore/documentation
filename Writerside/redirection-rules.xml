@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="1575af4e">
+        <description>Created after removal of "Empty MD Topic" from Documentation</description>
+        <accepts>Empty-MD-Topic.html</accepts>
+    </rule>
+    <rule id="2e133929">
+        <description>Created after removal of "Documentation" from Documentation</description>
+        <accepts>starter-topic1.html</accepts>
+    </rule>
+    <rule id="419dbf37">
+        <description>Created after removal of "Glossary" from Documentation</description>
+        <accepts>glossary1.html</accepts>
+    </rule>
+    <rule id="419a1013">
+        <description>Created after removal of "Starter" from Documentation</description>
+        <accepts>Starter1.html</accepts>
+    </rule>
+    <rule id="2ba28d20">
+        <description>Created after removal of "Requirements" from Documentation</description>
+        <accepts>requirements1.html</accepts>
+    </rule>
+    <rule id="740b2fa3">
+        <description>Created after removal of "Domain Model" from Documentation</description>
+        <accepts>domain-model1.html</accepts>
+    </rule>
+    <rule id="666f7ab">
+        <description>Created after removal of "Starter" from Documentation</description>
+        <accepts>Starter.html</accepts>
+    </rule>
+    <rule id="719748a2">
+        <description>Created after removal of "Overview" from Documentation</description>
+        <accepts>Overview.html</accepts>
+    </rule>
+    <rule id="7ef456ed">
+        <description><![CDATA[Created after removal of "<Overview.md>" from Documentation]]></description>
+        <accepts>Overview.html</accepts>
+    </rule>
+    <rule id="7afad3b">
+        <description>Created after removal of "Starter" from Documentation</description>
+        <accepts>Starter.html</accepts>
+    </rule>
+    <rule id="2556b3a">
+        <description>Created after removal of "Raptor" from Documentation</description>
+        <accepts>Raptor.html</accepts>
+    </rule>
+    <rule id="47d7ebdf">
+        <description>Created after removal of "Raptor" from Documentation</description>
+        <accepts>Raptor.html</accepts>
+    </rule>
+    <rule id="9217c62">
+        <description>Created after removal of "How to" from Documentation</description>
+        <accepts>How-to.html</accepts>
+    </rule>
+</rules>
