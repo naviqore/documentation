@@ -13,7 +13,7 @@ permissions:
 
 env:
   INSTANCE: 'Writerside/d'
-  ARTIFACT: 'raptor_docs.zip'
+  ARTIFACT: 'webHelpd2-all.zip'
   DOCKER_VERSION: '241.15989'
 
 jobs:
