@@ -7,6 +7,11 @@
                  start-page="starter-topic.md">
 
     <toc-element topic="starter-topic.md">
+        <toc-element topic="Initial-situation.md"/>
+        <toc-element topic="Thesis.md"/>
+        <toc-element topic="Delimitation.md"/>
+        <toc-element topic="Procedure-and-methodology.md"/>
+        <toc-element topic="Scheduling.md"/>
         <toc-element topic="Analysis.md">
             <toc-element topic="use-case.md"/>
             <toc-element topic="requirements.md"/>
@@ -18,8 +23,11 @@
             <toc-element topic="activity-diagram.md"/>
             <toc-element topic="system-context.md"/>
         </toc-element>
-        <toc-element topic="Raptor.md">
-            <toc-element topic="raptorAnalysis.md"/>
+        <toc-element topic="Implementation.md">
+            <toc-element topic="Git-Strategy.md"/>
+            <toc-element topic="Raptor.md">
+                <toc-element topic="raptorAnalysis.md"/>
+            </toc-element>
         </toc-element>
     </toc-element>
 </instance-profile>
