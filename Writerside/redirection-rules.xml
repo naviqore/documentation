@@ -58,4 +58,16 @@
         <description>Created after removal of "How to" from Documentation</description>
         <accepts>How-to.html</accepts>
     </rule>
+    <rule id="1db90395">
+        <description>Created after removal of "Scheduling" from Documentation</description>
+        <accepts>Scheduling.html</accepts>
+    </rule>
+    <rule id="25daa7ea">
+        <description>Created after removal of "Delimitation" from Documentation</description>
+        <accepts>Delimitation.html</accepts>
+    </rule>
+    <rule id="38166d7">
+        <description>Created after removal of "Thesis" from Documentation</description>
+        <accepts>Thesis.html</accepts>
+    </rule>
 </rules>
