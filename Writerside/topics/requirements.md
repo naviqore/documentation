@@ -22,9 +22,9 @@ Legend:
   transfer times from the public transit schedule should be preferred, but can optionally be overridden by the minimum
   transfer time set by the user.
 
-- **NF-1:** The complete service must be able to run on a normal machine (4 cores, 16GB).
-- **NF-2:** The prototype implementation of the service, router and gtfs reader is completely in Java.
-- **NF-3:** The communication with the service must be stateless (caching of results is still allowed).
+- **NF-M1:** The complete service must be able to run on a normal machine (4 cores, 16GB).
+- **NF-M2:** The prototype implementation of the service, router and gtfs reader is completely in Java.
+- **NF-M3:** The communication with the service must be stateless (caching of results is still allowed).
 
 #### M: Schedule
 
