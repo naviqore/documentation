@@ -16,7 +16,6 @@
         <toc-element topic="use-case.md"/>
         <toc-element topic="requirements.md"/>
         <toc-element topic="domain-model.md"/>
-        <toc-element topic="Architectural-Overview.md"/>
         <toc-element topic="glossary.md"/>
         <toc-element topic="Raptor.md">
             <toc-element topic="Terminology.md"/>
@@ -24,6 +23,7 @@
         </toc-element>
     </toc-element>
     <toc-element topic="Design.md">
+        <toc-element topic="Architectural-Overview.md"/>
         <toc-element topic="sequence-diagram.md"/>
         <toc-element topic="activity-diagram.md"/>
         <toc-element topic="system-context.md"/>
