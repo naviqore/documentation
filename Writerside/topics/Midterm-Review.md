@@ -21,8 +21,7 @@ The interim review checks whether each team is on track with their software proj
     - Focus is set on the Public Transit Service and its core components (gtfs schedule, raptor algorithm and
       converter).
     - A user interface of the service is to be initially realized for demo purposes. If towards the end of the project
-      there are
-      more resources left, it will be extended accordingly, see *nice-to-have* requirements.
+      there are more resources left, it will be extended accordingly, see *nice-to-have* requirements.
     - The integration with JNI is tested and results are going to be continuously compared with the existing benchmark
       of the Java implementation. To ensure that the additional effort of programming in C++ also provides significant
       benefits in the performance of the algorithm, if the effort does not justify the performance gain, the JNI
@@ -48,4 +47,4 @@ The interim review checks whether each team is on track with their software proj
     - Documentation is continuously written in WriteSide and is daily published on GitHub pages.
 
 - Is there a realistic plan for the remainder of the project?
-    - See Gantt Chart in [Overview](overview.md).
+    - See Gantt Chart in [Overview](Schedule.md).

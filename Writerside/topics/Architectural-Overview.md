@@ -32,6 +32,7 @@ ch.naviqore/
     - gtfs/
         - GtfsRepository
         - static/
+            GtfsSchedule 
         - realtime/
     - utils/
 - io/

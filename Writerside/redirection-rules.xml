@@ -70,4 +70,8 @@
         <description>Created after removal of "Thesis" from Documentation</description>
         <accepts>Thesis.html</accepts>
     </rule>
+    <rule id="e16be80">
+        <description>Created after removal of "Overview" from Documentation</description>
+        <accepts>overview.html</accepts>
+    </rule>
 </rules>

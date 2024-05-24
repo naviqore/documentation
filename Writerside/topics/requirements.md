@@ -7,7 +7,7 @@ requirements are additional features that would enhance the service but are not 
 
 Type:
 
-- `UC`: Use case (functional Requirement)
+- `UC`: Use case
 - `NF`: Non-function requirement
 
 Component:
@@ -17,13 +17,13 @@ Component:
 - `RO`: Routing
 - `VW`: Viewer
 
-Priority:
+Priority:0
 
 - `M`: Must-have
 - `S`: Should-have
 - `N`: Nice-to-have
 
-Requirement ID = `{TYPE} - {COMPONENT} -{PRIORITY}{NUMBER}`
+Requirement ID = `{TYPE}-{COMPONENT}-{PRIORITY}{NUMBER}`
 
 ## Must-have
 
@@ -33,7 +33,7 @@ Requirement ID = `{TYPE} - {COMPONENT} -{PRIORITY}{NUMBER}`
 | **UC-SE-M2** | Find the next departures from a given stop with information (name, direction, if available head-sign).                                                                                                                                                                |
 | **UC-SE-M3** | Efficiently request (in mean <250ms) connections between two stops.                                                                                                                                                                                                   |
 | **UC-SE-M4** | The minimum transfer time can be set by the user in the connection routing request. Already provided transfer times from the public transit schedule should be preferred, but can optionally be overridden by the minimum transfer time set by the user.              |
-| **NF-SE-M1** | The complete service must be able to run on a normal machine (4 cores, 16GB).                                                                                                                                                                                         |
+| **NF-SE-M1** | The complete service must be able to run on a normal machine (8 cores, 16GB).                                                                                                                                                                                         |
 | **NF-SE-M2** | The prototype implementation of the service, router, and GTFS reader is completely in Java.                                                                                                                                                                           |
 | **NF-SE-M3** | The communication with the service must be stateless (caching of results is still allowed).                                                                                                                                                                           |
 | **UC-SC-M1** | Use the GTFS (General Transit Feed Specification) as input for the transit schedule.                                                                                                                                                                                  |
