@@ -29,7 +29,7 @@
         <toc-element topic="system-context.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
-        <toc-element topic="git-strategy.md"/>
+        <toc-element topic="git-best-practices.md"/>
         <toc-element topic="code-style-guide.md"/>
     </toc-element>
 </instance-profile>

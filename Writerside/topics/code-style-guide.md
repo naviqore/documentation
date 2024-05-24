@@ -84,10 +84,16 @@ TODO...
 
 ## Python
 
+Python code written for this module should follow the google python style
+guide <http://google.github.io/styleguide/pyguide.html> whenever possible.
+All modules and public functions must include a docstring as further described
+in <http://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings>
+
+Further:
+
 - Format code with Black and isort.
 - Follow PEP8 guidelines.
 - Use Poetry as the build tool.
-- Write docstrings in Google format.
 - Follow naming conventions: `snake_case` for methods, `UpperCamelCase` for classes, and `ALL_UPPER_CASE` for constants.
 
 ```Python

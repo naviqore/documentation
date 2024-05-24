@@ -1,4 +1,4 @@
 # Implementation
 
-- [Activity Diagram](git-strategy.md)
+- [Git Best Practices](git-best-practices.md)
 - [Code Style Guide](code-style-guide.md)
