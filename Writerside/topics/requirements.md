@@ -28,11 +28,11 @@ Legend:
 
 #### M: Schedule
 
-- **UC-5:** Use the GTFS (General Transit Feed Specification) as input for the transit schedule.
-- **UC-5:** Read all required components from GTFS static schedule.
-- **UC-6:** Read optional transfers from GTFS and make them available to the router.
+- **UC-M5:** Use the GTFS (General Transit Feed Specification) as input for the transit schedule.
+- **UC-M6:** Read all required components from GTFS static schedule.
+- **UC-M7:** Read optional transfers from GTFS and make them available to the router.
 
-- **NF-3:** The schedule is read into a memory-efficient structure, which takes less than 1.5GB (the size of the
+- **NF-M4:** The schedule is read into a memory-efficient structure, which takes less than 1.5GB (the size of the
   schedule file on disk) for all required fields of the GTFS Switzerland.
 
 #### M: Routing
@@ -43,7 +43,7 @@ Legend:
 - **UC-9:** The returned connection solutions have to be pareto-optimal (duration and number of transfers).
 - **UC-14:** The integration in the performant programming language C++ with JNI is evaluated.
 
-- **NF-2:** At least 5 manually chosen connections from the SBB app are used to validate the solutions from the
+- **NF-5:** At least 5 manually chosen connections from the SBB app are used to validate the solutions from the
   algorithm.
 - **NF-2:** Efficiency of random route requests is measured in relation to the complete transit schedule of Switzerland
   of 2024 in a benchmark test. The results are written to a file. The file must have a date-time stamp to be able to
