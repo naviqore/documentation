@@ -1,4 +1,4 @@
-# RaptorAnalysis
+# Raptor Analysis
 
 The RAPTOR (Round-based Public Transit Routing) algorithm is an algorithm for calculating the
 optimal route in a public transportation system.

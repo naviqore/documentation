@@ -3,7 +3,7 @@
 The interim review checks whether each team is on track with their software project:
 
 - Is there a serious walking skeleton (architecture prototype)?
-    - See architectural overview. [Architectural-Overview](Architectural-Overview.md)
+    - See architectural overview. [Architectural-Overview](architectural-overview.md)
 
 - Have the main risks been resolved?
     - A minimal version of the Raptor algorithm has been implemented and is running.
@@ -17,7 +17,7 @@ The interim review checks whether each team is on track with their software proj
 
 - Are the priorities set correctly?
     - The software development process is defined and the time outline of the project is planned. The team members have
-      planned their resources, see [schedule section](Schedule.md)
+      planned their resources, see [schedule section](outline.md)
     - Focus is set on the Public Transit Service and its core components (gtfs schedule, raptor algorithm and
       converter).
     - A user interface of the service is to be initially realized for demo purposes. If towards the end of the project
@@ -47,4 +47,4 @@ The interim review checks whether each team is on track with their software proj
     - Documentation is continuously written in WriteSide and is daily published on GitHub pages.
 
 - Is there a realistic plan for the remainder of the project?
-    - See Gantt Chart in [Overview](Schedule.md).
+    - See Gantt Chart in [Overview](outline.md).
