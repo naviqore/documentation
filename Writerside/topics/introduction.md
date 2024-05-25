@@ -15,12 +15,12 @@ The motivation behind our thesis lies in addressing several key challenges:
    to access or generate such datasets. Working with these large and complex datasets poses interesting challenges
    concerning efficient data structures and processing approaches.
 
-3. **Complexity**: Routing in public transit systems is inherently complex due to the time-dependent nature of the
+2. **Complexity**: Routing in public transit systems is inherently complex due to the time-dependent nature of the
    network. The schedules of public transit services are not static; they vary based on time of day, day of the week,
    and other factors. This time-dependency adds a layer of complexity to the routing process, making it a challenging
    problem to solve efficiently.
 
-4. **Performance**: Traditional graph-based transit routing algorithms often struggle with large-scale networks,
+3. **Performance**: Traditional graph-based transit routing algorithms often struggle with large-scale networks,
    resulting in time-consuming requests. The RAPTOR (Round-based Public Transit Routing) algorithm, known for its speed
    and accuracy, offers a promising solution [2].
 
@@ -37,14 +37,14 @@ Our approach involves the following key components:
    source. GTFS provides a standardized format for transit schedules, including static information (such as stop times,
    routes, and trips) and eventually real-time updates.
 
-3. **RAPTOR Algorithm**: The RAPTOR algorithm, based on time-expanded networks, efficiently computes transit routes by
+2. **RAPTOR Algorithm**: The RAPTOR algorithm, based on time-expanded networks, efficiently computes transit routes by
    considering time-dependent constraints.
 
-4. **Public Transit Service**: This integration layer adds abstraction between the publicly visible interface and the
+3. **Public Transit Service**: This integration layer adds abstraction between the publicly visible interface and the
    core components, such as the routing algorithm and schedule data source. This will allow for exchanging those
    components without interfering with any outside dependencies on the service.
 
-5. **Web Application**: Around the core routing functionality, we develop a simple web application. The frontend will
+4. **Web Application**: Around the core routing functionality, we develop a simple web application. The frontend will
    allow users to explore schedules, query connections, and assess accessibility. The backend continuously updates the
    static schedule.
 
