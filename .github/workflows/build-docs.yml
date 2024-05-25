@@ -4,7 +4,7 @@ name: Build documentation
 
 on:
   schedule:
-    - cron: '0 0 * * 0' # run the workflow every Sunday at 00:00 (Unix cron syntax)
+    - cron: '0 23 * * *' # run the workflow every day at 23:00 (Unix cron syntax)
   push:
     branches:
       - main

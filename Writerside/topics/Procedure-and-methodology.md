@@ -1,3 +1,0 @@
-# Procedure and methodology
-
-Start typing here...

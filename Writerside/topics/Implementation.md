@@ -1,3 +1,0 @@
-# Implementation
-
-Start typing here...

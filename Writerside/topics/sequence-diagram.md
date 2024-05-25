@@ -1,5 +1,7 @@
 # Sequence Diagram
 
+## TODO ADD SEQUENCE DIAGRAM
+
 ```mermaid
 sequenceDiagram
     Alice ->> Bob: Hello Bob, how are you?

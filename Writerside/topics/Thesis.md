@@ -1,3 +1,0 @@
-# Thesis
-
-Start typing here...
