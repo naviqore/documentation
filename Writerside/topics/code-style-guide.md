@@ -98,11 +98,17 @@ Further:
 
 ```Python
 class ExampleService:
-MAX_ATTEMPTS = 5
+
+
+    MAX_ATTEMPTS = 5
+
 
 def __init__(self, repository):
-self._repository = repository
+
+
+    self._repository = repository
+
 
 def find_by_id(self, id: str) -> Optional[Example]:
-        return self._repository.find_by_id(id)
+    return self._repository.find_by_id(id)
 ```
