@@ -70,8 +70,6 @@ The components will be made available under a permissive or copyleft open-source
 
 ## Initial situation
 
-## Background
-
 The existing literature highlights several complexities associated with transit routing:
 
 1. **Network Complexity**: Public transit networks are intricate, with multiple routes, stops, footpaths and
