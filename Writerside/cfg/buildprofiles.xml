@@ -5,7 +5,14 @@
     <variables/>
     <build-profile instance="d">
         <variables>
+            <custom-favicons>favicon/favicon.ico</custom-favicons>
+            <header-logo>favicon/android-chrome-512x512.png</header-logo>
             <noindex-content>true</noindex-content>
+        </variables>
+    </build-profile>
+    <build-profile instance="n">
+        <variables>
+            <noindex-content>false</noindex-content>
         </variables>
     </build-profile>
 

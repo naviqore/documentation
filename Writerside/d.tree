@@ -3,7 +3,7 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="d"
-                 name="Documentation"
+                 name="Naviqore"
                  start-page="introduction.md">
 
     <toc-element topic="introduction.md"/>
@@ -31,5 +31,6 @@
     <toc-element topic="implementation.md">
         <toc-element topic="git-best-practices.md"/>
         <toc-element topic="code-style-guide.md"/>
+        <toc-element topic="release.md"/>
     </toc-element>
 </instance-profile>
