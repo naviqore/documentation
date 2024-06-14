@@ -2,10 +2,9 @@
 
 ## Software Development Process
 
-The development process follows an iterative Scrum-like setup with 4-week sprints between supervisor meetings. Task management and
-monitoring
-are facilitated using the agile project tracking software, Jira. This structured way of working enables team members to
-work independently.
+The development process follows an iterative Scrum-like setup with 4-week sprints between supervisor meetings. Task
+management and monitoring are facilitated using the agile project tracking software, Jira. This structured way of
+working enables team members to work independently.
 
 Key aspects of the process include:
 
@@ -50,13 +49,6 @@ identification and resolution of issues, ensuring a more efficient development p
 
 Clean code principles are followed, and all code is reviewed by team members. For more details, refer to
 the [Code Style Section](requirements.md).
-
-This project adheres to [Semantic Versioning](https://semver.org/). We use a three-part version numbering system:
-MAJOR.MINOR.PATCH. Here is what each part represents:
-
-- **MAJOR version** when we make incompatible API changes,
-- **MINOR version** when we add functionality in a backwards compatible manner, and
-- **PATCH version** when we make backwards compatible bug fixes.
 
 ## Documentation
 
