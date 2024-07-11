@@ -74,4 +74,8 @@
         <description>Created after removal of "Overview" from Documentation</description>
         <accepts>overview.html</accepts>
     </rule>
+    <rule id="2dbe4f9a">
+        <description>Created after removal of "Terminology" from Naviqore</description>
+        <accepts>terminology.html</accepts>
+    </rule>
 </rules>

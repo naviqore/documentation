@@ -3,8 +3,8 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="d"
-                 name="Naviqore"
-                 start-page="introduction.md">
+                  name="Naviqore"
+                  start-page="introduction.md">
 
     <toc-element topic="introduction.md"/>
     <toc-element topic="interim-review.md"/>
@@ -13,15 +13,14 @@
         <toc-element topic="outline.md"/>
     </toc-element>
     <toc-element topic="analysis.md">
-        <toc-element topic="GTFS.md"/>
         <toc-element topic="use-case.md"/>
         <toc-element topic="requirements.md"/>
         <toc-element topic="domain-model.md"/>
-        <toc-element topic="glossary.md"/>
-        <toc-element topic="raptor.md">
-            <toc-element topic="terminology.md"/>
-            <toc-element topic="raptor-analysis.md"/>
+        <toc-element topic="domain.md">
+            <toc-element topic="gtfs.md"/>
+            <toc-element topic="raptor.md"/>
         </toc-element>
+        <toc-element topic="glossary.md"/>
     </toc-element>
     <toc-element topic="design.md">
         <toc-element topic="architectural-overview.md"/>

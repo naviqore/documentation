@@ -81,8 +81,8 @@ model changes in transit networks.
 Transit information systems at stations and stops use GTFS data to display arrival times, route
 information, and service updates.
 
+### File Format - Example
 
-### File Format - Example 
 #### routes.txt
 
 ````text
@@ -97,7 +97,7 @@ route_id,agency_id,route_short_name,route_long_name,route_desc,route_type
 "91-10-Y-j22-1","82","IR","","IR","103"3
 ````
 
-### Technical description 
+### Technical description
 
 The diagram below illustrates how the different types of information interact.
 
