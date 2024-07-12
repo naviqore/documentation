@@ -10,20 +10,33 @@ gantt
         Literature Review: literature, 2024-04-01, 30d
         Kick-Off (on Site): milestone, kickoff, 2024-04-05, 0d
         Project Setup: project, 2024-04-05, 15d
-    section v0.1.0
+    section v0.1.x
         Analysis: 2024-04-15, 2024-06-13
         Design: 2024-05-01, 2024-06-13
-        Supervisor-Sync (Remote): milestone, kickoff, 2024-05-08, 0d
+        Supervisor-Sync (Remote): milestone, 2024-05-08, 0d
         Implementation: 2024-05-10, 2024-06-13
         Testing: 2024-05-10, 2024-06-13
-        Supervisor-Sync (on Site): milestone, kickoff, 2024-05-31, 0d
+        Supervisor-Sync (on Site): milestone, 2024-05-31, 0d
+    section v0.2.x
         Walking Skeleton: milestone, active, walkingSkeleton, 2024-06-13, 0d
+    section v0.3.x
+        Analysis: 2024-06-13, 2024-07-05
+        Design: 2024-06-13, 2024-07-05
+        Impl.: 2024-06-13, 2024-07-05
+        Testing: 2024-06-13, 2024-07-05
+        Supervisor-Sync (Remote): milestone, 2024-07-05, 0d
+    section v0.4.x
+        Analysis: 2024-07-05, 2024-08-01
+        Design: 2024-07-05, 2024-08-15
+        Implementation: 2024-07-05, 2024-08-15
+        Testing: 2024-07-05, 2024-08-15
+        Supervisor-Sync (Remote): milestone, 2024-08-15, 0d
+    section v0.5.x
+        Design: 2024-08-15, 2024-09-01
+        Implementation: 2024-08-15, 2024-09-15
+        Testing: 2024-08-15, 2024-09-15
+        Supervisor-Sync (tbd.): milestone, 2024-09-15, 0d
     section v1.0.0
-        Analysis: 2024-06-13, 2024-08-01
-        Design: 2024-06-13, 2024-09-01
-        Implementation: 2024-06-13, 2024-09-27
-        Testing: 2024-06-13, 2024-09-27
-    section Documentation
         Continuous Documentation: 2024-04-15, 2024-09-27
         Thesis: 2024-08-15, 2024-09-27
         Submission: milestone, crit, submission, 2024-09-27, 0d
