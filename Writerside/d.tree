@@ -9,8 +9,11 @@
     <toc-element topic="introduction.md"/>
     <toc-element topic="interim-review.md"/>
     <toc-element topic="project-management.md">
-        <toc-element topic="methodology.md"/>
+        <toc-element topic="software-development-process.md"/>
         <toc-element topic="outline.md"/>
+        <toc-element topic="code-style-guide.md"/>
+        <toc-element topic="git-best-practices.md"/>
+        <toc-element topic="release.md"/>
     </toc-element>
     <toc-element topic="analysis.md">
         <toc-element topic="use-case.md"/>
@@ -29,8 +32,13 @@
         <toc-element topic="system-context.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
-        <toc-element topic="git-best-practices.md"/>
-        <toc-element topic="code-style-guide.md"/>
-        <toc-element topic="release.md"/>
+        <toc-element topic="simple-raptor.md"/>
+        <toc-element topic="extended-raptor.md"/>
+        <toc-element topic="raptor-xx.md"/>
     </toc-element>
+    <toc-element topic="results-and-discussion.md">
+        <toc-element topic="benchmarking.md"/>
+        <toc-element topic="limitations.md"/>
+    </toc-element>
+    <toc-element topic="conclusion-and-outlook.md"/>
 </instance-profile>

@@ -78,4 +78,12 @@
         <description>Created after removal of "Terminology" from Naviqore</description>
         <accepts>terminology.html</accepts>
     </rule>
+    <rule id="6e42795d">
+        <description>Created after removal of "Raptor Implementation" from Naviqore</description>
+        <accepts>raptor-implementation.html</accepts>
+    </rule>
+    <rule id="6ac20ec2">
+        <description>Created after removal of "Trip Mask Provider" from Naviqore</description>
+        <accepts>trip-mask-provider.html</accepts>
+    </rule>
 </rules>
