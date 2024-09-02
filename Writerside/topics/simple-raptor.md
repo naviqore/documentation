@@ -1,62 +1,28 @@
 # Simple RAPTOR Implementation
 
-An initial implementation of the RAPTOR algorithm was developed in Java, inspired by the work of Delling et al. [ref],
-and included in the early versions of this project (v0.1.0+). This implementation utilized the data structures proposed
-in the appendix of their publication.
+The RAPTOR (Round-based Public Transit Optimized Router) algorithm is a public transit routing algorithm designed for
+efficiently computing the fastest routes through a public transit network. This algorithm was initially implemented in
+Java as part of the early versions of this project (v0.1.0+), inspired by the work of Delling et al. The implementation
+relies on a series of well-structured data arrays that optimize route traversal and trip selection, as detailed in the
+appendix of their publication.
 
 ## RAPTOR Builder
 
-To facilitate the construction of the data structures proposed by Delling et al. [ref], a builder object was created.
-This builder allowed the inclusion of all active trips in a schedule for a specific service day. From these active
-trips, the relevant routes, stops, stop times, and transfers were derived. After defining all active objects, they were
-sorted, and the proposed lookup arrays were instantiated.
+To streamline the construction of the data structures proposed by Delling et al., a builder object was developed. This
+builder facilitated the inclusion of all active trips in a schedule for a specific service day. The process involved
+deriving the relevant routes, stops, stop times, and transfers from these active trips. Once all active objects were
+defined, they were sorted, and the proposed lookup arrays were instantiated.
 
-*Note: In this early stage of the RAPTOR implementation, only stops served on the specific date for which the RAPTOR was
-built were added to the lookup objects. This approach was later modified in our extended implementation to include all
-stops.*
+*Note: In the initial RAPTOR implementation, only stops served on the specific date for which the RAPTOR was built were
+included in the lookup objects. This approach was later modified in the extended implementation to incorporate all
+stops, regardless of service on the specific date.*
 
 ## Data Structures
 
-The core data structures were implemented through the `RaptorData` interface, which requires returning three records,
-each containing more detailed structures. These data structures were designed with memory locality in mind to enhance
-routing performance, allowing efficient cross-referencing by storing indexes to relevant objects in different arrays
-rather than keeping collections of object references, which would scatter memory usage.
-
-1. **Lookup:** This record contains two maps that link the ID (type `String`) of a stop or route to the index in the
-   corresponding `stops` array (part of `StopContext`) or `routes` array (part of `RouteTraversal`). This setup enables
-   quick access to the `Stop` or `Route` objects.
-
-2. **Route Traversal:** This component contains three key data arrays:
-    - **Routes:** An array of `Route` objects. The `Route` object serves as a reference point for different arrays to
-      facilitate route scanning.
-        - **firstRouteStopIdx** & **numberOfStops:** Each route has a fixed sequence of stops. By knowing the first
-          index of the `RouteStop` and the number of stops, it’s possible to retrieve all stops in the correct order
-          from the `routeStops` array.
-        - **firstStopTimeIdx**, **numberOfStops** & **numberOfTrips:** These properties allow looking up specific stop
-          times from the `stopTimes` array. Due to the complexity of this array, a more detailed explanation is provided
-          in a subsequent section.
-        - **tripIds:** A list of `String` IDs for each trip, used primarily to reverse-engineer a meaningful connection
-          object after routing.
-    - **RouteStops:** An array of `RouteStop` objects. The `RouteStop` object holds the indexes for the
-      associated `Stop` and `Route`, representing a stop within a route sequence.
-    - **StopTimes:** This is the largest array within the RAPTOR data structure. It contains stop times (arrival and
-      departure times in seconds from midnight) for all trips across all routes. A more detailed explanation follows in
-      a later section.
-
-3. **Stop Context:**
-    - **Stops:** An array of `Stop` objects. Each `Stop` object contains all the necessary information to retrieve
-      stop-related data from various arrays.
-        - **stopRouteIdx** & **numberOfRoutes:** These allow the retrieval of route indexes passing through a given
-          stop.
-        - **transferIdx** & **numberOfTransfers:** These allow the retrieval of transfer indexes originating at a stop.
-        - **sameStopTransferTime:** The minimum time required to transfer at the same stop. *This feature was not part
-          of the original RAPTOR data structures proposed by Delling et al. [ref], but was an early extension we
-          introduced to account for same-stop transfers as represented in GTFS data.*
-    - **Transfers:** Transfers are specific to a given source stop and only contain information about the transfer
-      destination and the time required to reach it (in seconds).
-    - **StopRoutes:** An integer array containing all route indexes (as found in the `Routes` array) for each stop. The
-      same route index may appear multiple times in this array, with the order defined by the stops. Access to this
-      array is facilitated by the `stopRouteIdx` & `numberOfRoutes` properties in the `Stop` object.
+The core data structures were implemented through the `RaptorData` interface, which is designed to return three primary
+records, each containing more detailed structures. These data structures were optimized with memory locality in mind to
+enhance routing performance. Instead of maintaining collections of object references—which would lead to scattered
+memory usage—the design involves storing indexes that cross-reference relevant objects across different arrays.
 
 ```plantuml
 @startuml
@@ -124,6 +90,51 @@ StopContext "1" -- "1..*" Stop
 StopContext "1" -- "0..*" Transfer
 @enduml
 ```
+
+### Route Traversal
+
+For efficient route traversal during the algorithm's route scanning loop, the following data structures are utilized:
+
+- **Routes Array**: Each entry corresponds to a specific route and includes:
+    - The number of trips associated with the route.
+    - The number of stops in the route (identical for all its trips).
+    - Pointers to two lists: one representing the sequence of stops along the route and another for the list of all
+      trips operating on that route (stop times).
+
+- **RouteStops Array**: Instead of maintaining separate lists of stops for each route, all stops are stored in a single
+  array. Each route's stops are stored consecutively, with pointers in the `Route` object indicating the starting
+  position for each route's stops.
+
+- **StopTimes Array**: This array contains the trip times (arrival and departure) for each route, organized into blocks
+  by route and sorted by departure time. Within a block, the trips are sorted by their departure times from the first
+  stop on the route.
+
+### Stop Information
+
+To support operations outside of the root scanning loop, the following structures are used:
+
+- **Stops Array**: This array contains information about each stop, including:
+    - A list of all routes that serve the stop, crucial for route traversal and improvement operations.
+    - A list of all foot-paths (transfers) that can be taken from the stop, along with their corresponding transfer
+      times.
+
+- **StopRoutes Array**: Aggregates the routes associated with each stop into a single array, ensuring efficient access
+  during the algorithm's execution.
+
+- **Transfers Array**: Aggregates all foot-paths available from each stop, along with their corresponding transfer
+  times, into a single array.
+
+By organizing these data structures in contiguous memory blocks, the implementation ensures efficient access and
+processing, critical for the performance of the RAPTOR algorithm.
+
+### Look Up
+
+This record contains two maps that link the ID (type `String`) of a stop or route to the index in the
+corresponding `stops` array (part of `StopContext`) or `routes` array (part of `RouteTraversal`). This setup enables
+quick access to the `Stop` or `Route` objects.
+
+This is used for pre- and post-processing routing requests. Requests are made using stop ids and the requestor expects
+ids to be returned, since internal index numbers are not visible outside of the raptor implementation.
 
 ### Stop Times Array
 
