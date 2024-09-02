@@ -6,7 +6,7 @@ Raptor algorithm, along with a simple viewer.
 ## Configuration
 
 The configuration of the public transit service is best handled through environment variables. This approach
-provides flexibility and allows for easier management across different environments, such as development, and
+provides flexibility and allows for easier management across different environments, such as development and
 production. Below are some of the key environment variables that are essential for configuring the router:
 
 - **GTFS_STATIC_URI**: URL or file path to a static GTFS feed. The service will initially fetch the GTFS from this URL.
