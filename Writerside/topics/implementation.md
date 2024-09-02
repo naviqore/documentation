@@ -1,5 +1,5 @@
 # Implementation
 
-- [Git Best Practices](git-best-practices.md)
-- [Code Style Guide](code-style-guide.md)
-- [Release](release.md)
+- [Simple Raptor](simple-raptor.md)
+- [Extended Raptor](extended-raptor.md)
+- [RaptorXX](raptor-xx.md)

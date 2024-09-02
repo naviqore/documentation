@@ -1,6 +1,4 @@
-# Methodology
-
-## Software Development Process
+# Software Development Process
 
 The development process follows an iterative Scrum-like setup with 4-week sprints between supervisor meetings. Task
 management and monitoring are facilitated using the agile project tracking software, Jira. This structured way of
@@ -48,7 +46,7 @@ The fail-fast concept is preferred in development. Given the complexity of the p
 identification and resolution of issues, ensuring a more efficient development process.
 
 Clean code principles are followed, and all code is reviewed by team members. For more details, refer to
-the [Code Style Section](requirements.md).
+the [Code Style Section](code-style-guide.md).
 
 ## Documentation
 
