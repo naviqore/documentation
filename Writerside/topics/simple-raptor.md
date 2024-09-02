@@ -121,7 +121,7 @@ RouteTraversal "1" -- "1..*" Route
 RouteTraversal "1" -- "1..*" RouteStop
 
 StopContext "1" -- "1..*" Stop
-StopContext "1" -- "1..*" Transfer
+StopContext "1" -- "0..*" Transfer
 @enduml
 ```
 
