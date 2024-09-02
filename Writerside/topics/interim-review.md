@@ -105,16 +105,15 @@ The interim review checks whether each team is on track with their software proj
 
 ## Consolidated Action Items
 
-- Clarify the purpose of the project and add a context diagram.
-- Improve the numbering and sequence of the documentation.
-- Apply the C4 model to the architecture section.
-- Ensure OpenAPI compliance and review paths for domain model accuracy.
-- Consider separating the C++ part into a microservice and look into Neo4J for graph database needs.
-- Optimize data structures and use existing cache solutions with proper synchronization mechanisms.
-- Invest in comprehensive testing, including integration tests, and provide a detailed comparison of Java and C++.
-- Clearly prioritize requirements and adopt a risk-based approach if not using Scrum. Ensure all sprints and goals are
-  documented in Jira.
-- Review and refine the video presentation, focusing on length and clarity.
-- Export documentation as a cohesive document and improve terminology clarity.
-- Refactor long methods in the code and define risk mitigation measures.
-
+- ✔️ Clarify the purpose of the project and add a context diagram.
+- ✔️ Improve the numbering and sequence of the documentation.
+- ✔️ Apply the C4 model to the architecture section.
+- ✔️ Ensure OpenAPI compliance and review paths for domain model accuracy.
+- ❌ Consider separating the C++ part into a microservice and look into Neo4J for graph database needs.
+- ✔️ Optimize data structures and use cache solutions with proper synchronization mechanisms.
+- ✔️ Invest in comprehensive testing, including integration tests, and provide a detailed comparison of Java and C++.
+- ✔️ Clearly prioritize requirements and adopt a risk-based approach if not using Scrum. Ensure all sprints and goals
+  are documented in Jira.
+- ✔️ Review the video presentation regarding length and clarity. Adapt for final presentation.
+- ✔️ Export documentation as a cohesive document and improve terminology clarity.
+- ✔️ Refactor long methods in the code and define risk mitigation measures.
