@@ -13,20 +13,19 @@ transit service):
 
 ```
 .
-└── ch
-    └── naviqore
-        ├── app (spring REST API)
-        │         ├── infrastructure (implementations of the service schedule repository)
-        │         └── ...
-        ├── service (interfaces)
-        │         ├── gtfs
-        │         │         └── raptor (service implementation and integration functionality)
-        │         ├── repo (interface to access schedules)
-        │         └── ...
-        ├── gtfs
-        │         └── schedule
-        ├── raptor (algorithm interfaces)
-        │         ├── router (implementation fo the raptor algorithm)
-        │         └── ... (further raptor versions for benchmarking, via Foreign Function and Memory API)
-        └── utils (spatial data types and indices, search trie, networking, ...)
+└── ch.naviqore
+    ├── app (spring REST API)
+    │         ├── infrastructure (implementations of the service schedule repository)
+    │         └── ...
+    ├── service (interfaces)
+    │         ├── gtfs
+    │         │         └── raptor (service implementation and integration functionality)
+    │         ├── repo (interface to access schedules)
+    │         └── ...
+    ├── gtfs
+    │         └── schedule
+    ├── raptor (algorithm interfaces)
+    │         ├── router (implementation fo the raptor algorithm)
+    │         └── ... (further raptor versions for benchmarking, via Foreign Function and Memory API)
+    └── utils (spatial data types and indices, search trie, networking, ...)
 ```
