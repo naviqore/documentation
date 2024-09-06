@@ -16,7 +16,7 @@ transit service):
 └── ch
     └── naviqore
         ├── app (spring REST API)
-        │         ├── infrastructure (implementations of the service repository)
+        │         ├── infrastructure (implementations of the service schedule repository)
         │         └── ...
         ├── service (interfaces)
         │         ├── gtfs
