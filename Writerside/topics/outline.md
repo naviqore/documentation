@@ -1,6 +1,6 @@
 # Outline
 
-## Project milestones
+## Project Milestones
 
 ```mermaid
 gantt
@@ -35,7 +35,7 @@ gantt
         Design: 2024-08-15, 2024-09-01
         Implementation: 2024-08-15, 2024-09-15
         Testing: 2024-08-15, 2024-09-15
-        Supervisor-Sync (tbd.): milestone, 2024-09-15, 0d
+        Supervisor-Sync (on Site): milestone, 2024-09-13, 0d
     section v1.0.0
         Continuous Documentation: 2024-04-15, 2024-09-27
         Thesis: 2024-08-15, 2024-09-27
@@ -45,7 +45,9 @@ gantt
 
 ```
 
-## Team resource schedule
+## Team Resource Schedule
+
+TODO: Replace with actual logged times from JIRA.
 
 [Link to time schedule](https://docs.google.com/spreadsheets/d/1NVJV-sXO0yzrbKqA5deLzzR0VaGW3y-0jaoxKCRQ4sk/edit?usp=sharing)
 
@@ -64,5 +66,3 @@ gantt
 | KW     | Calendar Week                       |
 | V🌴    | Vacation                            |
 | Total  | Sum of time estimates for all weeks |
-
-Start typing here...
