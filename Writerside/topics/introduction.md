@@ -68,7 +68,7 @@ By the end of this thesis, we anticipate achieving the following outcomes:
 
 The components will be made available under a permissive or copyleft open-source license.
 
-## Initial situation
+## Initial Situation
 
 The existing literature highlights several complexities associated with transit routing:
 

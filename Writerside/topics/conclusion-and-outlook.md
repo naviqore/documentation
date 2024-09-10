@@ -1,3 +1,3 @@
 # Conclusion and Outlook
 
-Start typing here...
+Concluding it can be stated, that all must-have requirements are fully satisfied.
