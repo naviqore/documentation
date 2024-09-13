@@ -27,9 +27,9 @@
     </toc-element>
     <toc-element topic="design.md">
         <toc-element topic="architectural-overview.md"/>
+        <toc-element topic="c4-model.md"/>
         <toc-element topic="sequence-diagram.md"/>
         <toc-element topic="activity-diagram.md"/>
-        <toc-element topic="system-context.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
         <toc-element topic="GTFS-Schedule.md"/>
