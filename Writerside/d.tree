@@ -29,7 +29,6 @@
         <toc-element topic="architectural-overview.md"/>
         <toc-element topic="c4-model.md"/>
         <toc-element topic="sequence-diagram.md"/>
-        <toc-element topic="activity-diagram.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
         <toc-element topic="simple-raptor.md"/>
