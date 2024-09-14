@@ -17,12 +17,12 @@ TODO: Add performance increase description due to cache locality in the stop tim
 
 The benchmark results are visualized in nine plots. Processing time is shown to increase with both the number of
 transfers and the number of connection results, with median times remaining under 150 ms for most cases. The histogram
-of processing times reveals a mean of 98.16 ms and a median of 99.00 ms per request, confirming efficient connection
-query handling. Scatter plots show a weak positive correlation between processing time and both beeline distance and
+of processing times reveals a mean of 76.19 ms and a median of 79.00 ms per request, confirming efficient connection
+query handling. Scatter plots show a positive correlation between processing time and both beeline distance and
 connection duration. Most queries involve 1–2 transfers (80%), and departure time accuracy is high, with minimal
 deviation between requested and actual times.
 
-![v1.0.0 - Benchmark Results](2024_09_10_benchmark_lenovo.png)
+![v1.0.0 - Benchmark Results](2024_09_13_benchmark_lenovo.png)
 
 In regular use, on a large public transit schedule dataset on an average machine, the router performs efficiently and
 fully satisfies the requirements **UC-SE-M3** (*Efficiently request connections between two stops,in mean <250ms.*)
