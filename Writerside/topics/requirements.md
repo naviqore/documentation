@@ -17,7 +17,7 @@ Component:
 - `RO`: Routing
 - `VW`: Viewer
 
-Priority:0
+Priority:
 
 - `M`: Must-have
 - `S`: Should-have
