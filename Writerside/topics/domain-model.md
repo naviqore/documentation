@@ -2,6 +2,11 @@
 
 ## Agency Perspective
 
+The **agency** offers public transit **services**, made up of **trips** that run along defined **routes**. Each trip
+follows the series of stop facilities on its route to allow passengers to board and alight. At stops, passengers can
+**transfer** between trips on different routes or walk to nearby stop facilities for further trips. A schedule may
+include services from multiple transit agencies.
+
 ```mermaid
 classDiagram
     class Agency {
@@ -58,6 +63,11 @@ classDiagram
 ```
 
 ## User Perspective
+
+The **user** interacts with the **schedule** to request **connections**, which are options for travel that include
+details like fare and possible routes. A connection is realized as a **journey** when the user selects it and begins
+traveling. A connection consists of **legs**, which are defined by departure and arrival times, transport mode, and
+distance. Each leg begins and ends at a specific **stop facility**.
 
 ```mermaid
 classDiagram
