@@ -40,8 +40,23 @@ the latter would have made long-term maintenance significantly more difficult.
 
 Adjustments to trip mask provider.
 
+* Introduce problem that RAPTOR does not know the concept of service days --> outsource by dependency injection
+* Introduce TripMaskProvider
+* Discuss limitations of checking trip mask before deciding whether to read stop time.
+* Introduce updated stop time array --> figure
+* Show differences in sequence diagram, maybe isolated class diagram with trip mask provider interface and stop time
+  provider
+* Discuss limitations on memory consumption trip masks vs stop time arrays for each service day.
+
 ## Range Raptor
+
+* worth mentioning here? --> no new novelty, maybe move to RAPTOR implementation and remove "simple"?
 
 ## Accessibility and Bike Information
 
+* Introduce the potential of masking trips to also use this for further query configurations travel mode, accessibility,
+  bike etc.
+
 ## Caching
+
+* To reduce need of recalculating stop time masks for common query configurations.
