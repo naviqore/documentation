@@ -1,7 +1,7 @@
 # Deployment
 
 Deployment of the complete Naviqore system, which consists of a public transit service based on GTFS and the extended
-Raptor algorithm, along with a simple viewer.
+RAPTOR algorithm, along with a simple viewer.
 
 ## Configuration
 
@@ -45,7 +45,7 @@ production. Below are some of the key environment variables that are essential f
   into the next service day. The default value is 3, which includes the previous, current, and next service day.
 
 - **RAPTOR_RANGE**: Maximum range in seconds to identify departures or arrivals for scanning in order to reduce the
-  travel time (a.k.a. range Raptor). Values smaller than 1 are allowed and imply using the standard Raptor algorithm.
+  travel time (a.k.a. range RAPTOR). Values smaller than 1 are allowed and imply using the standard RAPTOR algorithm.
   The default value is -1, which means no range.
 
 For further configuration settings, such as those related to caching, logging, and application management, please refer

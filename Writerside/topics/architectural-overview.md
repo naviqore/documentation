@@ -23,8 +23,8 @@ transit service):
     ├── gtfs
     │         └── schedule
     ├── raptor (algorithm interfaces)
-    │         ├── router (implementation fo the raptor algorithm)
-    │         └── ... (further raptor versions for benchmarking, via Foreign Function and Memory API)
+    │         ├── router (implementation fo the RAPTOR algorithm)
+    │         └── ... (further RAPTOR versions for benchmarking, via Foreign Function and Memory API)
     └── utils (spatial data types and indices, search trie, networking, ...)
 ```
 
@@ -50,7 +50,7 @@ This concept is applied consistently across the project, with a few deliberate e
 architecture is that each layer defines its own representation of the same real-world entities, leading to frequent type
 mapping as requests and responses traverse the layers. A good example is the entity of a transit stop, which is
 abstracted differently in various layers. In the core layer, we maintain two distinct abstractions: one for GTFS stops
-and another for stops used by the Raptor algorithm. This separation exists because the concept of a transit stop differs
+and another for stops used by the RAPTOR algorithm. This separation exists because the concept of a transit stop differs
 based on the context of the layer. For instance, in the GTFS layer, technical details such as possible transfers are
 prioritized, while in the service layer, information from the passenger’s perspective, such as the stop’s full name and
 available routes, takes precedence. In these cases, maintaining separate abstractions for transit stops is justified due

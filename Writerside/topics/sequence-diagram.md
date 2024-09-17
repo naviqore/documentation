@@ -42,7 +42,7 @@ sequenceDiagram
 
 This sequence diagram illustrates how the Naviqore system processes a connection request by a user. The system first
 validates whether the requested stops are valid and retrieves parent or child stops if any. If the stops are valid,
-the **Raptor** is used to query connections, and the connection results are enriched with information from the
+the **RAPTOR** is used to query connections, and the connection results are enriched with information from the
 **GTFS** before being returned to the user.
 
 ```mermaid
@@ -52,7 +52,7 @@ sequenceDiagram
     participant API as REST API
     participant Service as Public Transit Service
     participant GTFS
-    participant Raptor
+    participant RAPTOR
 
     User ->>+ UI: Connection request
     UI ->>+ API: Forward request
@@ -62,8 +62,8 @@ sequenceDiagram
     GTFS -->>- Service: Stops
 
     alt Valid stops for connection query
-        Service ->>+ Raptor: Query connections
-        Raptor -->>- Service: Connection results
+        Service ->>+ RAPTOR: Query connections
+        RAPTOR -->>- Service: Connection results
         
         Service ->>+ GTFS: Postprocess
         GTFS -->>- Service: Enriched connections

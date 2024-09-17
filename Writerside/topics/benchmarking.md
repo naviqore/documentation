@@ -1,8 +1,8 @@
 # Benchmarking
 
-## Extended Raptor for Production
+## Extended RAPTOR for Production
 
-According to **NF-RO-M2** the benchmarking of the extended Raptor algorithm (supporting multiday connections, querying
+According to **NF-RO-M2** the benchmarking of the extended RAPTOR algorithm (supporting multiday connections, querying
 by departure or arrival times, and allowing for custom query criteria such as transport modes, number of transfers,
 maximum walking distance, minimum transfer time, accessibility, or the possibility of carrying a bicycle) was conducted
 using the current GTFS data for the whole of Switzerland and the results where continuously to versioned files, which
@@ -11,7 +11,7 @@ requirements outlined in **NF-RO-M2**.
 
 ### Cache Locality
 
-When iterating over the stop times in the route scanner of the Raptor algorithm, the router needs to access a large
+When iterating over the stop times in the route scanner of the RAPTOR algorithm, the router needs to access a large
 number of integer values sequentially to determine whether a transfer to another trip from the currently active trip is
 possible. Initially, we followed the structure described in the original paper and created an array of `StopTime`
 objects, where each stop time consisted of both an arrival and departure time encapsulated in a record class.
@@ -33,7 +33,7 @@ TODO: Add performance increase numbers.
 ### Hashset vs. Boolean Mask Array
 
 During profiling of connection requests, it was discovered that approximately 25% of the CPU time per routing request
-was consumed by inserting new stops into the marked stops hashset in the main loop of the Raptor router. Since the set
+was consumed by inserting new stops into the marked stops hashset in the main loop of the RAPTOR router. Since the set
 of marked stops is relatively small, we hypothesized that frequent collisions might occur in the hash function, leading
 to inefficiencies. However, attempts to optimize the hash function did not result in significant performance gains.
 
@@ -62,6 +62,6 @@ were generally no discrepancies, and when differences did occur, they were attri
 settings, such as minimum transfer times or maximum walking distances. Requirement **UC-RO-M2** is also fulfilled, as
 all compared connection results are Pareto-optimal.
 
-## Raptor Versions for Comparison
+## RAPTOR Versions for Comparison
 
 TODO

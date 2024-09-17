@@ -21,13 +21,13 @@ different meanings depending on the layer or package they are associated with, e
 | Station       | A station is a large stop facility, typically serving rail. It can also consist multiple smaller stop facilities (e.g. platforms). |
 | Platform      | A platform is a designated area within a station where passengers wait to board or alight from transit vehicles.                   |
 
-## Raptor
+## RAPTOR
 
 | Term           | Description                                                                                                                                        |
 |----------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Transfer       | *Same stop transfer*: Switching between routes at the same stop during a journey.                                                                  |
 | Footpath       | *Between stop transfer*: A walking connection between two different stops that can be used during transfers.                                       |
-| Round          | An iteration in the Raptor algorithm, evaluating routes and footpaths at each stop reached within the current number of allowed transfers.         |
+| Round          | An iteration in the RAPTOR algorithm, evaluating routes and footpaths at each stop reached within the current number of allowed transfers.         |
 | Route scanning | The process of evaluating possible transit routes that pass through marked stops to find optimal paths.                                            |
 | Relaxing       | The process of applying footpaths to other stops connected to improved, marked stops in the current round.                                         |
 | Marked stop    | A stop where the arrival time improved in the last round, requiring evaluation of routes or footpaths connected to this stop in the current round. |
