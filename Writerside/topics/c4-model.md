@@ -1,6 +1,6 @@
 # C4 Model
 
-The C4 model is a simple, hierarchical way of visualizing software architecture. It consists of four layers:
+The C4 model is a simple, hierarchical way of visualizing software architecture [1, 2]. It consists of four layers:
 
 - **System Context**: Shows how the system interacts with its environment.
 - **Containers**: Defines high-level containers (applications, services, databases) that make up the system.

@@ -41,4 +41,5 @@
         <toc-element topic="limitations.md"/>
     </toc-element>
     <toc-element topic="conclusion-and-outlook.md"/>
+    <toc-element topic="References.md"/>
 </instance-profile>

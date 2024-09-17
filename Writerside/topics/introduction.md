@@ -10,7 +10,7 @@ address them.
 The motivation behind our thesis lies in addressing several key challenges:
 
 1. **Open Data**: In recent years, a growing number of public transit agencies have started to publish their schedules
-   in the open standard GTFS (General Transit Feed Specification) as open data [1]. Maintaining a public transit
+   in the open standard GTFS (General Transit Feed Specification) as open data [3, 6]. Maintaining a public transit
    schedule is a resource-intensive task, making it previously inaccessible for small companies or private individuals
    to access or generate such datasets. Working with these large and complex datasets poses interesting challenges
    concerning efficient data structures and processing approaches.
@@ -22,7 +22,7 @@ The motivation behind our thesis lies in addressing several key challenges:
 
 3. **Performance**: Traditional graph-based transit routing algorithms often struggle with large-scale networks,
    resulting in time-consuming requests. The RAPTOR (Round-based Public Transit Routing) algorithm, known for its speed
-   and accuracy, offers a promising solution [2].
+   and accuracy, offers a promising solution [4].
 
 Implementing a public transit service integrates various aspects of the MAS Software Engineering curriculum, including
 architecture and design, algorithms and data structures, project automation, communication in distributed systems,
@@ -93,11 +93,3 @@ process. Each round represents a set of interconnected trips, allowing for effic
 We are not creating a commercial product and are independent of any company interests. This work is conducted as part
 of the Master of Advanced Studies program in Software Engineering at the Eastern Switzerland University of Applied
 Sciences (OST).
-
-## References
-
-[1] General Transit Feed Specification. (n.d.). Retrieved May 25, 2024, from [https://gtfs.org/](https://gtfs.org/)
-
-[2] Delling, D., Pajor, T., & Werneck, R. F. (2012). Round-Based Public Transit Routing. In *2012 Proceedings of the
-Meeting on Algorithm Engineering and Experiments (ALENEX)* (pp. 130-140).
-SIAM. [https://doi.org/10.1137/1.9781611972924.13](https://epubs.siam.org/doi/abs/10.1137/1.9781611972924.13)

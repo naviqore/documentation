@@ -1,6 +1,6 @@
 # Software Development Process
 
-The development process follows an iterative Scrum-like setup with 4-week sprints between supervisor meetings. Task
+The development process follows an iterative Scrum-like [10] setup with 4-week sprints between supervisor meetings. Task
 management and monitoring are facilitated using the agile project tracking software, Jira. This structured way of
 working enables team members to work independently.
 

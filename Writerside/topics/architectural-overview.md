@@ -1,8 +1,8 @@
 # Architectural Overview
 
-We have designed our architecture based on the principles of Clean Architecture and Onion Architecture. The application
-is divided into the following layers: Core, Use Case, Application, and Infrastructure/UI. Dependencies only flow inward
-via dependency injection.
+We have designed our architecture based on the principles of Clean Architecture [5] and Onion Architecture [8]. The
+application is divided into the following layers: Core, Use Case, Application, and Infrastructure/UI. Dependencies only
+flow inward via dependency injection.
 
 ![architecture.jpg](architecture.jpg){ width="600" }
 
@@ -37,7 +37,7 @@ For example, the service layer provides the `PublicTransitService` interface alo
 types, such as `ConnectionQueryConfig` and `Connection`. The actual implementation of this
 service, `GtfsRaptorService`, is abstracted away from the application layer, making it easily replaceable. In the
 application layer, `PublicTransitSpringService` also implements the `PublicTransitService` interface and uses the
-delegate pattern to forward requests from the REST controllers to the service. This encapsulates all the Spring
+delegate pattern to forward requests from the REST controllers to the service. This encapsulates all the Spring [11]
 components, configurations, and dependencies within the outermost app layer, keeping them isolated from the service and
 core logic.
 
