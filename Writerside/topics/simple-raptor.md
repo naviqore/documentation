@@ -142,70 +142,6 @@ quick access to the `Stop` or `Route` objects.
 This is used for pre- and post-processing routing requests. Requests are made using stop ids and the requestor expects
 ids to be returned, since internal index numbers are not visible outside of the raptor implementation.
 
-### Stop Times Array
-
-As mentioned earlier, the Stop Times array is the largest and most frequently used data structure in the RAPTOR
-algorithm. Optimizing this data structure was crucial for performance. For reference, the size of a typical Stop Times
-array in a RAPTOR instance derived from a GTFS schedule for Switzerland is approximately 8,000,000 elements, or about 32
-MB. While this is a significant amount, it is already highly compact compared to the original GTFS `stop_times.txt`
-file, which has a size of around 1,200 MB and essentially contains the same information.
-
-This compactness is achieved primarily by sorting all the information during the `RaptorBuilder` process, thereby
-reducing the need for referencing IDs for each stop time. However, the high degree of information compression makes
-referencing stop times slightly more complex, which requires further explanation.
-
-![simple-stop-times-array.png](simple-stop-times-array.png){ width="800" }
-
-The Stop Times array consists of pairs of integer values representing the arrival and departure times for a given stop
-on a given trip of a given route. In the example shown in the graphic above, Route 1 consists of a sequence of three
-stops (Stop 1, Stop 2, and Stop 3). The route is operated 5 times (Trip 1-5), and each trip is represented by three
-pairs of arrival/departure times. Other routes may follow Route 1 in the Stop Times array; however, routes are never
-mixed inside the array, and trips within a route are always sorted from earliest to latest.
-
-This layout allows efficient scanning of departures from a given stop using the `Route` object, as we can iterate over
-all trips.
-
-```plantuml
-@startuml
-class Route {
-  - id: String
-  - firstRouteStopIdx: int
-  - numberOfStops: int
-  - firstStopTimeIdx: int
-  - numberOfTrips: int
-  - tripIds: String[]
-}
-@enduml
-```
-
-#### Example
-
-Suppose we are looking for the earliest possible departure from Stop 2 on Route 1 after 8:15 am. Trip 1 departs from
-Stop 2 at 07:00 am, Trip 2 at 08:00 am, and Trip 3 at 09:00 am, and so on.
-
-To retrieve the departure time of Trip 1 at Stop 2, the following values are needed:
-
-- **firstStopTimeIdx**: Retrieved from the `Route` object
-- **stopOffset**: The (n-1)th stop in the route (for Stop 2, this would be 1)
-- **tripOffset**: The (n-1)th trip of the route (for Trip 1, this would be 0)
-- **numberOfStops**: Retrieved from the `Route` object (necessary for skipping between trips)
-
-The index in the Stop Times array can then be calculated using the following formula:
-
-`index = firstStopTimeIdx + 2 * (tripOffset * numberOfStops + stopOffset) + 1`
-
-The `2 *` is necessary because the array contains both arrival and departure times for each stop. The `+ 1` is required
-because we want to retrieve the departure time, which is the second element of the arrival/departure pair.
-
-When accessing `stopTimes[index]`, this will return 07:00 am. Since we are looking for the earliest departure after 08:
-15 am, we know we need to look further into the future. This can be done by incrementing the trip offset by `+1`. The
-second lookup will still be too early, but when the trip offset is incremented to `2`, the result will be 09:00 am,
-which is the earliest possible departure after 08:15 am.
-
-It is important to note that incrementing the trip offset should only continue while the trip offset is smaller
-than `numberOfTrips` to prevent accessing departures from a different route. Typically, this process would be handled
-within a `while` loop.
-
 ## Router
 
 The `RaptorRouter` implementation integrates both the `RaptorAlgorithm` interface, which handles routing operations, and
@@ -406,3 +342,23 @@ build meaningful connections, which can then be returned as a list of routes or 
 
 This process ensures that the results of the Raptor algorithm are converted into meaningful, usable connections that can
 be presented to the user or used in further computations.
+
+## Range Raptor
+
+Range RAPTOR is an extension of the classic RAPTOR algorithm, specifically designed to handle multiple departure times
+efficiently. Instead of calculating the optimal route for just a single departure time, it determines the best route
+over a range of potential departure times. This makes it particularly useful for trip planning within a time window,
+where the goal is to find the earliest possible arrival time given any departure between specified hours (e.g., "find
+the earliest arrival if I leave anytime between 8:00 and 10:00 AM"), ultimately reducing travel time.
+
+Range RAPTOR identifies all departures within the specified time range from marked stops (i.e., departure stops and any
+potential walk transfers) after the initial round. It starts scanning routes from the latest possible departure and then
+progressively scans earlier departures. Through a process of self-pruning, previously computed labels (routes and their
+associated travel times) are only overwritten if an earlier departure results in a better (earlier) arrival time.
+
+This approach offers a significant advantage: it minimizes idle time between connections. If a later connection can
+still catch the same subsequent leg of the journey, it effectively reduces travel time by pushing the departure time
+closer to the actual trip start without sacrificing the best arrival time.
+
+The Range RAPTOR algorithm was implemented as part of this project and was benchmarked for performance. Since the
+implementation closely follows the textbook approach, no additional technical details are provided here.

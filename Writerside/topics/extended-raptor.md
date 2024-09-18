@@ -38,25 +38,140 @@ the latter would have made long-term maintenance significantly more difficult.
 
 ## Multiday
 
-Adjustments to trip mask provider.
+The standard RAPTOR algorithm does not account for service days in a schedule, as it is primarily designed to scan
+routes based solely on departure times in ascending order. Given that GTFS (General Transit Feed Specification)
+schedules typically span a full year, directly chaining all departures in the stop times array would have resulted in an
+excessively large array, severely impacting performance.
 
-* Introduce problem that RAPTOR does not know the concept of service days --> outsource by dependency injection
-* Introduce TripMaskProvider
-* Discuss limitations of checking trip mask before deciding whether to read stop time.
-* Introduce updated stop time array --> figure
-* Show differences in sequence diagram, maybe isolated class diagram with trip mask provider interface and stop time
-  provider
-* Discuss limitations on memory consumption trip masks vs stop time arrays for each service day.
+In the early iterations of our RAPTOR implementation, we opted to build RAPTOR data structures for a single service day
+to address this issue. However, this approach introduced several limitations. For instance, a typical service day begins
+at 5 AM and extends into the early hours of the next calendar day (around 1 AM or 5 AM, depending on the availability of
+night services). As a result, routing requests for a local trip with a departure time of 12:00 AM might ideally be
+served by trips from the previous service day, but the algorithm would only display departures starting from 5 AM
+onward. Similarly, long-distance trips departing later in the afternoon would not be fully accommodated within the same
+service day, requiring the journey to extend into the next service day. This setup created gaps in service availability
+for both late-night and long-distance trips, necessitating further refinement of the algorithm.
 
-## Range Raptor
+An additional constraint for the RAPTOR implementation was that it should remain agnostic of the underlying GTFS
+schedule. This separation needed to be preserved in our design. To achieve this, we introduced a TripMaskProvider
+interface that could be injected into the RAPTOR implementation via dependency injection. This allowed the RAPTOR
+algorithm to process schedule data without directly interacting with the GTFS implementation.
 
-* worth mentioning here? --> no new novelty, maybe move to RAPTOR implementation and remove "simple"?
+### TripMaskProvider
+
+In our solution, the RAPTOR algorithm queries the TripMaskProvider for trip masks corresponding to different service
+days when handling a routing request. Typically, the algorithm requests trip masks for three days: the previous day, the
+current day, and the next day. Once the trip masks are retrieved, the routing process can begin, ensuring RAPTOR
+operates independently of how the schedule data is provided.
+
+Here's the simplified UML diagram for this design:
+
+```plantuml
+@startuml
+package GTFS {
+    class GTFSSchedule
+}
+
+package RAPTOR {
+  class RaptorRouter {
+    - tripMaskProvider : TripMaskProvider
+  }
+
+  interface TripMaskProvider {
+    + getTripMasksForDay(): DayTripMask
+    
+  }
+  
+  class DayTripMask {
+    -tripMask: Map<String, boolean[]>
+  }
+  
+  RaptorRouter -- TripMaskProvider
+  TripMaskProvider --> DayTripMask : "provides"
+  RaptorRouter --> DayTripMask : "uses"
+  
+}
+
+package Service {
+  class GtfsTripMaskProvider
+  GtfsTripMaskProvider --> TripMaskProvider : "implements"
+}
+
+Service -- GTFS : "integrates with"
+@enduml
+```
+
+The DayTripMasks provided by the TripMaskProvider consisted of a map, where the keys represented route IDs, and the
+values were boolean arrays that acted as masks. These arrays indicated which trips on a route were active on a given
+day. During route scanning, the process would typically begin by scanning the DayTripMask for the previous day, then
+move to the current day's mask, and, if necessary, to the following day's mask if no suitable departure was found
+earlier. In the route scanner code, an additional check was implemented to ensure that the trip at the specified offset
+was active by verifying it against the DayTripMask.
+
+However, these modifications had a notable impact on performance. Routing requests, which previously met the target, now
+took around 250 milliseconds, falling short of the requirement for a response time of under 200 milliseconds. This
+highlighted the need for further optimizations to meet performance expectations.
+
+### New StopTimes Array layout and StopTimesProvider
+
+To address the performance issues, several improvements were identified and implemented. These included optimizing how
+departure times were accessed and restructuring the internal data to improve memory usage and scanning efficiency.
+
+* **Easy Lookup Variables:** To reduce the number of stop time lookups, new variables were added to quickly determine if
+  a route had any departures after the first available departure time.
+* **Memory Optimization:** The StopTimes array was changed from an array of StopTime[] objects to an array of int[] to
+  take advantage of memory locality. Since both arrival and departure times were integer values, this conversion allowed
+  for
+  more efficient memory access.
+* **Pre-building Stop Times Array:** The stop times array was now pre-built before routing began, using the DayTripMask
+  to mask invalid stop times by setting them to Integer.MIN_VALUE. This eliminated the need for multiple lookups during
+  route scanning.
+
+To implement these changes, an additional class called StopTimeProvider was introduced. It took the TripMaskProvider as
+an injected dependency and was responsible for creating int[] stop time arrays for a given service day. These arrays
+contained all trips for each route, sorted by departure time, with additional improvements:
+
+* **Service Day-level Information:** At indices 0 and 1 of the stop times array, data was included about the earliest
+  departure and latest arrival for the entire service day. This allowed the algorithm to skip scanning the previous day
+  if, for instance, the routing request was for 8 AM and the previous day’s service ended at 5 AM.
+* **Route-level Information:** Each route's partition in the array included two additional values at the start,
+  indicating the earliest departure and latest arrival for that route. This further optimized the process by allowing
+  the algorithm to avoid scanning trips on a route if it was inactive at the requested time.
+* **Simplified Stop Times:** Each stop time now consisted of two integer values (arrival and departure times), replacing
+  the previous StopTime object, leading to faster data access.
+
+This new structure enabled the stop times array to serve multiple purposes while significantly improving routing
+performance—from 250 ms down to approximately 90 ms. However, accessing the correct information in the array became more
+complex, as shown in the figure below.
+
+![stop-times-array.png](stop-times-array.png){ width="750" }
 
 ## Accessibility and Bike Information
 
-* Introduce the potential of masking trips to also use this for further query configurations travel mode, accessibility,
-  bike etc.
+After implementing the multi-day logic for routing and adding functionality to the RAPTOR module to allow external
+masking of trips using schedule information, it became straightforward to extend the QueryConfig values to accommodate
+additional routing request parameters. These new parameters included options such as preferred travel modes (e.g., bus,
+train, ship) and specific requirements like ensuring that all trips were wheelchair accessible or allowed bikes.
+
+Technically, nothing significant changed in the core logic of the RAPTOR algorithm. However, the stop time arrays now
+became specific not only to the service day but also to the query configuration, meaning each set of preferences (e.g.,
+travel mode, accessibility) would result in a unique stop time array. This led to an increase in the number of potential
+stop time arrays that needed to be cached, but it allowed for greater flexibility in handling diverse routing requests.
 
 ## Caching
 
-* To reduce need of recalculating stop time masks for common query configurations.
+As expected, computing stop time arrays from schedule information using the StopTimeProvider and TripMaskProvider
+introduces a significant overhead. Typically, this computation takes around 400–500 milliseconds per service day and
+query configuration, resulting in approximately 1200-1500 milliseconds for a multi-day routing request. To avoid
+recalculating these arrays for each new request, caching was identified as an effective solution.
+
+To address this, a Least Recently Used (LRU) eviction cache was implemented to store the computed stop time arrays. This
+allowed frequently accessed stop time arrays to remain in memory, while less used ones were evicted to free up space.
+
+However, it's important to note that, for the Swiss GTFS schedule, the stop time arrays could be quite large - around 16
+million integer values, corresponding to a memory footprint of 64 MB per service day and query configuration
+combination. This substantial memory requirement meant that the application would need to run on machines with
+significant memory resources or, ideally, in a distributed system for a productive environment. In such a system, a
+front-end layer would distribute routing requests cross a cluster of machines based on the available cached stop time
+arrays, ensuring that the package could run efficiently in a production environment without excessive recalculations or
+memory strain.
