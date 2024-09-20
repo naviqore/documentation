@@ -33,7 +33,7 @@ all compared connection results are Pareto-optimal.
 ## Raptor Versions for Comparison
 
 After adding multiple configurations for the RAPTOR algorithm, it was interesting to compare the performance of
-different configurations.
+different configurations. All of the compared configurations were benchmarked with 1000 identical routing requests.
 
 ### Tested RAPTOR implementations
 
