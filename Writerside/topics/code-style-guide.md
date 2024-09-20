@@ -13,7 +13,7 @@
 
 - Use the formatter defined for IntelliJ.
 - Utilize Maven as the build tool and for dependency management.
-- Avoid boilerplate code by using Lombok to generate getters, setters, and constructors.
+- Avoid boilerplate code by using Lombok [9] to generate getters, setters, and constructors.
 - Add spaces after class definitions and before return statements if a method has more than three statements. Use spaces
   to clarify blocks that belong together (e.g., before if-control flow statements).
 - Group imports into packages after five classes from the same package.

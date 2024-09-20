@@ -1,6 +1,6 @@
 # C4 Model
 
-The C4 model is a simple, hierarchical way of visualizing software architecture. It consists of four layers:
+The C4 model is a simple, hierarchical way of visualizing software architecture [1, 2]. It consists of four layers:
 
 - **System Context**: Shows how the system interacts with its environment.
 - **Containers**: Defines high-level containers (applications, services, databases) that make up the system.
@@ -165,7 +165,7 @@ NaviqoreSystem.Service .[#707070,thickness=2].> 4 : "<color:#707070>Loads"
 
 ## Component
 
-This diagram drills into the Service container, showing its key internal components such as the *Raptor*, *GTFS*, *REST
+This diagram drills into the Service container, showing its key internal components such as the *RAPTOR*, *GTFS*, *REST
 API*, and *Public Transit Service*.
 
 <!--
@@ -217,7 +217,7 @@ skinparam rectangle<<NaviqoreSystem.Service.RESTAPI>> {
   roundCorner 20
   shadowing false
 }
-skinparam rectangle<<NaviqoreSystem.Service.Raptor>> {
+skinparam rectangle<<NaviqoreSystem.Service.RAPTOR>> {
   BackgroundColor #85bbf0
   FontColor #000000
   BorderColor #5d82a8
@@ -248,7 +248,7 @@ rectangle "==GTFS Schedule\n\nA text file based representation of the operating 
 rectangle "==Web Application UI\n<size:10>[Container: Python / Streamlit]</size>\n\nEasy to use website with forms to request and view connections." <<NaviqoreSystem.WebApplicationUI>> as NaviqoreSystem.WebApplicationUI
 
 rectangle "Service\n<size:10>[Container: Spring]</size>" <<NaviqoreSystem.Service>> {
-  rectangle "==Raptor\n<size:10>[Component: Java]</size>\n\nHolds a reduced compact performant copy of the schedule in memory and calulates routes efficiently using the raptor algorithm." <<NaviqoreSystem.Service.Raptor>> as NaviqoreSystem.Service.Raptor
+  rectangle "==RAPTOR\n<size:10>[Component: Java]</size>\n\nHolds a reduced compact performant copy of the schedule in memory and calulates routes efficiently using the RAPTOR algorithm." <<NaviqoreSystem.Service.RAPTOR>> as NaviqoreSystem.Service.RAPTOR
   rectangle "==GTFS\n<size:10>[Component: Java]</size>\n\nHolds the entire GTFS schedule in memory." <<NaviqoreSystem.Service.GTFS>> as NaviqoreSystem.Service.GTFS
   rectangle "==REST API\n<size:10>[Component: Spring]</size>\n\nOutwards facing interface of the service" <<NaviqoreSystem.Service.RESTAPI>> as NaviqoreSystem.Service.RESTAPI
   rectangle "==Public Transit Service\n<size:10>[Component: Java]</size>\n\nOrchestrates the service, pulls external data, creates and caches instances of router and schedule and pre-/post-processes requests." <<NaviqoreSystem.Service.PublicTransitService>> as NaviqoreSystem.Service.PublicTransitService
@@ -257,7 +257,7 @@ rectangle "Service\n<size:10>[Container: Spring]</size>" <<NaviqoreSystem.Servic
 NaviqoreSystem.WebApplicationUI .[#707070,thickness=2].> NaviqoreSystem.Service.RESTAPI : "<color:#707070>Sends requests"
 Researcher .[#707070,thickness=2].> NaviqoreSystem.Service.RESTAPI : "<color:#707070>Sends requests"
 NaviqoreSystem.Service.RESTAPI .[#707070,thickness=2].> NaviqoreSystem.Service.PublicTransitService : "<color:#707070>Delegates requests"
-NaviqoreSystem.Service.PublicTransitService .[#707070,thickness=2].> NaviqoreSystem.Service.Raptor : "<color:#707070>Has"
+NaviqoreSystem.Service.PublicTransitService .[#707070,thickness=2].> NaviqoreSystem.Service.RAPTOR : "<color:#707070>Has"
 NaviqoreSystem.Service.PublicTransitService .[#707070,thickness=2].> NaviqoreSystem.Service.GTFS : "<color:#707070>Has"
 NaviqoreSystem.Service.PublicTransitService .[#707070,thickness=2].> 4 : "<color:#707070>Uses to create GTFS instance"
 @enduml
