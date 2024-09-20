@@ -5,6 +5,8 @@ routing algorithms are essential for optimizing transit journeys, minimizing tra
 In this Master thesis, we delve into the challenges of public transit routing and explore innovative approaches to
 address them.
 
+**Authors**: Michael Brunner, Lukas Connolly, Merlin Unterfinger
+
 ## Motivation
 
 The motivation behind our thesis lies in addressing several key challenges:
