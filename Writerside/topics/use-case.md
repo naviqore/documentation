@@ -38,4 +38,3 @@ accessibility of a region, and assessing alternative routes available at the tim
 
 Transit **agencies** publish GTFS schedules, which are then consumed by the service to provide up-to-date public transit
 information and connections.
-

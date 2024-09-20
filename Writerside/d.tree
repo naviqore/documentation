@@ -31,9 +31,9 @@
         <toc-element topic="sequence-diagram.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
-        <toc-element topic="GTFS-Schedule.md"/>
+        <toc-element topic="gtfs-schedule.md"/>
+        <toc-element topic="public-transit-service.md"/>
         <toc-element topic="simple-raptor.md"/>
-        <toc-element topic="PublicTransitService.md"/>
         <toc-element topic="extended-raptor.md"/>
         <toc-element topic="raptor-xx.md"/>
     </toc-element>
