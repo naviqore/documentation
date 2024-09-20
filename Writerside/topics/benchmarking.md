@@ -95,20 +95,20 @@ both factors added their respective overheads.
 
 ![Router Comparison](boxplot_processing_time.png)
 
-| router_id         | count | mean (ms) | std (ms) | min (ms) | median (ms) | max (ms) |
-|:------------------|------:|----------:|---------:|---------:|------------:|---------:|
-| simple            |  1000 |        32 |       21 |        0 |          34 |      135 |
-| regular           |  1000 |        39 |       25 |        0 |          42 |      123 |
-| 3_day             |  1000 |        58 |       28 |        0 |          62 |      144 |
-| 5_day             |  1000 |        78 |       36 |        0 |          80 |      218 |
-| range_1800        |  1000 |        42 |       29 |        0 |          43 |      163 |
-| range_3600        |  1000 |        55 |       44 |        0 |          48 |      282 |
-| range_7200        |  1000 |        83 |       76 |        0 |          59 |      525 |
-| range_14400       |  1000 |       151 |      152 |        0 |          98 |      828 |
-| 3_day_range_1800  |  1000 |        59 |       31 |        0 |          60 |      175 |
-| 3_day_range_3600  |  1000 |        74 |       47 |        0 |          67 |      296 |
-| 3_day_range_7200  |  1000 |       113 |       86 |        0 |          90 |      562 |
-| 3_day_range_14400 |  1000 |       198 |      170 |        0 |         149 |      930 |
+| router_id         | count | mean (ms) | std (ms) | median (ms) | max (ms) |
+|:------------------|------:|----------:|---------:|------------:|---------:|
+| simple            |  1000 |        32 |       21 |          34 |      135 |
+| regular           |  1000 |        39 |       25 |          42 |      123 |
+| 3_day             |  1000 |        58 |       28 |          62 |      144 |
+| 5_day             |  1000 |        78 |       36 |          80 |      218 |
+| range_1800        |  1000 |        42 |       29 |          43 |      163 |
+| range_3600        |  1000 |        55 |       44 |          48 |      282 |
+| range_7200        |  1000 |        83 |       76 |          59 |      525 |
+| range_14400       |  1000 |       151 |      152 |          98 |      828 |
+| 3_day_range_1800  |  1000 |        59 |       31 |          60 |      175 |
+| 3_day_range_3600  |  1000 |        74 |       47 |          67 |      296 |
+| 3_day_range_7200  |  1000 |       113 |       86 |          90 |      562 |
+| 3_day_range_14400 |  1000 |       198 |      170 |         149 |      930 |
 
 Of course, adding more features to the RAPTOR algorithm not only increased computational costs but also provided better
 results and enhanced flexibility for more specific queries (e.g., travel modes, wheelchair accessibility, etc.). Most
