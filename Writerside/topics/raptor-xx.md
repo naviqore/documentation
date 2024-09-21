@@ -72,7 +72,7 @@ areas where the two languages differ, highlighting the complexities faced during
 
 Not all compilers support the full range of library features. This means you have to pay attention to what features you
 use so that you remain compatible.
-![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png){width="650"}
+![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png){width="850"}
 
 ### 3. Memory Management
 
@@ -324,4 +324,112 @@ const auto servedDates = data->calendarDates
 
 ```
 
-## Foreign Function and Memory API
+### Profiling
+
+## Visual Studio Diagnostic Tools
+
+We used the Visual Studio Diagnostic Tool to analyze performance.
+The **Visual Studio Diagnostic Tools** are a powerful set of profiling and debugging features integrated into the Visual
+Studio IDE. These tools allow developers to monitor, analyze, and optimize the performance of their applications,
+including C++ code. By leveraging these tools, you can gain deeper insights into how your program behaves at runtime,
+helping you identify and resolve performance bottlenecks and resource management issues.
+
+### Key Features for C++ Code
+
+1. **Performance Profiling**:
+
+- The profiling tools provide detailed performance metrics such as CPU usage, memory allocation, and execution time of
+  different code sections. This helps in identifying functions or loops that consume excessive processing time or
+  memory.
+
+2. **Memory Usage Analysis**:
+
+- The diagnostic tools track memory allocations in the running C++ application. This is especially useful for detecting
+  memory leaks, inefficient memory usage, or unexpected allocations, ensuring the program remains efficient and stable.
+
+3. **CPU Usage**:
+
+- The CPU usage tool allows to see how much processing time the code consumes, and which parts of the code are
+  responsible for high CPU loads. This enables to focus optimization efforts on the most critical areas.
+
+- [Optimizing Code Using Profiling Tools](https://learn.microsoft.com/en-us/visualstudio/profiling/optimize-code-using-profiling-tools?view=vs-2022&source=recommendations).
+
+![cpp-diagnostic.png](cpp-diagnostic.png)(compiler_support.png){width="850"}
+![cpp-diagnostic-scanRoute.png](cpp-diagnostic-scanRoute.png){width="850"}
+
+## Foreign Function and Memory (FFM) API
+
+Initially, we explored the possibility of calling the C++ RAPTOR implementation from Java using the Foreign Function and
+Memory (FFM) API. However, due to the complexity of mapping intricate data structures between C++ and Java, we
+ultimately decided not to pursue this implementation.
+
+### Challenges and C Compatibility
+
+Integrating C++ code with Java through the FFM API presents several technical challenges. Below are the key difficulties
+we encountered:
+
+#### 1. Memory Management
+
+Managing off-heap memory in Java can be challenging when working with native code. The FFM API offers the
+`MemorySegment` and `Arena` classes to facilitate memory management, allowing developers to allocate and deallocate
+native memory efficiently. However, improper handling of this off-heap memory can lead to memory leaks or crashes.
+Developers need to ensure memory management practices to avoid such issues.
+
+#### 2. Data Conversion
+
+Converting data between Java and native C types is another significant hurdle. The FFM API provides `ValueLayout`
+classes to define the memory layout of data types in both Java and native code. However, ensuring that these layouts
+match the exact structure of the native code (C++) requires careful attention. In complex data structures, especially
+those with pointers or custom layouts, mismatches can result in runtime errors or undefined behavior.
+
+#### 3. Error Handling
+
+Error handling becomes more difficult when working with native code. Bugs or faults in C++ code can cause the JVM to
+crash, making debugging a more complicated process. While Java provides robust error handling, diagnosing issues in
+native code may require external tools such as native debuggers, core dumps, and more intricate diagnostic setups. This
+introduces additional overhead during development and testing.
+
+#### 4. Platform Differences
+
+Although the FFM API abstracts some platform-specific details, developers must still account for differences in calling
+conventions and memory layouts between platforms (e.g., Windows vs. Linux). These differences can introduce subtle bugs
+or performance issues when deploying the same Java code across different operating systems. Cross-platform compatibility
+must be thoroughly tested to avoid such pitfalls.
+
+### Conclusion (FFM)
+
+The Foreign Function and Memory API in Java provides powerful capabilities for integrating Java applications with native
+C or C++ code. However, it introduces several complexities in memory management, data conversion, error handling, and
+cross-platform compatibility. A deep understanding of both the Java and native environments, along with careful
+management of these aspects, is essential for successful and stable integration.
+
+```c++
+#include <iostream>
+
+extern "C" {
+    __declspec(dllexport) int addNumbers(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+```java
+import java.lang.foreign.*;
+import java.lang.invoke.MethodHandle;
+
+public class NativeAdder {
+    public static void main(String[] args) throws Throwable {
+        System.load("path/to/library.dll");
+
+        Linker linker = Linker.nativeLinker();
+        SymbolLookup lookup = SymbolLookup.loaderLookup();
+
+        MemorySegment addNumbersSymbol = lookup.find("addNumbers").orElseThrow();
+        MethodHandle addNumbers = linker.downcallHandle(addNumbersSymbol,
+                FunctionDescriptor.of(ValueLayout.JAVA_INT, ValueLayout.JAVA_INT, ValueLayout.JAVA_INT));
+
+        int result = (int) addNumbers.invoke(10, 15);
+        System.out.println("Result of addNumbers(10, 15): " + result);
+    }
+}
+```
