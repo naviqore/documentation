@@ -2,7 +2,7 @@
 
 ## Extended RAPTOR for Production
 
-According to **NF-RO-M2** the benchmarking of the extended RAPTOR algorithm (supporting multiday connections, querying
+According to **NF-RO-M2** the benchmarking of the extended RAPTOR algorithm (supporting multi-day connections, querying
 by departure or arrival times, and allowing for custom query criteria such as transport modes, number of transfers,
 maximum walking distance, minimum transfer time, accessibility, or the possibility of carrying a bicycle) was conducted
 using the current GTFS data for the whole of Switzerland and the results where continuously to versioned files, which
