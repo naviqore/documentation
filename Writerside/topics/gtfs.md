@@ -97,11 +97,28 @@ route_id,agency_id,route_short_name,route_long_name,route_desc,route_type
 "91-10-Y-j22-1","82","IR","","IR","103"3
 ````
 
+### stop_times.txt
+```text
+
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type
+"1.TA.1-9-j17-1.1.H","05:25:00","05:25:00","8502034:0:2","1","0","0"
+"1.TA.1-9-j17-1.1.H","05:28:00","05:29:00","8502033:0:2","2","0","0"
+"1.TA.1-9-j17-1.1.H","05:33:00","05:33:00","8502032:0:1","3","0","0"
+"1.TA.1-9-j17-1.1.H","05:36:00","05:36:00","8502031:0:1","4","0","0"
+"1.TA.1-9-j17-1.1.H","05:42:00","05:42:00","8502030:0:2","5","0","0"
+"1.TA.1-9-j17-1.1.H","05:50:00","05:50:00","8502119:0:7","6","0","0"
+"2.TA.1-9-j17-1.2.H","05:53:00","05:53:00","8502034:0:1","1","0","0"
+"2.TA.1-9-j17-1.2.H","05:57:00","05:58:00","8502033:0:2","2","0","0"
+"2.TA.1-9-j17-1.2.H","06:02:00","06:02:00","8502032:0:1","3","0","0"
+"2.TA.1-9-j17-1.2.H","06:04:00","06:04:00","8502031:0:1","4","0","0"
+"2.TA.1-9-j17-1.2.H","06:09:00","06:11:00","8502030:0:2","5","0","0"
+```
+
 ### Technical description
 
 The diagram below illustrates how the different types of information interact.
 
-![gtfs_object_diagram.png](https://opentransportdata.swiss/wp-content/uploads/2016/11/gtfs_static.png)
+![gtfs_object_diagram.png](https://opentransportdata.swiss/wp-content/uploads/2016/11/gtfs_static.png){width="750"}
 
 
 [1]: https://opentransportdata.swiss/en/cookbook/gtfs/
