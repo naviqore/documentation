@@ -44,4 +44,5 @@
     </toc-element>
     <toc-element topic="conclusion-and-outlook.md"/>
     <toc-element topic="references.md"/>
+    <toc-element topic="code-metrics.md"/>
 </instance-profile>
