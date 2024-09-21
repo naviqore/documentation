@@ -10,10 +10,11 @@ URL. While running the service periodically updates the **GTFS Static** schedule
 
 ```mermaid
 sequenceDiagram
-    participant Admin
+    participant Admin #LightSkyBlue
     participant SpringApp as Spring Application (REST API)
     participant Service as Public Transit Service
-    participant GTFS
+    participant GTFS #LightCoral
+    participant RAPTOR #LightCoral
     participant Schedule as GTFS Static
 
     Admin ->>+ SpringApp: Start
@@ -22,6 +23,10 @@ sequenceDiagram
     GTFS ->>+ Schedule: Fetch
     Schedule -->>- GTFS: Return data
     GTFS -->>- Service: Schedule in memory
+    
+    Service ->>+ RAPTOR: Initialize
+    RAPTOR -->>- Service: RAPTOR data structure in memory
+
     Service -->>- SpringApp: Ready
 
     loop Periodic GTFS Static Reload
@@ -30,6 +35,8 @@ sequenceDiagram
         GTFS ->>+ Schedule: Fetch new version
         Schedule -->>- GTFS: Return updated data
         GTFS -->>- Service: New schedule in memory
+        Service ->>+ RAPTOR: Initialize (and clear trip mask cache)
+        RAPTOR -->>- Service: New RAPTOR data structure in memory
         Service -->>- SpringApp: Update complete
     end
    

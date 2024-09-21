@@ -3,7 +3,7 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="d"
-                  name="Naviqore"
+                  name="Naviqore - Efficient Public Transit Routing with RAPTOR"
                   start-page="introduction.md">
 
     <toc-element topic="introduction.md"/>
@@ -31,6 +31,8 @@
         <toc-element topic="sequence-diagram.md"/>
     </toc-element>
     <toc-element topic="implementation.md">
+        <toc-element topic="gtfs-schedule.md"/>
+        <toc-element topic="public-transit-service.md"/>
         <toc-element topic="simple-raptor.md"/>
         <toc-element topic="extended-raptor.md"/>
         <toc-element topic="raptor-xx.md"/>
@@ -41,5 +43,5 @@
         <toc-element topic="limitations.md"/>
     </toc-element>
     <toc-element topic="conclusion-and-outlook.md"/>
-    <toc-element topic="References.md"/>
+    <toc-element topic="references.md"/>
 </instance-profile>

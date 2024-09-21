@@ -7,19 +7,20 @@ different meanings depending on the layer or package they are associated with, e
 
 ## Public Transit
 
-| Term          | Description                                                                                                                        |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------|
-| Agency        | An organization providing transit services.                                                                                        |
-| Connection    | An option for travel that include details like fare and possible routes and transfers                                              |
-| Leg           | A part of a connection in one mode of transportation or vehicle.                                                                   |
-| Journey       | A connection is realized as a journey when the passenger selects it and begins traveling.                                          |
-| Services      | Transit offerings by agencies, consisting of trips operating on specific routes.                                                   |
-| Stop          | A location where passengers board or alight from transit vehicles.                                                                 |
-| Schedule      | The planned timetable for transit services, detailing stops, routes, and times.                                                    |
-| Transfer      | A switch between different routes or a footpath between two stops.                                                                 |
-| Stop facility | Physical infrastructure where passengers wait and board transit vehicles.                                                          |
-| Station       | A station is a large stop facility, typically serving rail. It can also consist multiple smaller stop facilities (e.g. platforms). |
-| Platform      | A platform is a designated area within a station where passengers wait to board or alight from transit vehicles.                   |
+| Term          | Description                                                                                                                                  |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| Agency        | An organization providing transit services.                                                                                                  |
+| Connection    | An option for travel that include details like fare and possible routes and transfers                                                        |
+| Leg           | A part of a connection in one mode of transportation or vehicle.                                                                             |
+| Journey       | A connection is realized as a journey when the passenger selects it and begins traveling.                                                    |
+| Services      | Transit offerings by agencies, consisting of trips operating on specific routes.                                                             |
+| Stop          | A location where passengers board or alight from transit vehicles.                                                                           |
+| Schedule      | The planned timetable for transit services, detailing stops, routes, and times.                                                              |
+| Transfer      | A switch between different routes or a footpath between two stops.                                                                           |
+| Stop facility | Physical infrastructure where passengers wait and board transit vehicles.                                                                    |
+| Station       | A station is a large stop facility, typically serving rail. It can also consist multiple smaller stop facilities (e.g. platforms).           |
+| Platform      | A platform is a designated area within a station where passengers wait to board or alight from transit vehicles.                             |
+| Isolines      | Reachable stops within a time frame, forming accessibility boundaries from a source stop, exploring routes without a predefined destination. |
 
 ## RAPTOR
 
