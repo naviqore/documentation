@@ -24,39 +24,54 @@ useful for real-time journey planning due to its speed and adaptability.
 - **Tracing the Optimal Route**: Once the algorithm concludes, the optimal route is reconstructed by tracing the updated
   arrival times back from the destination to the start station.
 
-RAPTOR is highly efficient because it leverages the structure of public transit systems, where it is often faster to
-remain on the same line rather than switching between multiple lines. This characteristic makes RAPTOR particularly
-suitable for large-scale transportation networks where real-time routing is essential.
+RAPTOR is highly efficient because it operates directly on schedule information without the need to build extensive
+graphs that incorporate the complexity of transfers. This characteristic makes RAPTOR particularly suitable for
+networks of any size, as it avoids the need for time-consuming preprocessing. This efficiency allows us to enable
+features like accessibility and bike information on our routes.
 
-## Sequence Diagram RAPTOR
+## Sequence Diagram RAPTOR (simple)
 
 ```mermaid
 sequenceDiagram
     participant User
-    participant Algorithm
-    participant Stops
+    participant RAPTOR Algorithm
     participant Routes
-    participant Timetable
-    User ->> Algorithm: Request journey (departure stop, destination stop, departure time)
-    Algorithm ->> Stops: Initialize list of stops to visit and visited stops
-    Algorithm ->> Stops: Set departure stop and time
+    User ->> RAPTOR Algorithm: Request journey plan
+    RAPTOR Algorithm ->> Routes: Initialize routes and transfers
+    Routes -->> RAPTOR Algorithm: Routes initialized
 
-    loop Round-Based Search
-        Algorithm ->> Routes: Get transit lines from current stops
-        Routes ->> Timetable: Calculate earliest arrival time for each stop
-        Timetable ->> Algorithm: Return arrival times for unvisited stops
-        Algorithm ->> Stops: Update earliest arrival time if new time is earlier
-        Algorithm ->> Algorithm: Add new stops to visit in the next round
+    loop For each round k
+        RAPTOR Algorithm ->> Routes: Process marked stops and routes
+        Routes -->> RAPTOR Algorithm: Return earliest trip information
+        RAPTOR Algorithm ->> RAPTOR Algorithm: Update arrival times
     end
 
-    Algorithm ->> Algorithm: Check if termination condition met
+    RAPTOR Algorithm ->> User: Return Pareto-optimal journeys
 
-    alt Terminated
-        Algorithm ->> Stops: Backtrack to reconstruct the optimal route
-        Stops ->> User: Return final route
-    else Continue to next round
+```
+
+## Sequence Diagram RAPTOR (more detailed)
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant RAPTOR Algorithm
+    participant Routes
+    participant Pareto Set
+    User ->> RAPTOR Algorithm: Instantiate RAPTOR Algorithm (using schedule)
+    User ->> RAPTOR Algorithm: Request Journey Plan (source, target, dep. time)
+    RAPTOR Algorithm ->> Routes: Sort Routes by Departure Time
+    Routes -->> RAPTOR Algorithm: Sorted Routes
+
+    loop Per Round (k = 1, 2, ...)
+        RAPTOR Algorithm ->> Routes: Scan Connections in Order
+        Routes -->> RAPTOR Algorithm: Update Arrival Times
+        RAPTOR Algorithm ->> RAPTOR Algorithm: Relax Footpaths and Transfers
+        RAPTOR Algorithm ->> Pareto Set: Check for Pareto Dominance
+        Pareto Set -->> RAPTOR Algorithm: Update Pareto Optimal Journeys
     end
 
+    RAPTOR Algorithm ->> User: Return Final Pareto Optimal Journeys
 ```
 
 - The algorithm starts at the departure stop at the given departure time. It initializes a list of stops to visit in
@@ -86,11 +101,11 @@ sequenceDiagram
 
 ##### Network
 
-![raptor-timetable.png](raptor-timetable.png){width="650"}
+![chap2-public-transit.pdf](raptor-timetable.png){width="650"}
 
 ##### Stops
 
-![raptor-stops.png](raptor-stops.png){width="650"}
+![chap2-public-transit.pdf](raptor-stops.png){width="650"}
 
 ##### Connection
 
@@ -136,7 +151,7 @@ Example connection times:
 \tau_{arr}(c): 8:30
 ```
 
-![raptor-connection.png](raptor-connection.png){width="650"}
+![chap2-public-transit.pdf](raptor-connection.png){width="650"}
 
 #### Trip
 
@@ -150,9 +165,9 @@ T = (c_{1} , . . . , c_{k} )
 - driving from first to last stop
 - at specific times
 
-![raptor-trip1.png](raptor-trip1.png){width="650"}
+![chap2-public-transit.pdf](raptor-trip1.png){width="650"}
 
-![raptor-trip2.png](raptor-trip2.png){width="650"}
+![chap2-public-transit.pdf](raptor-trip2.png){width="650"}
 
 #### Route
 
@@ -166,14 +181,15 @@ In the context of the RAPTOR algorithm, a **Route** refers to:
 - **Optimization**: Routes are scanned efficiently, with the algorithm looking at each route at most once per round,
   contributing to RAPTOR's speed and dynamic capabilities.
 
-![raptor-route.png](raptor-route.png){width="650"}
+![chap2-public-transit.pdf](raptor-route.png){width="650"}
 
 ## The RAPTOR Algorithm Explained in Detail
 
 ### Key Features of RAPTOR
 
-**Pareto-Optimality:** RAPTOR computes Pareto-optimal journeys, meaning it considers multiple criteria, such as earliest
-arrival time and the fewest transfers. A journey is Pareto-optimal if no other journey is better in both criteria.
+**Pareto-Optimality:** RAPTOR computes Pareto-optimal connections, meaning it considers multiple criteria, such as
+earliest arrival time and the fewest transfers. A connection is Pareto-optimal if no objective (number of transfers or
+arrival time) can be improved without worsening the other.
 
 **Round-based Processing:** The algorithm processes journeys in rounds, where each round computes the arrival times for
 journeys that use a specific number of transfers.
@@ -191,39 +207,37 @@ Given a source stop s, a target stop t, and a departure time τ_dep, the algorit
 Each round k computes all journeys with exactly k trips. In the first round, RAPTOR computes journeys with no transfers,
 i.e., direct trips. In subsequent rounds, it computes journeys with one transfer, two transfers, and so on.
 
-![raptor-rounds.png](raptor-rounds.png){width="650"}
+![chap2-public-transit.pdf](raptor-rounds.png){width="650"}
 
 **Route Scanning:**
-For each round, the algorithm iterates over every stop on a route and checks whether the current trip improves the
-arrival time at the next stop. This ensures that RAPTOR efficiently computes the earliest arrival time for each stop in
-a transit network.
-Each stop maintains a label indicating its earliest arrival time for the current round. RAPTOR compares these labels and
-updates them if a faster journey is found.
+For each round, the algorithm scans all stops from routes passing through stops marked in the previous round. At each
+stop, it checks whether the current trip (if already on a trip) reduces the arrival time at that stop and boards the
+earliest available trip departing from the stop, provided the stop was marked in the previous round or already on a
+trip.
 
-![raptor-scan.png](raptor-scan.png){width="650"}
+![chap2-public-transit.pdf](raptor-scan.png){width="650"}
 
-![route-scan2.png](route-scan2.png){width="650"}
+![chap2-public-transit.pdf](route-scan2.png){width="650"}
 
 **Stopping Condition:**
 The algorithm terminates when no further improvements in arrival times are possible, ensuring it only performs the
 necessary number of rounds.
 
-### Key Observations
-
-**Transfer Handling:**
-The need for transfers between trips is handled by incrementing rounds. Each round computes the
-earliest arrival times for journeys with exactly k transfers.
-
-**Efficiency:**
-RAPTOR is designed to scan each route only once per round, which significantly improves its computational
-efficiency. Routes that do not provide any useful connections are skipped in later rounds.
-
-**Marking and Pruning:**
-After each round, RAPTOR marks stops where arrival times were improved. In the next round, only
-routes passing through marked stops are scanned, further optimizing performance.
-
-### Practical Use
+### Conclusion
 
 RAPTOR's design makes it suitable for real-time, interactive journey planning, where users may need fast responses to
 queries about optimal public transit routes. The algorithm can also be extended to handle additional criteria like fare
 zones or transfer reliability, making it highly adaptable to different transit systems.
+One of RAPTOR's strengths is its flexibility, allowing it to be extended to handle additional constraints beyond arrival
+time and number of transfers. This extended version is called Multi-Constraint RAPTOR (McRAPTOR). McRAPTOR can optimize
+multiple criteria simultaneously, such as minimizing travel through fare zones, increasing transfer reliability, or
+incorporating user preferences like minimizing walking distances or choosing specific transit lines.
+
+Unlike RAPTOR, which focuses solely on minimizing time and transfers, McRAPTOR maintains Pareto-optimal sets of
+journeys, considering all relevant criteria. This means that McRAPTOR returns a set of non-dominated journeys—where no
+journey is worse than another in all criteria. Each stop is associated with a set of labels, where each label represents
+a journey's costs for different metrics (e.g., time, fare zones). The algorithm iterates through the network, updating
+these labels and discarding any dominated (non-optimal) journeys.
+
+However, **McRAPTOR was not implemented** as part of this project, which focused on the base RAPTOR algorithm to prioritize
+speed and simplicity in optimizing arrival times and transfers.
