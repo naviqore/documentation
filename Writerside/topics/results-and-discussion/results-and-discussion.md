@@ -1,6 +1,6 @@
 # Results and Discussion
 
+- [Code Metrics](code-metrics.md)
 - [Deployment](deployment.md)
 - [Benchmarking](benchmarking.md)
-- [Code Metrics](code-metrics.md)
 - [Limitations](limitations.md)
