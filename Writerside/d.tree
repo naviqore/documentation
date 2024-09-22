@@ -6,6 +6,7 @@
                   name="Naviqore - Efficient Public Transit Routing with RAPTOR"
                   start-page="introduction.md">
 
+    <toc-element topic="abstract.md"/>
     <toc-element topic="introduction.md"/>
     <toc-element topic="interim-review.md"/>
     <toc-element topic="project-management.md">
