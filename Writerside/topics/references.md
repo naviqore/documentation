@@ -28,9 +28,14 @@ from [https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/](https:/
 [9] Project Lombok. (n.d.). Project Lombok: Cleaner, Faster Java. Retrieved May 25, 2024,
 from [https://projectlombok.org/](https://projectlombok.org/)
 
-[10] Schwaber, K., & Sutherland, J. (2020). The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game.
+[10] Rieser, M., Métrailler, D., & Lieberherr, J. (2018). *Adding Realism and Efficiency to Public Transportation in
+MATSim*. In Proceedings of the 18th Swiss Transport Research Conference (STRC), Monte Verità, Ascona, May 16-18, 2018.
+[https://www.strc.ch/2018/Metrailler_Lieberherr.pdf](https://www.strc.ch/2018/Metrailler_Lieberherr.pdf)
+
+[11] Schwaber, K., & Sutherland, J. (2020). The Scrum Guide: The Definitive Guide to Scrum: The Rules of the Game.
 Retrieved May 25, 2024,
 from [https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf](https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf)
 
-[11] Spring Framework. (n.d.). Spring Boot Reference Documentation. Retrieved May 31, 2024,
+[12] Spring Framework. (n.d.). Spring Boot Reference Documentation. Retrieved May 31, 2024,
 from [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
+
