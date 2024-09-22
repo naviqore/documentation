@@ -9,7 +9,34 @@ using the current GTFS data for the whole of Switzerland and the results where c
 allowed to track the performance of our algorithm during development. The machine used for the benchmark meets the
 requirements outlined in **NF-RO-M2**.
 
-### Cache Locality
+![v1.0.0 - Benchmark Results](2024_09_17_benchmark_lenovo.png)
+
+The benchmark results are visualized in nine plots. Processing time is shown to increase with both the number of
+transfers and the number of connection results, with median times remaining under 100 ms for most cases. The histogram
+of processing times reveals a mean of 48 ms and a median of 50 ms per request, confirming efficient connection
+query handling. Scatter plots show a positive correlation between processing time and both beeline distance and
+connection duration. Most queries involve 1–2 transfers (80%), and departure time accuracy is high, with minimal
+deviation between requested and actual times.
+
+In regular use, on a large public transit schedule dataset on an average machine, the router performs efficiently and
+fully satisfies the requirements **UC-SE-M3** (*Efficiently request connections between two stops,in mean <250ms.*)
+and **NF-SE-M1** (*The complete service for Switzerland must be able to run on a standard machine with 8 cores and 16GB
+of RAM.*)
+
+When comparing our system to the RAPTOR implementation (*SwissRailRaptor*) by Rieser et al. [10], we found that our
+router performed comparably well, though slightly slower when tested on Switzerland's national public transit schedule.
+This performance trade-off is acceptable, given that our system is designed for real-world applications, such as
+handling diverse service days, accessibility information, multi-day trips, and latest-departure routing. In contrast,
+*SwissRailRaptor* is optimized for simulation efficiency within the MATSim framework.
+
+As specified in **NF-RO-M1**, more than five connections were manually validated using the SBB app as a reference. There
+were generally no discrepancies, and when differences did occur, they were attributable to service configuration
+settings, such as minimum transfer times or maximum walking distances. Requirement **UC-RO-M2** is also fulfilled, as
+all compared connection results are Pareto-optimal.
+
+### Performance Improvements
+
+#### Cache Locality
 
 When iterating over the stop times in the route scanner of the RAPTOR algorithm, the router needs to access a large
 number of integer values sequentially to determine whether a transfer to another trip from the currently active trip is
@@ -30,7 +57,7 @@ departure times now requires knowledge of the array structure to compute the cor
 
 TODO: Add performance increase numbers.
 
-### Hashset vs. Boolean Mask Array
+#### Hashset vs. Boolean Mask Array
 
 During profiling of connection requests, it was discovered that approximately 25% of the CPU time per routing request
 was consumed by inserting new stops into the marked stops hashset in the main loop of the RAPTOR router. Since the set
@@ -40,27 +67,6 @@ to inefficiencies. However, attempts to optimize the hash function did not resul
 To address this, we replaced the hashset with a boolean array, where each index corresponds to a stop, and stops to be
 scanned in the next round are flagged as true. This improved performance considerably, reducing the time per request
 from 76ms to 48ms, a 37% performance improvement, on the GTFS dataset for Switzerland.
-
-### v1.0.0
-
-The benchmark results are visualized in nine plots. Processing time is shown to increase with both the number of
-transfers and the number of connection results, with median times remaining under 100 ms for most cases. The histogram
-of processing times reveals a mean of 48 ms and a median of 50 ms per request, confirming efficient connection
-query handling. Scatter plots show a positive correlation between processing time and both beeline distance and
-connection duration. Most queries involve 1–2 transfers (80%), and departure time accuracy is high, with minimal
-deviation between requested and actual times.
-
-![v1.0.0 - Benchmark Results](2024_09_17_benchmark_lenovo.png)
-
-In regular use, on a large public transit schedule dataset on an average machine, the router performs efficiently and
-fully satisfies the requirements **UC-SE-M3** (*Efficiently request connections between two stops,in mean <250ms.*)
-and **NF-SE-M1** (*The complete service for Switzerland must be able to run on a standard machine with 8 cores and 16GB
-of RAM.*)
-
-As specified in **NF-RO-M1**, more than five connections were manually validated using the SBB app as a reference. There
-were generally no discrepancies, and when differences did occur, they were attributable to service configuration
-settings, such as minimum transfer times or maximum walking distances. Requirement **UC-RO-M2** is also fulfilled, as
-all compared connection results are Pareto-optimal.
 
 ## Raptor Versions for Comparison
 
