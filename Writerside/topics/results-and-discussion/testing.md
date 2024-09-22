@@ -30,12 +30,12 @@ The following table provides an overview of some key code metrics for the main r
 lines of code were counted using the command-line tool `cloc` and include both production and test code, excluding
 inline comments and documentation (such as Javadoc or docstrings). Test coverage is measured in terms of line coverage.
 
-| Repository Name            | Language | Short Description                                                                   | Commits | Lines of Code (Test) | Test Cases (Integration) | Test Coverage |
-|----------------------------|----------|-------------------------------------------------------------------------------------|---------|----------------------|--------------------------|---------------|
-| **public-transit-service** | Java     | Public transit schedule and routing service based on GTFS data and RAPTOR algorithm | 751     | 12'116 (5'662)       | 569 (51)                 | 86%           |
-| **public-transit-client**  | Python   | Client to access the public transit service API endpoints.                          | 72      | 822 (419)            | 23 (15)                  | 80%           |
-| **public-transit-viewer**  | Python   | Viewer to interact with the public transit service.                                 | 125     | 1'007 (21)           | 1 (1)                    | 0%            |
-| **raptorxx**               | C++      | C++ Implementation of the RAPTOR algorithm for benchmarking.                        | TODO    | TODO                 | TODO                     | TODO          |
+| Repository Name            | Language | Short Description                                                                   | Commits | Lines of Code *(Test)* | Test Cases *(Integration)* | Test Coverage |
+|----------------------------|----------|-------------------------------------------------------------------------------------|---------|------------------------|----------------------------|---------------|
+| **public-transit-service** | Java     | Public transit schedule and routing service based on GTFS data and RAPTOR algorithm | 751     | 12'116 *(5'662)*       | 569 *(51)*                 | 86%           |
+| **public-transit-client**  | Python   | Client to access the public transit service API endpoints.                          | 72      | 822 *(419)*            | 23 *(15)*                  | 80%           |
+| **public-transit-viewer**  | Python   | Viewer to interact with the public transit service.                                 | 125     | 1'007 *(21)*           | 1 *(1)*                    | 0%            |
+| **raptorxx**               | C++      | Implementation of the RAPTOR algorithm in C++ for benchmarking.                     | TODO    | TODO                   | TODO                       | TODO          |
 
 Since the focus of this thesis is on the RAPTOR algorithm, the service received the most testing attention. The viewer,
 primarily developed for demonstration purposes, has only one integration test to verify the application can boot, but
