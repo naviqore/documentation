@@ -4,9 +4,9 @@ This section discusses the design, implementation, and optimization of a public 
 using modern C++20/C++23 standards. The project incorporates advanced data structures and algorithms to enable
 efficient route planning, with an emphasis on cross-platform compatibility and robust build configurations via CMake.
 
-The C++ implementation is based heavily on the [Simple Raptor](simple-raptor.md "Simple RAPTOR Implementation"), but
-extends it with optimizations and modern C++ features. In this section, we focus on the C++ implementation, detailing
-the key components and challenges faced during development.
+The C++ implementation is heavily inspired by the [Simple Raptor](simple-raptor.md "Simple RAPTOR Implementation") and
+utilizes modern C++ features. This section focuses on the C++ implementation, detailing the key components and
+challenges encountered during development.
 
 The C++ implementation comprises:
 
@@ -47,81 +47,76 @@ package "src" {
 We aimed to utilize the most modern C++ features possible. Although we initially attempted to implement the project
 using the new C++ module system, limited compiler support (primarily from MSVC on Windows) posed challenges.
 
-## Challenges of Implementing in C++ Compared to Java
+## Challenges of Implementing in C++
 
-Implementing RaptorXX in C++ presented several challenges, particularly in comparison to Java. Below, we outline key
-areas where the two languages differ, highlighting the complexities faced during C++ development.
+The implementation of RaptorXX in C++ was undertaken with the aim of achieving better performance compared to Java.
+However, this proved to be a challenging endeavor due to the highly optimized nature of Java's JVM, which often achieves
+excellent performance through Just-In-Time (JIT) compilation and other optimization strategies. In the following, we
+outline the complex areas that need to be considered when developing C++.
 
-### 1. Cross-Platform Compatibility
+Ensuring cross-platform compatibility in C++ is complex due to differences in compilers, libraries, and system calls
+across operating systems (e.g., Windows, Linux, macOS). Developers must use conditional compilation and
+platform-specific code to address these differences. The C++ Standard Library (STL) lacks built-in support for common
+tasks like logging and CSV parsing. Developers often integrate third-party libraries such as `spdlog` for logging and
+`csv-parser` for CSV reading, increasing project complexity. Not all compilers support the full range of C++20 features.
+Developers must pay attention to feature compatibility to ensure cross-platform support.
 
-- **C++**: Cross-platform compatibility in C++ can be complex due to differences in compilers, libraries, and system
-  calls across operating systems (e.g., Windows, Linux, macOS). Developers must account for these differences using
-  conditional compilation and platform-specific code.
-- **Java**: Java’s "write once, run anywhere" philosophy, backed by the JVM (Java Virtual Machine), abstracts away most
-  platform-specific details, making cross-platform development more straightforward.
+Manual memory management in C++ can lead to issues such as memory leaks and buffer overflows. Developers need to
+carefully manage resource allocation and deallocation, though modern smart pointers (e.g., `std::unique_ptr`,
+`std::shared_ptr`) help mitigate these risks. Error handling in C++ is typically done using exceptions, but developers
+must ensure exception safety and proper resource cleanup.
 
-### 2. Standard Library (STL) Limitations
+Building and managing dependencies in C++ projects can be labor-intensive. Tools like CMake facilitate build management,
+but additional configuration is often required. Dependency management tools such as `vcpkg` and `Conan` are available
+but are not as integrated or straightforward as Java’s ecosystem. We relied on `vcpkg` from Microsoft. The C++ ecosystem
+offers a wide range of tools, though their quality and ease of use can vary. Setting up debugging, profiling, and other
+development tools often requires more effort. We mainly worked with CLion from JetBrains but had to switch to Visual
+Studio for certain tasks.
 
-- **C++**: While the C++ Standard Library (STL) is powerful, it lacks built-in support for common tasks like logging and
-  CSV parsing. To address this, developers often integrate third-party libraries such as `spdlog` for logging and
-  `csv-parser` for CSV reading, which can increase project complexity.
-- **Java**: Java's Standard Library is more comprehensive, offering built-in support for tasks like logging (
-  `java.util.logging`) and file I/O, reducing the need for external dependencies and simplifying development.
+While C++ offers fine-grained control over system performance, leveraging these optimizations requires deep knowledge of
+both the language and hardware architecture. Developers must often balance performance with code maintainability and
+readability.
 
-#### Compiler Support for C++20
+### Conclusion - JAVA vs C++ Performance
 
-Not all compilers support the full range of library features. This means you have to pay attention to what features you
-use so that you remain compatible.
-![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png){width="850"}
+In our development of the public transit routing system RaptorXX, we aimed to leverage the performance advantages of
+C++. However, our analysis indicated that while C++ is indeed faster in several cases, Java's performance is
+impressively close. The Java Virtual Machine (JVM) optimizations, along with its automatic memory management and
+just-in-time compilation, enabled Java to execute routing requests with competitive efficiency.
 
-### 3. Memory Management
+The testing results showed that C++ performed better in many scenarios, often demonstrating lower elapsed times.
+However, Java consistently delivered strong performance, falling just short in a few cases. This indicates that,
+although C++ can offer high performance with fine-grained control over system resources, achieving that performance
+requires careful management of various factors, such as memory allocation and data structure handling.
 
-- **C++**: Manual memory management in C++ can result in issues such as memory leaks and buffer overflows. Developers
-  need to carefully manage resource allocation and deallocation, though modern smart pointers (e.g., `std::unique_ptr`,
-  `std::shared_ptr`) help mitigate these risks.
-- **Java**: Java's automatic garbage collection system handles memory management, reducing the risk of memory leaks and
-  simplifying development.
+Additionally, potential inefficiencies or errors in the C++ implementation can affect overall performance. The
+challenges of adapting the C++ code to align with Java's memory layout further complicate the process.
 
-### 4. Error Handling
+Ultimately, while C++ presents a powerful option for high-performance applications, Java's optimizations and robust
+ecosystem often provide a more practical and reliable solution for our routing needs. This highlights that sometimes
+high-level abstractions can lead to results that are not only competitive in speed but also more manageable in terms of
+development and maintenance.
 
-- **C++**: Error handling in C++ is typically done using exceptions, but developers must ensure exception safety and
-  proper resource cleanup. Additionally, the lack of a standardized error-handling approach across different libraries
-  can create inconsistencies.
-- **Java**: Java's exception handling is more standardized and integrated into the language, providing a consistent
-  framework for managing errors.
+| From Stop                              | To Stop                             | Iterations | Java Elapsed Time (ms) | C++ Elapsed Time (ms) | Difference (ms) | Difference (%) |
+|----------------------------------------|-------------------------------------|------------|------------------------|-----------------------|-----------------|----------------|
+| 8589640 (St. Gallen, Vonwil)           | 8579885 (Mels, Bahnhof)             | 100        | 13                     | 19                    | -6              | -31.6%         |
+| 8574563 (Maienfeld, Bahnhof)           | 8587276 (Biel/Bienne, Taubenloch)   | 100        | 55                     | 38                    | 17              | 44.7%          |
+| 8588524 (Sion, Hôpital Sud)            | 8508896 (Stans, Bahnhof)            | 100        | 45                     | 20                    | 25              | 125.0%         |
+| 8510709 (Lugano, Via Domenico Fontana) | 8579255 (Lausanne, Pont-de-Chailly) | 100        | 46                     | 29                    | 17              | 58.6%          |
+| 8574848 (Davos Dorf, Bahnhof)          | 8576079 (Rapperswil SG, Sonnenhof)  | 100        | 12                     | 15                    | -3              | -20.0%         |
 
-### 5. Build and Dependency Management
+**Summary of Differences**
 
-- **C++**: Building and managing dependencies in C++ projects can be labor-intensive. Tools like CMake facilitate build
-  management, but additional configuration is often required. Dependency management tools such as `vcpkg` and `Conan`
-  are available, but they are not as integrated or straightforward as Java’s ecosystem. we relied on vcpgk from
-  microsoft [vcpkg](https://vcpkg.io/en/).
-- **Java**: Java's build tools, such as Maven and Gradle, provide robust dependency management and build automation,
-  streamlining the development process.
+The "Difference (ms)" column reflects the absolute time difference in milliseconds between Java and C++ for each routing
+request. A negative value indicates that Java was faster than C++, while a positive value shows that C++ performed
+better.
 
-### 6. Development Tools and Ecosystem
+The "Difference (%)" column presents the percentage difference in performance between Java and C++. Positive percentages
+indicate that C++ performed better (was faster), while negative percentages indicate instances where Java was faster.
 
-- **C++**: The C++ ecosystem offers a wide range of tools, though their quality and ease of use can vary. Setting up
-  debugging, profiling, and other development tools often requires more effort. We mainly worked with CLion from
-  Jetbrains, but had to switch to Visual Studio for certain tasks.
-- **Java**: Java boasts a mature ecosystem with comprehensive development tools, such as IntelliJ IDEA, which offer
-  out-of-the-box support for debugging, profiling, and build automation.
-
-### 7. Performance Considerations
-
-- **C++**: C++ offers fine-grained control over system performance, but leveraging these optimizations requires deep
-  knowledge of both the language and hardware architecture. Developers must often balance performance with code
-  maintainability and readability.
-- **Java**: While Java’s performance relies on the JVM, its Just-In-Time (JIT) compilation and optimization strategies
-  offer competitive performance, though not always at the same level of fine-tuned C++ code.
-
-### Conclusion
-
-Developing a public transit routing system like RaptorXX in C++ presents unique challenges compared to Java,
-especially concerning cross-platform compatibility, library support, memory management, and build complexity. While C++
-offers more granular control and performance potential, it requires greater effort in managing these aspects. In
-contrast, Java's comprehensive standard library, automatic memory management, and mature ecosystem can significantly
-simplify development.
+```tex
+\frac{{\text{{Java Elapsed Time}} - \text{{C++ Elapsed Time}}}}{{\text{{Java Elapsed Time}}}} \times 100
+ ```
 
 ## Code Efficiency: Patterns and Idioms
 
@@ -131,7 +126,7 @@ some of the key patterns and techniques we utilized.
 
 ### Design Patterns Used
 
-1. **Value-Based Strategy Pattern**:
+1. **Value-Based Strategy Pattern (GTFS-Reader)**:
 
 - We implemented the **Value-Based Strategy Pattern** to enhance flexibility and performance in reading the GTFS data.
   This design pattern allows runtime selection of a class's behavior without relying on traditional virtual methods and
@@ -214,7 +209,7 @@ public:
 };
 ```
 
-2. **Factory Pattern**:
+2. **Factory Pattern (GTFS-Reader)**:
 
 - The factory pattern was employed to simplify the creation of complex objects, decoupling the creation logic from the
   client code. This made our codebase more modular and easier to extend, particularly when integrating new components
@@ -328,29 +323,21 @@ const auto servedDates = data->calendarDates
 
 ## Visual Studio Diagnostic Tools
 
-We used the Visual Studio Diagnostic Tool to analyze performance.
+We used the Visual Studio Diagnostic Tool to analyze performance and to improve the efficiency of our C++ code.
 The **Visual Studio Diagnostic Tools** are a powerful set of profiling and debugging features integrated into the Visual
 Studio IDE. These tools allow developers to monitor, analyze, and optimize the performance of their applications,
 including C++ code. By leveraging these tools, you can gain deeper insights into how your program behaves at runtime,
 helping you identify and resolve performance bottlenecks and resource management issues.
 
-### Key Features for C++ Code
+### Performance Analysis in RaptorXX
 
-1. **Performance Profiling**:
+The Visual Studio Diagnostic Tools were utilized to analyze and optimize the performance of the RaptorXX project.
 
-- The profiling tools provide detailed performance metrics such as CPU usage, memory allocation, and execution time of
-  different code sections. This helps in identifying functions or loops that consume excessive processing time or
-  memory.
-
-2. **Memory Usage Analysis**:
-
-- The diagnostic tools track memory allocations in the running C++ application. This is especially useful for detecting
-  memory leaks, inefficient memory usage, or unexpected allocations, ensuring the program remains efficient and stable.
-
-3. **CPU Usage**:
-
-- The CPU usage tool allows to see how much processing time the code consumes, and which parts of the code are
-  responsible for high CPU loads. This enables to focus optimization efforts on the most critical areas.
+- **Performance Profiling**: Provides detailed metrics such as CPU usage, memory allocation, and execution time, helping
+  identify performance bottlenecks.
+- **Memory Usage Analysis**: Tracks memory allocations to detect leaks, inefficient usage, or unexpected allocations,
+  ensuring stability.
+- **CPU Usage**: Monitors CPU load to focus optimization efforts on critical code areas.
 
 - [Optimizing Code Using Profiling Tools](https://learn.microsoft.com/en-us/visualstudio/profiling/optimize-code-using-profiling-tools?view=vs-2022&source=recommendations).
 
@@ -360,48 +347,16 @@ helping you identify and resolve performance bottlenecks and resource management
 ## Foreign Function and Memory (FFM) API
 
 Initially, we explored the possibility of calling the C++ RAPTOR implementation from Java using the Foreign Function and
-Memory (FFM) API. However, due to the complexity of mapping intricate data structures between C++ and Java, we
-ultimately decided not to pursue this implementation.
+Memory (FFM) API. However, we faced significant challenges due to the complexity of mapping intricate data structures
+between C++ and Java. Ultimately, we decided against this approach.
 
-### Challenges and C Compatibility
+The FFM API was not well-suited for our application. Sending routing requests from Java to C++ required C++ to operate
+on a memory layout for the schedule built in Java. Since Java would be the only active application, rebuilding the
+schedule from files in C++ for each request proved to be inefficient. A more effective solution would have involved
+implementing a C++ service that Java could call for routing needs. The FFM API is better suited for replacing complex
+functions rather than managing entire packages, making it unsuitable for our requirements.
 
-Integrating C++ code with Java through the FFM API presents several technical challenges. Below are the key difficulties
-we encountered:
-
-#### 1. Memory Management
-
-Managing off-heap memory in Java can be challenging when working with native code. The FFM API offers the
-`MemorySegment` and `Arena` classes to facilitate memory management, allowing developers to allocate and deallocate
-native memory efficiently. However, improper handling of this off-heap memory can lead to memory leaks or crashes.
-Developers need to ensure memory management practices to avoid such issues.
-
-#### 2. Data Conversion
-
-Converting data between Java and native C types is another significant hurdle. The FFM API provides `ValueLayout`
-classes to define the memory layout of data types in both Java and native code. However, ensuring that these layouts
-match the exact structure of the native code (C++) requires careful attention. In complex data structures, especially
-those with pointers or custom layouts, mismatches can result in runtime errors or undefined behavior.
-
-#### 3. Error Handling
-
-Error handling becomes more difficult when working with native code. Bugs or faults in C++ code can cause the JVM to
-crash, making debugging a more complicated process. While Java provides robust error handling, diagnosing issues in
-native code may require external tools such as native debuggers, core dumps, and more intricate diagnostic setups. This
-introduces additional overhead during development and testing.
-
-#### 4. Platform Differences
-
-Although the FFM API abstracts some platform-specific details, developers must still account for differences in calling
-conventions and memory layouts between platforms (e.g., Windows vs. Linux). These differences can introduce subtle bugs
-or performance issues when deploying the same Java code across different operating systems. Cross-platform compatibility
-must be thoroughly tested to avoid such pitfalls.
-
-### Conclusion (FFM)
-
-The Foreign Function and Memory API in Java provides powerful capabilities for integrating Java applications with native
-C or C++ code. However, it introduces several complexities in memory management, data conversion, error handling, and
-cross-platform compatibility. A deep understanding of both the Java and native environments, along with careful
-management of these aspects, is essential for successful and stable integration.
+### Example implementation for using the FFM API and C / C++
 
 ```c++
 #include <iostream>
