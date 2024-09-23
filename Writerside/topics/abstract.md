@@ -30,6 +30,8 @@ and practice.
 **Keywords**: RAPTOR algorithm, GTFS, timetable routing, isolines routing, performance, optimization, public
 transportation
 
+**Authors**: Michael Brunner, Lukas Connolly, Merlin Unterfinger
+
 ## Acknowledgments
 
 We would like to express our sincere gratitude to our supervisor, Thomas Letsch, for his invaluable guidance, insightful
