@@ -70,7 +70,7 @@ C++, developers often need to rely on third-party libraries like`spdlog` for log
 further complicating development. Furthermore, C++ compilers do not universally support all C++20 features, requiring
 careful attention to compatibility issues for seamless cross-platform development.
 
-![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png)(compiler_support.png){width="650"}
+![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png)(compiler_support.png){width="600"}
 
 #### Memory Management
 
@@ -353,8 +353,8 @@ The Visual Studio Diagnostic Tools were utilized to analyze and optimize the per
 
 - [Optimizing Code Using Profiling Tools](https://learn.microsoft.com/en-us/visualstudio/profiling/optimize-code-using-profiling-tools?view=vs-2022&source=recommendations).
 
-![cpp-diagnostic.png](cpp-diagnostic.png)(compiler_support.png){width="850"}
-![cpp-diagnostic-scanRoute.png](cpp-diagnostic-scanRoute.png){width="850"}
+![cpp-diagnostic.png](cpp-diagnostic.png)(compiler_support.png){width="600"}
+![cpp-diagnostic-scanRoute.png](cpp-diagnostic-scanRoute.png){width="600"}
 
 ## Foreign Function and Memory (FFM) API
 
