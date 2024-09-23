@@ -4,4 +4,5 @@
 - [Public Transit Service](public-transit-service.md)
 - [Simple RAPTOR](simple-raptor.md)
 - [Extended RAPTOR](extended-raptor.md)
-- [RaptorXX](raptor-xx.md)
+- [RAPTOR++](raptor-xx.md)
+- [Viewer and Client](viewer-and-client.md)

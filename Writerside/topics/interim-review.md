@@ -1,7 +1,5 @@
 # Interim Review
 
-# Interim Review
-
 The interim review checks whether each team is on track with their software project:
 
 > Is there a serious walking skeleton (architecture prototype)?

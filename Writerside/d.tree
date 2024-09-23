@@ -36,6 +36,7 @@
         <toc-element topic="simple-raptor.md"/>
         <toc-element topic="extended-raptor.md"/>
         <toc-element topic="raptor-xx.md"/>
+        <toc-element topic="viewer-and-client.md"/>
     </toc-element>
     <toc-element topic="results-and-discussion.md">
         <toc-element topic="deployment.md"/>
