@@ -117,7 +117,7 @@ Although C++ can outperform Java in specific scenarios, writing C++ code that is
 presents significant challenges. The need to balance performance optimizations with code readability and maintainability
 often makes development in C++ slower and more complex compared to Java.
 
-## Conclusion
+## Conclusion - C++ vs. Java
 
 While C++ offers greater control and the potential for higher performance, these advantages come with significant
 trade-offs in complexity. Ensuring cross-platform compatibility, managing memory manually, and handling dependencies and
@@ -127,61 +127,9 @@ delivers comparable or better performance in many real-world scenarios. Ultimate
 ease of development and robust tooling in Java make it a more practical choice for many applications, including
 the "Raptor Algorithm".
 
-### Conclusion - JAVA vs C++ Performance
+Further results on the comparison of the C++ implementation to Java can be found at the following reference.
 
-In our development of the public transit routing system Raptor, we aimed to leverage the performance advantages of
-C++. However, our analysis indicated that while C++ is indeed faster in several cases, Java's performance is
-impressively close. The Java Virtual Machine (JVM) optimizations, along with its automatic memory management and
-just-in-time compilation, enabled Java to execute routing requests with competitive efficiency.
-
-The testing results showed that C++ performed better in many scenarios, often demonstrating lower elapsed times.
-However, Java consistently delivered strong performance, falling just short in a few cases. This indicates that,
-although C++ can offer high performance with fine-grained control over system resources, achieving that performance
-requires careful management of various factors, such as memory allocation and data structure handling.
-
-Additionally, potential inefficiencies or errors in the C++ implementation can affect overall performance. The
-challenges of adapting the C++ code to align with Java's memory layout further complicate the process.
-
-Ultimately, while C++ presents a powerful option for high-performance applications, Java's optimizations and robust
-ecosystem often provide a more practical and reliable solution for our routing needs. This highlights that sometimes
-high-level abstractions can lead to results that are not only competitive in speed but also more manageable in terms of
-development and maintenance.
-
-### System Specifications
-
-The following table summarizes the key specifications of the machine used for testing the performance of Java and C++
-implementations of Raptor. The tests were conducted on a high-performance Windows laptop designed for heavy
-computational tasks, ensuring a robust environment for comparing the performance of both languages.
-
-| Specification                 | Details                                 |
-|-------------------------------|-----------------------------------------|
-| **Operating System**          | Microsoft Windows 11 Pro                |
-| **System Model**              | HP ZBook Studio x360 G5                 |
-| **Processor**                 | Intel® Core™ i9-9980HK CPU @ 2.40GHz    |
-| **CPU Cores**                 | 8 physical cores                        |
-| **Logical Processors**        | 16 logical processors (Hyper-threading) |
-| **Installed Physical Memory** | 64.0 GB                                 |
-
-| From Stop                              | To Stop                             | Iterations | Java Elapsed Time (ms) | C++ Elapsed Time (ms) | Average Difference (ms) | Average Difference (%) |
-|----------------------------------------|-------------------------------------|------------|------------------------|-----------------------|-------------------------|------------------------|
-| 8589640 (St. Gallen, Vonwil)           | 8579885 (Mels, Bahnhof)             | 100        | 13                     | 19                    | -6                      | -31.6%                 |
-| 8574563 (Maienfeld, Bahnhof)           | 8587276 (Biel/Bienne, Taubenloch)   | 100        | 55                     | 38                    | 17                      | 44.7%                  |
-| 8588524 (Sion, Hôpital Sud)            | 8508896 (Stans, Bahnhof)            | 100        | 45                     | 20                    | 25                      | 125.0%                 |
-| 8510709 (Lugano, Via Domenico Fontana) | 8579255 (Lausanne, Pont-de-Chailly) | 100        | 46                     | 29                    | 17                      | 58.6%                  |
-| 8574848 (Davos Dorf, Bahnhof)          | 8576079 (Rapperswil SG, Sonnenhof)  | 100        | 12                     | 15                    | -3                      | -20.0%                 |
-
-**Summary of Average Differences**
-
-The "Difference (ms)" column reflects the absolute time difference in milliseconds between Java and C++ for each routing
-request. A negative value indicates that Java was faster than C++, while a positive value shows that C++ performed
-better.
-
-The "Difference (%)" column presents the percentage difference in performance between Java and C++. Positive percentages
-indicate that C++ performed better (was faster), while negative percentages indicate instances where Java was faster.
-
-```tex
-\frac{{\text{{Java Elapsed Time}} - \text{{C++ Elapsed Time}}}}{{\text{{Java Elapsed Time}}}} \times 100
- ```
+[Conclusion - JAVA vs C++ Performance](benchmarking.md#cpp-benchmarking)
 
 ## Code Efficiency: Patterns and Idioms
 
