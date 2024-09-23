@@ -1,5 +1,7 @@
 # Abstract
 
+**Efficient Public Transit Routing with RAPTOR: A Production-Ready Solution Leveraging GTFS Data**
+
 Timetable queries in public transportation present a complex problem. Traditional graph-based methods encounter their
 limitations, especially when it comes to correctly representing transfers between different routes. The temporal
 complexity of transfers makes a trivial representation nearly impossible. A promising alternative to these traditional

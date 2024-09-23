@@ -7,7 +7,7 @@
         <variables>
             <custom-favicons>favicon/favicon.ico</custom-favicons>
             <header-logo>favicon/android-chrome-512x512.png</header-logo>
-            <noindex-content>true</noindex-content>
+            <noindex-content>false</noindex-content>
         </variables>
     </build-profile>
     <build-profile instance="n">
