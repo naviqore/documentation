@@ -2,5 +2,5 @@
 
 - [Testing](testing.md)
 - [Deployment](deployment.md)
-- [Benchmarking](benchmarking.topic)
+- [Benchmarking](benchmarking.md)
 - [Limitations](limitations.md)
