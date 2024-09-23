@@ -29,49 +29,34 @@ graphs that incorporate the complexity of transfers. This characteristic makes R
 networks of any size, as it avoids the need for time-consuming preprocessing. This efficiency allows us to enable
 features like accessibility and bike information on our routes.
 
-## Sequence Diagram RAPTOR (simple)
+## Sequence Diagram RAPTOR (simplified)
 
 ```mermaid
 sequenceDiagram
-    participant User
-    participant RAPTOR Algorithm
-    participant Routes
-    User ->> RAPTOR Algorithm: Request journey plan
-    RAPTOR Algorithm ->> Routes: Initialize routes and transfers
-    Routes -->> RAPTOR Algorithm: Routes initialized
+  participant Algorithm
+  participant Stops
+  participant Routes
+  participant Trips
+  participant FootPaths
+  Algorithm ->> Stops: Initialize and mark start stop
 
-    loop For each round k
-        RAPTOR Algorithm ->> Routes: Process marked stops and routes
-        Routes -->> RAPTOR Algorithm: Return earliest trip information
-        RAPTOR Algorithm ->> RAPTOR Algorithm: Update arrival times
+  loop Main iterations (k)
+    Algorithm ->> Stops: Identify marked stops
+    Stops ->> Routes: Get routes serving marked stops
+    Routes ->> Trips: Traverse routes and trips
+
+    alt Can update stops?
+      Trips ->> Stops: Update stop times and mark new stops
     end
 
-    RAPTOR Algorithm ->> User: Return Pareto-optimal journeys
+    Algorithm ->> FootPaths: Check foot-path connections
+    FootPaths ->> Stops: Update stops via foot-paths
 
-```
-
-## Sequence Diagram RAPTOR (more detailed)
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant RAPTOR Algorithm
-    participant Routes
-    participant Pareto Set
-    User ->> RAPTOR Algorithm: Instantiate RAPTOR Algorithm (using schedule)
-    User ->> RAPTOR Algorithm: Request Journey Plan (source, target, dep. time)
-    RAPTOR Algorithm ->> Routes: Sort Routes by Departure Time
-    Routes -->> RAPTOR Algorithm: Sorted Routes
-
-    loop Per Round (k = 1, 2, ...)
-        RAPTOR Algorithm ->> Routes: Scan Connections in Order
-        Routes -->> RAPTOR Algorithm: Update Arrival Times
-        RAPTOR Algorithm ->> RAPTOR Algorithm: Relax Footpaths and Transfers
-        RAPTOR Algorithm ->> Pareto Set: Check for Pareto Dominance
-        Pareto Set -->> RAPTOR Algorithm: Update Pareto Optimal Journeys
+    alt No stops updated
+      Algorithm ->> Algorithm: Stop process
     end
+  end
 
-    RAPTOR Algorithm ->> User: Return Final Pareto Optimal Journeys
 ```
 
 - The algorithm starts at the departure stop at the given departure time. It initializes a list of stops to visit in
