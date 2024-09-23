@@ -39,3 +39,12 @@ from [https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf](htt
 [12] Spring Framework. (n.d.). Spring Boot Reference Documentation. Retrieved May 31, 2024,
 from [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
+[13] Horni, A., Nagel, K., & Axhausen, K. W. (2016). *The Multi-Agent Transport Simulation MATSim*. London: Ubiquity
+Press. [https://doi.org/10.5334/baw](https://doi.org/10.5334/baw)
+
+[14] Goodrich, M. T., & Tamassia, R. (2014). *Algorithm Design and Applications* (1st ed.). Wiley. ISBN: 9781118335918.
+Retrieved
+from [https://canvas.projekti.info/ebooks/Algorithm%20Design%20and%20Applications%5BA4%5D.pdf](https://canvas.projekti.info/ebooks/Algorithm%20Design%20and%20Applications%5BA4%5D.pdf)
+
+[15] Wikipedia. (n.d.). Haversine formula. Retrieved May 25, 2024,
+from [https://en.wikipedia.org/wiki/Haversine_formula](https://en.wikipedia.org/wiki/Haversine_formula)
