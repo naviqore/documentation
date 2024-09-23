@@ -1,97 +1,82 @@
 # Introduction
 
-Public transportation systems play a crucial role in urban mobility, connecting millions of people daily. Efficient
-routing algorithms are essential for optimizing transit journeys, minimizing travel time, and enhancing user experience.
-In this Master thesis, we delve into the challenges of public transit routing and explore innovative approaches to
-address them.
-
-**Authors**: Michael Brunner, Lukas Connolly, Merlin Unterfinger
+Public transportation systems are integral to urban mobility, facilitating the movement of millions of passengers daily.
+The efficiency of these systems relies heavily on robust routing algorithms that optimize travel routes, minimize travel
+times, and enhance the overall user experience. This thesis investigates the challenges associated with public transit
+routing and explores innovative approaches to address these challenges.
 
 ## Motivation
 
-The motivation behind our thesis lies in addressing several key challenges:
+This thesis is driven by several key challenges in public transit routing. In recent years, many public transit agencies
+have begun publishing their schedules using the General Transit Feed Specification (GTFS) format as open data \cite{ref:
+gtfs}. Maintaining accurate public transit schedules is a resource-intensive task. The sheer volume and complexity of
+GTFS data present significant challenges for developing efficient data structures and processing methodologies.
 
-1. **Open Data**: In recent years, a growing number of public transit agencies have started to publish their schedules
-   in the open standard GTFS (General Transit Feed Specification) as open data [3, 6]. Maintaining a public transit
-   schedule is a resource-intensive task, making it previously inaccessible for small companies or private individuals
-   to access or generate such datasets. Working with these large and complex datasets poses interesting challenges
-   concerning efficient data structures and processing approaches.
+Public transit routing is inherently complex due to the time-dependent nature of transit networks. Transit schedules
+vary based on the time of day, day of the week, and other temporal factors, adding an additional layer of complexity to
+the routing process. Developing efficient algorithms that account for this time-dependency remains a challenging task in
+transportation research. Traditional graph-based routing algorithms often face performance issues when dealing with
+large-scale transit networks, leading to very large graph structures and computational cost in preparing such graphs.
+The RAPTOR (Round-based Public Transit Routing) algorithm, recognized for its speed and accuracy, offers a promising
+solution to these performance limitations [4] as it can operate directly on the schedule information
+and requires little pre-processing.
 
-2. **Complexity**: Routing in public transit systems is inherently complex due to the time-dependent nature of the
-   network. The schedules of public transit services are not static; they vary based on time of day, day of the week,
-   and other factors. This time-dependency adds a layer of complexity to the routing process, making it a challenging
-   problem to solve efficiently.
-
-3. **Performance**: Traditional graph-based transit routing algorithms often struggle with large-scale networks,
-   resulting in time-consuming requests. The RAPTOR (Round-based Public Transit Routing) algorithm, known for its speed
-   and accuracy, offers a promising solution [4].
-
-Implementing a public transit service integrates various aspects of the MAS Software Engineering curriculum, including
-architecture and design, algorithms and data structures, project automation, communication in distributed systems,
-testing, and containerized deployment. Working in a team with an agile, iterative setup provides an exciting opportunity
-to address these challenges effectively and learn from mistakes during the software development process.
-
-## Approach
-
-Our approach involves the following key components:
-
-1. **GTFS**: We use public transit schedules in the General Transit Feed Specification (GTFS) format as data
-   source. GTFS provides a standardized format for transit schedules, including static information (such as stop times,
-   routes, and trips) and eventually real-time updates.
-
-2. **RAPTOR Algorithm**: The RAPTOR algorithm, based on time-expanded networks, efficiently computes transit routes by
-   considering time-dependent constraints.
-
-3. **Public Transit Service**: This integration layer adds abstraction between the publicly visible interface and the
-   core components, such as the routing algorithm and schedule data source. This will allow for exchanging those
-   components without interfering with any outside dependencies on the service.
-
-4. **Web Application**: Around the core routing functionality, we develop a simple web application. The frontend will
-   allow users to explore schedules, query connections, and assess accessibility. The backend continuously updates the
-   static schedule.
+Developing a public transit routing system was found to be an optimal challenge as it integrates various aspects of the
+Master of Advanced Studies in Software Engineering curriculum, including software architecture, algorithms and data
+structures, automation, distributed systems communication, testing, and containerized deployment. This project adopts an
+agile, iterative development methodology, providing an opportunity to address complex challenges while gaining practical
+experience in software engineering.
 
 ## Research Questions
 
-Our research aims to address the following questions:
+The primary research question addressed by this thesis is how the RAPTOR algorithm can be implemented and validated
+within the context of the Swiss public transit network. This question is particularly relevant given the complexity and
+scale of the network, which poses significant challenges for routing algorithms. A related research question focuses on
+the optimization of the RAPTOR algorithm in Java and C++ and comparing the performance of both programming environments
+for such a task.
 
-1. How can we implement the RAPTOR algorithm and validate it on the Swiss transit network?
-2. Can we optimize the algorithm in C++ to handle large-scale networks efficiently?
-3. What interface features are essential for both technical users and everyday commuters?
+These research questions are framed within the context of the current state of public transit networks. The complexity
+of these networks, which involve multiple routes, stops, footpaths, and transfer points, necessitates the development of
+routing algorithms that account for factors such as transfer times, service frequencies, and real-time constraints. The
+research seeks to address these challenges while also considering scalability, as expanding transit systems further
+complicates the problem space.
 
-## Expected Outcomes
+## Approach and Expected Outcomes
 
-By the end of this thesis, we anticipate achieving the following outcomes:
+This thesis adopts a comprehensive approach to address the identified challenges, beginning with the utilization of GTFS
+data as the foundation for the transit routing system. The standardized format of GTFS [3], which includes
+static information such as stop times, routes, and trips, provides a consistent and reliable dataset for the
+implementation of routing algorithms. A memory-efficient library for reading and processing GTFS schedules will be
+developed to enable scalable management of large datasets, ensuring the system can handle large-scale transit networks
+effectively.
 
-1. A memory-efficient reader and handling library for GTFS schedules.
-2. A performant public transit router package based on the RAPTOR algorithm.
-3. An integrating public transit service with REST API.
-4. A user-friendly web application that empowers users to explore transit schedules, plan routes, and assess travel
-   time-based accessibility.
+One of the core aspects of this thesis is the implementation of the RAPTOR algorithm [4], which is
+designed to efficiently compute transit routes by considering time dependencies such as schedules and transfer windows.
+The RAPTOR algorithm employs a round-based approach, where transit routes are organized into discrete rounds, each
+representing the number of trips needed. This structure simplifies the traversal of the network by enabling the
+algorithm to explore transit options in rounds and return pareto-optimal solutions, minimizing both arrival time and the
+number of transfers.
 
-The components will be made available under a permissive or copyleft open-source license.
+The system will be complemented with an integration layer that manages both the routing algorithm and the schedule,
+while handling all necessary conversions between the two. This design maintains the independence of the schedule and the
+routing algorithm, enabling a modular architecture. The modularity allows for system components to be modified or
+replaced without affecting external dependencies, ensuring the system's adaptability and long-term maintainability.
 
-## Initial Situation
+To facilitate interaction with the system, a REST API will be developed, allowing external applications to access the
+routing and scheduling services. This API will provide the foundation for seamless integration between the routing
+algorithm and external systems. As a proof of concept, a simple web application will be created to visualize search
+results and demonstrate the capabilities of the backend service. While the web application will serve as a proof of
+concept, the primary focus of this thesis remains on developing the backend service.
 
-The existing literature highlights several complexities associated with transit routing:
+This approach ensures the development of a scalable, high-performance public transit routing package based on the RAPTOR
+algorithm, as well as a flexible service component capable of managing complex transit schedules and routes. The end
+result is a modular system, complemented by a user-friendly interface that showcases the potential of the underlying
+backend service.
 
-1. **Network Complexity**: Public transit networks are intricate, with multiple routes, stops, footpaths and
-   interconnections. Finding optimal paths requires considering various factors such as transfer times, dwell times, and
-   service frequencies.
+## Scope and Delimitation
 
-2. **Real-Time Constraints**: Passengers expect real-time information on transit availability and delays. Incorporating
-   live data into routing algorithms is essential for accurate predictions.
-
-3. **Scalability**: As cities grow, transit networks expand, leading to scalability challenges. Traditional algorithms
-   struggle to handle large-scale networks efficiently.
-
-## Round-Based Approach
-
-Our research builds upon the work presented in the "Round-Based Public Transit Routing" paper by
-Microsoft. This paper introduces a novel approach that organizes transit routes into rounds, simplifying the routing
-process. Each round represents a set of interconnected trips, allowing for efficient traversal through the network.
-
-## Delimitation
-
-We are not creating a commercial product and are independent of any company interests. This work is conducted as part
-of the Master of Advanced Studies program in Software Engineering at the Eastern Switzerland University of Applied
-Sciences (OST).
+This thesis is carried out as part of a student project, with the primary objective of advancing knowledge and
+methodologies related to public transit routing. There is no intention to develop a commercial product as part of this
+work. All development and research activities are carried out as part of the Master of Advanced Studies in Software
+Engineering program at the Eastern Switzerland University of Applied Sciences (OST), and no external company interests
+influence the scope or outcomes of this research.
