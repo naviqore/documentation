@@ -47,39 +47,89 @@ package "src" {
 We aimed to utilize the most modern C++ features possible. Although we initially attempted to implement the project
 using the new C++ module system, limited compiler support (primarily from MSVC on Windows) posed challenges.
 
-## Challenges of Implementing in C++
+### Challenges of Implementing in C++
 
-The implementation of RaptorXX in C++ was undertaken with the aim of achieving better performance compared to Java.
-However, this proved to be a challenging endeavor due to the highly optimized nature of Java's JVM, which often achieves
-excellent performance through Just-In-Time (JIT) compilation and other optimization strategies. In the following, we
-outline the complex areas that need to be considered when developing C++.
+The implementation of Raptor in C++ was aimed at leveraging the language's potential for superior performance compared
+to Java. However, this endeavor turned out to be more challenging than initially expected, particularly because of
+Java's highly optimized Java Virtual Machine (JVM), which often provides excellent performance through Just-In-Time (
+JIT) compilation and other built-in optimization strategies. While C++ offers more granular control over system
+performance, several complex aspects of development in C++—including cross-platform compatibility, memory management,
+and build management—introduced significant hurdles.
 
-Ensuring cross-platform compatibility in C++ is complex due to differences in compilers, libraries, and system calls
-across operating systems (e.g., Windows, Linux, macOS). Developers must use conditional compilation and
-platform-specific code to address these differences. The C++ Standard Library (STL) lacks built-in support for common
-tasks like logging and CSV parsing. Developers often integrate third-party libraries such as `spdlog` for logging and
-`csv-parser` for CSV reading, increasing project complexity. Not all compilers support the full range of C++20 features.
-Developers must pay attention to feature compatibility to ensure cross-platform support.
+#### Cross-Platform Compatibility
 
-Manual memory management in C++ can lead to issues such as memory leaks and buffer overflows. Developers need to
-carefully manage resource allocation and deallocation, though modern smart pointers (e.g., `std::unique_ptr`,
-`std::shared_ptr`) help mitigate these risks. Error handling in C++ is typically done using exceptions, but developers
-must ensure exception safety and proper resource cleanup.
+One of the primary challenges in implementing RaptorXX in C++ is ensuring cross-platform compatibility. Unlike Java’s "
+write once, run anywhere" philosophy, which abstracts away platform differences through the JVM, C++ developers must
+account for variations in compilers, libraries, and system calls across operating systems like Windows, Linux, and
+macOS. This requires conditional compilation and platform-specific code to handle these differences, adding complexity
+to the project.
 
-Building and managing dependencies in C++ projects can be labor-intensive. Tools like CMake facilitate build management,
-but additional configuration is often required. Dependency management tools such as `vcpkg` and `Conan` are available
-but are not as integrated or straightforward as Java’s ecosystem. We relied on `vcpkg` from Microsoft. The C++ ecosystem
-offers a wide range of tools, though their quality and ease of use can vary. Setting up debugging, profiling, and other
-development tools often requires more effort. We mainly worked with CLion from JetBrains but had to switch to Visual
-Studio for certain tasks.
+Additionally, the C++ Standard Library (STL), while powerful, does not offer built-in support for many common tasks,
+such as logging or CSV parsing. In contrast, Java's comprehensive standard library offers out-of-the-box solutions (
+e.g., `java.util.logging` and `java.nio.file`). In C++, developers often need to rely on third-party libraries like
+`spdlog` for logging or `csv-parser` for file handling, further complicating development. Furthermore, C++ compilers do
+not universally support all C++20 features, requiring careful attention to compatibility issues for seamless
+cross-platform development.
 
-While C++ offers fine-grained control over system performance, leveraging these optimizations requires deep knowledge of
-both the language and hardware architecture. Developers must often balance performance with code maintainability and
-readability.
+![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png)(compiler_support.png){width="650"}
+
+#### Memory Management
+
+Memory management is another area where C++ introduces complexity compared to Java. Java automatically handles memory
+management via garbage collection, allowing developers to focus on high-level design without worrying about manual
+resource allocation. In contrast, C++ requires developers to manually manage memory, which introduces risks such as
+memory leaks, buffer overflows, and dangling pointers.
+
+Though modern C++ provides tools like smart pointers (`std::unique_ptr`, `std::shared_ptr`) to alleviate some of these
+concerns, their correct use requires meticulous planning. The burden of manual memory management in C++ contrasts
+sharply with the ease of Java's automated garbage collection, where such issues are mostly abstracted away.
+
+#### Error Handling
+
+While both C++ and Java use exceptions for error handling, C++ introduces additional complexity in ensuring exception
+safety and resource cleanup. In Java, the combination of try-catch blocks and automatic memory management simplifies
+this process. However, in C++, developers must carefully design their code to release resources manually, especially in
+the presence of exceptions. Although C++ has best practices like RAII (Resource Acquisition Is Initialization) to manage
+resources efficiently, implementing them correctly requires more effort than in Java.
+
+#### Dependency and Build Management
+
+Another significant challenge with C++ development lies in managing dependencies and the build process. Java's mature
+ecosystem, featuring tools like Maven and Gradle, simplifies dependency management and build configuration, providing
+tight integration with development environments. In contrast, C++ lacks such streamlined tools. Although CMake is a
+widely used tool for build management in C++, it often requires extensive manual configuration, especially for large
+projects.
+
+To manage dependencies, we relied on Microsoft's `vcpkg`, a package manager that simplifies the process to some extent.
+However, tools like `vcpkg` and `Conan` are still not as seamless or well-integrated as Java’s solutions. In addition,
+setting up and configuring debugging tools, profilers, and other development resources in C++ requires more effort and
+familiarity with the toolchain. In our case, we primarily used CLion from JetBrains, but we occasionally had to switch
+to Visual Studio for specific tasks, adding to the complexity.
+
+#### Performance Optimization
+
+One of the theoretical advantages of C++ over Java is its potential for superior performance, thanks to fine-grained
+control over system resources. However, achieving this level of optimization requires deep knowledge of both C++ and the
+underlying hardware. In contrast, Java abstracts much of this complexity, enabling developers to focus on application
+logic while the JVM handles performance optimizations in the background.
+
+Although C++ can outperform Java in specific scenarios, writing C++ code that is both highly optimized and maintainable
+presents significant challenges. The need to balance performance optimizations with code readability and maintainability
+often makes development in C++ slower and more complex compared to Java.
+
+## Conclusion
+
+While C++ offers greater control and the potential for higher performance, these advantages come with significant
+trade-offs in complexity. Ensuring cross-platform compatibility, managing memory manually, and handling dependencies and
+builds are all more challenging in C++ than in Java. Additionally, the time and effort required to fully leverage C++'s
+performance advantages can outweigh the potential gains, especially given Java's highly optimized JVM, which often
+delivers comparable or better performance in many real-world scenarios. Ultimately, while C++ has its strengths, the
+ease of development and robust tooling in Java make it a more practical choice for many applications, including
+the "Raptor Algorithm".
 
 ### Conclusion - JAVA vs C++ Performance
 
-In our development of the public transit routing system RaptorXX, we aimed to leverage the performance advantages of
+In our development of the public transit routing system Raptor, we aimed to leverage the performance advantages of
 C++. However, our analysis indicated that while C++ is indeed faster in several cases, Java's performance is
 impressively close. The Java Virtual Machine (JVM) optimizations, along with its automatic memory management and
 just-in-time compilation, enabled Java to execute routing requests with competitive efficiency.
@@ -97,15 +147,30 @@ ecosystem often provide a more practical and reliable solution for our routing n
 high-level abstractions can lead to results that are not only competitive in speed but also more manageable in terms of
 development and maintenance.
 
-| From Stop                              | To Stop                             | Iterations | Java Elapsed Time (ms) | C++ Elapsed Time (ms) | Difference (ms) | Difference (%) |
-|----------------------------------------|-------------------------------------|------------|------------------------|-----------------------|-----------------|----------------|
-| 8589640 (St. Gallen, Vonwil)           | 8579885 (Mels, Bahnhof)             | 100        | 13                     | 19                    | -6              | -31.6%         |
-| 8574563 (Maienfeld, Bahnhof)           | 8587276 (Biel/Bienne, Taubenloch)   | 100        | 55                     | 38                    | 17              | 44.7%          |
-| 8588524 (Sion, Hôpital Sud)            | 8508896 (Stans, Bahnhof)            | 100        | 45                     | 20                    | 25              | 125.0%         |
-| 8510709 (Lugano, Via Domenico Fontana) | 8579255 (Lausanne, Pont-de-Chailly) | 100        | 46                     | 29                    | 17              | 58.6%          |
-| 8574848 (Davos Dorf, Bahnhof)          | 8576079 (Rapperswil SG, Sonnenhof)  | 100        | 12                     | 15                    | -3              | -20.0%         |
+### System Specifications
 
-**Summary of Differences**
+The following table summarizes the key specifications of the machine used for testing the performance of Java and C++
+implementations of Raptor. The tests were conducted on a high-performance Windows laptop designed for heavy
+computational tasks, ensuring a robust environment for comparing the performance of both languages.
+
+| Specification                 | Details                                 |
+|-------------------------------|-----------------------------------------|
+| **Operating System**          | Microsoft Windows 11 Pro                |
+| **System Model**              | HP ZBook Studio x360 G5                 |
+| **Processor**                 | Intel® Core™ i9-9980HK CPU @ 2.40GHz    |
+| **CPU Cores**                 | 8 physical cores                        |
+| **Logical Processors**        | 16 logical processors (Hyper-threading) |
+| **Installed Physical Memory** | 64.0 GB                                 |
+
+| From Stop                              | To Stop                             | Iterations | Java Elapsed Time (ms) | C++ Elapsed Time (ms) | Average Difference (ms) | Average Difference (%) |
+|----------------------------------------|-------------------------------------|------------|------------------------|-----------------------|-------------------------|------------------------|
+| 8589640 (St. Gallen, Vonwil)           | 8579885 (Mels, Bahnhof)             | 100        | 13                     | 19                    | -6                      | -31.6%                 |
+| 8574563 (Maienfeld, Bahnhof)           | 8587276 (Biel/Bienne, Taubenloch)   | 100        | 55                     | 38                    | 17                      | 44.7%                  |
+| 8588524 (Sion, Hôpital Sud)            | 8508896 (Stans, Bahnhof)            | 100        | 45                     | 20                    | 25                      | 125.0%                 |
+| 8510709 (Lugano, Via Domenico Fontana) | 8579255 (Lausanne, Pont-de-Chailly) | 100        | 46                     | 29                    | 17                      | 58.6%                  |
+| 8574848 (Davos Dorf, Bahnhof)          | 8576079 (Rapperswil SG, Sonnenhof)  | 100        | 12                     | 15                    | -3                      | -20.0%                 |
+
+**Summary of Average Differences**
 
 The "Difference (ms)" column reflects the absolute time difference in milliseconds between Java and C++ for each routing
 request. A negative value indicates that Java was faster than C++, while a positive value shows that C++ performed
@@ -350,11 +415,13 @@ Initially, we explored the possibility of calling the C++ RAPTOR implementation 
 Memory (FFM) API. However, we faced significant challenges due to the complexity of mapping intricate data structures
 between C++ and Java. Ultimately, we decided against this approach.
 
-The FFM API was not well-suited for our application. Sending routing requests from Java to C++ required C++ to operate
-on a memory layout for the schedule built in Java. Since Java would be the only active application, rebuilding the
-schedule from files in C++ for each request proved to be inefficient. A more effective solution would have involved
-implementing a C++ service that Java could call for routing needs. The FFM API is better suited for replacing complex
-functions rather than managing entire packages, making it unsuitable for our requirements.
+The FFM API (Foreign Function & Memory) was not well suited for our application. To send routing requests from Java to
+C++, C++ had to interact with a memory structure created in Java, which would have been very complex to implement. Since
+Java was the primary application, the alternative would have been to recreate the schedule for each request from files
+in C++, which would have been extremely inefficient.
+A more effective approach would have been to implement a special C++ service that Java could call to forward tasks.
+While the FFM API is useful for certain types of function substitutions, it was not designed to manage the larger,
+integrated workflows we needed and was therefore unsuitable for our use case.
 
 ### Example implementation for using the FFM API and C / C++
 

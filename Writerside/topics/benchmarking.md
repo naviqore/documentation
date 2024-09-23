@@ -152,4 +152,8 @@ the typical user and the specific transit network being routed, to ensure optima
 
 ## C++ Benchmarking
 
-TODO: Comparison with Java Simple Raptor
+The performance benchmarking of the C++ implementation is detailed in the following section, where it is compared
+directly to the Java version for a clearer evaluation of their relative efficiency.
+
+[Conclusion - JAVA vs C++ Performance](raptor-xx.md#conclusion)
+
