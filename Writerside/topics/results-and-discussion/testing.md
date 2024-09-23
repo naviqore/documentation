@@ -8,10 +8,11 @@ instance must be started using Docker Compose. We acknowledge that the boundary 
 be blurred, but we have chosen to categorize these as integration tests rather than introducing a third test category.
 It is important that unit tests and integration tests can be executed in distinct phases.
 
-We did not prioritize achieving the highest possible line coverage. Instead, we used this metric as a guiding tool
-during development. The focus was on testing the most relevant and complex features. During the review process,
-reviewers were required to check the code against the [Code Style Guide](code-style-guide.md), which also included
-ensuring that new or modified components were properly tested.
+We prioritized testing the most relevant and complex features over simply achieving high line coverage. A core principle
+during development was that no new or modified features should be implemented without corresponding tests. Writing tests
+after implementation was discouraged, as testing was considered an integral part of the development process. During code
+reviews, ensuring proper testing of new or modified components was a mandatory part of the review process, as outlined
+in the [Code Style Guide](code-style-guide.md).
 
 ## Setup
 
@@ -34,8 +35,11 @@ inline comments and documentation (such as Javadoc or docstrings). Test coverage
 |----------------------------|----------|-------------------------------------------------------------------------------------|---------|------------------------|----------------------------|---------------|
 | **public-transit-service** | Java     | Public transit schedule and routing service based on GTFS data and RAPTOR algorithm | 751     | 12'116 *(5'662)*       | 569 *(51)*                 | 86%           |
 | **public-transit-client**  | Python   | Client to access the public transit service API endpoints.                          | 72      | 822 *(419)*            | 23 *(15)*                  | 80%           |
-| **public-transit-viewer**  | Python   | Viewer to interact with the public transit service.                                 | 125     | 1'007 *(21)*           | 1 *(1)*                    | 0%            |
+| **public-transit-viewer**  | Python   | Viewer to interact with the public transit service.                                 | 125     | 1'007 *(21)*           | 1 *(1)*                    | -             |
 | **raptorxx**               | C++      | Implementation of the RAPTOR algorithm in C++ for benchmarking.                     | 264     | 9'164 *(1'018)*        | TODO                       | TODO          |
+
+**Note:** The integration test coverage of the *public-transit-viewer* cannot be measured because Streamlit runs in a
+separate subprocess, preventing Pytest from tracking the executed lines.
 
 Since the focus of this thesis is on the RAPTOR algorithm, the service received the most testing attention. The viewer,
 primarily developed for demonstration purposes, has only one integration test to verify the application can boot, but
