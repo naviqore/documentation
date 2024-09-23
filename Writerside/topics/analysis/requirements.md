@@ -17,7 +17,7 @@ Component:
 - `RO`: Routing
 - `VW`: Viewer
 
-Priority:0
+Priority:
 
 - `M`: Must-have
 - `S`: Should-have
@@ -70,18 +70,18 @@ Requirement ID = `{TYPE}-{COMPONENT}-{PRIORITY}{NUMBER}`
 | ID             | Done | Description                                                                                                                                                                                                                                       |
 |----------------|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **UC-SE-N1**   | ❌    | Implement user accounts with login, which allows saving favorite connections in a database.                                                                                                                                                       |
-| **NF-SE-N1**   | ❌    | Store the parsed static GTFS schedule and built Raptor data structures with a validity timestamp to a common storage (mounted volume or database), which is used by new instances of the service when started, instead of parsing the GTFS again. |
+| **NF-SE-N1**   | ❌    | Store the parsed static GTFS schedule and built RAPTOR data structures with a validity timestamp to a common storage (mounted volume or database), which is used by new instances of the service when started, instead of parsing the GTFS again. |
 | **NF-SE-N2**   | ✔️   | The service should be horizontally scalable.                                                                                                                                                                                                      |
 | **NF-SE-N3**   | (✔)  | Deployment of public transit service in a cloud environment.                                                                                                                                                                                      |
-| **UC-SC-N1**   | ❌    | Read the optional fares from the GTFS static schedule and make them available to Raptor.                                                                                                                                                          |
+| **UC-SC-N1**   | ❌    | Read the optional fares from the GTFS static schedule and make them available to RAPTOR.                                                                                                                                                          |
 | **UC-RO-N1**   | ❌    | Implementation of the footpath routing interface with a graph-based routing algorithm (e.g. A*Star or A* Landmark), that uses a network read from OpenStreetMap data (e.g. from Geofabrik).                                                       |
-| **UC-RO-N2**   | ❌    | Supports efficient matrix route queries, and Raptor can potentially be optimized for this.                                                                                                                                                        |
+| **UC-RO-N2**   | ❌    | Supports efficient matrix route queries, and RAPTOR can potentially be optimized for this.                                                                                                                                                        |
 | **UC-RO-N3**   | ❌    | Implement multi-criteria queries (mcRAPTOR) to find the cheapest connections based on fares.                                                                                                                                                      |
 | **UC-RO-N4**   | ✔️   | Supports availability and bike information in connection queries.                                                                                                                                                                                 |
 | **UC-VW-N1**   | (✔)  | A more sophisticated user interface.                                                                                                                                                                                                              |
 | **UC-VW-N1.1** | ❌    | Explore and visualize the GTFS schedule.                                                                                                                                                                                                          |
 | **UC-VW-N1.2** | ❌    | Visualize the estimated vehicle positions from the GTFS realtime feed.                                                                                                                                                                            |
 | **UC-VW-N1.3** | ❌    | Display lines with departure times at selected stations.                                                                                                                                                                                          |
-| **UC-VW-N1.4** | ✔️   | Query connections using the Raptor-Router and display the results on a map.                                                                                                                                                                       |
+| **UC-VW-N1.4** | ✔️   | Query connections using the RAPTOR router and display the results on a map.                                                                                                                                                                       |
 | **UC-VW-N1.5** | ✔️   | Query reachability from a station within a given time budget.                                                                                                                                                                                     |
-| **UC-VW-N1.6** | ❌    | Provide an option to visualize the functioning of the Raptor algorithm by visualizing the Raptor rounds until the target stop is reached.                                                                                                         |
+| **UC-VW-N1.6** | ❌    | Provide an option to visualize the functioning of the RAPTOR algorithm by visualizing the RAPTOR rounds until the target stop is reached.                                                                                                         |

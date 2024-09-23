@@ -1,3 +1,0 @@
-# GTFS Schedule
-
-Start typing here...

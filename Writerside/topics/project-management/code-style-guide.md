@@ -8,12 +8,15 @@
 - Follow the SOLID principles to structure the code (classes).
 - Adhere to the DRY (Don't Repeat Yourself) principle.
 - Avoid magic numbers or literals; use constants instead.
+- All code changes must include corresponding unit or integration tests.
+- Focus on testing the most relevant and complex features rather than achieving high line coverage.
+- Test early and often, writing tests after implementation should be avoided whenever possible.
 
 ## Java
 
 - Use the formatter defined for IntelliJ.
 - Utilize Maven as the build tool and for dependency management.
-- Avoid boilerplate code by using Lombok to generate getters, setters, and constructors.
+- Avoid boilerplate code by using Lombok [9] to generate getters, setters, and constructors.
 - Add spaces after class definitions and before return statements if a method has more than three statements. Use spaces
   to clarify blocks that belong together (e.g., before if-control flow statements).
 - Group imports into packages after five classes from the same package.
@@ -39,7 +42,7 @@ public class ExampleService {
 }
 ```
 
-## Documentation
+### Documentation
 
 - Document only non-obvious public members with Javadoc (e.g., do not document getters or setters).
 - Ensure non-obvious public members are well documented.
@@ -80,7 +83,10 @@ public class ExampleServiceTest {
 
 ## C++
 
-TODO...
+- Use GoogleTest as the testing framework.
+- Test case names should be descriptive and follow the pattern `TestedFunction_ExpectedBehavior`.
+- Group thematically related test cases using test suites.
+- Mock dependencies using GoogleMock where applicable.
 
 ## Python
 

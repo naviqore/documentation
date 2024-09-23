@@ -8,8 +8,8 @@ The interim review checks whether each team is on track with their software proj
 
 > Have the main risks been resolved?
 
-- A minimal version of the Raptor algorithm has been implemented and is running.
-- The GTFS schedule format is parsed is convertable to the data structure by raptor.
+- A minimal version of the RAPTOR algorithm has been implemented and is running.
+- The GTFS schedule format is parsed is convertable to the data structure by RAPTOR.
 - A REST API for the Public Transit Service is designed in the OpenAPI Specification v3.
 - A test project for the JNI integration with calls from Java to C++ is working.
 - the library is built in a CI/CD pipeline on windows and linux.
@@ -22,7 +22,7 @@ The interim review checks whether each team is on track with their software proj
 
 - The software development process is defined and the time outline of the project is planned. The team members have
   planned their resources, see [schedule section](outline.md).
-- Focus is set on the Public Transit Service and its core components (gtfs schedule, raptor algorithm and
+- Focus is set on the Public Transit Service and its core components (gtfs schedule, RAPTOR algorithm and
   converter).
 - A user interface of the service is to be initially realized for demo purposes. If towards the end of the project
   there are more resources left, it will be extended accordingly, see *nice-to-have* requirements.

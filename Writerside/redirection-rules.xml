@@ -86,4 +86,8 @@
         <description>Created after removal of "Trip Mask Provider" from Naviqore</description>
         <accepts>trip-mask-provider.html</accepts>
     </rule>
+    <rule id="40cf88d">
+        <description>Created after removal of "Activity Diagram" from Naviqore</description>
+        <accepts>activity-diagram.html</accepts>
+    </rule>
 </rules>
