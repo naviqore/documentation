@@ -80,6 +80,13 @@ public class ExampleServiceTest {
 
 ## C++
 
+Following section outlines the C++ coding guideline focusing on formatting, naming conventions, and testing
+practices. The code example demonstrates how to implement and test a simple Example class.
+
+**Formatting**
+Always adhere to the project's defined code formatting. You should use the .clang-format file to
+enforce consistent styling across the codebase.
+
 - Use the formatter defined in the .clang-format file.
     - example
   ```yaml
