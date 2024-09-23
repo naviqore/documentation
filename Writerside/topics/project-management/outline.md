@@ -6,6 +6,7 @@
 gantt
     title Naviqore Project Outline
     dateFormat YYYY-MM-DD
+    todayMarker off
     section Setup
         Literature Review: literature, 2024-04-01, 30d
         Kick-Off (on Site): milestone, kickoff, 2024-04-05, 0d
