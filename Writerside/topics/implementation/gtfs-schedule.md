@@ -2,14 +2,14 @@
 
 In the public transit service, only GTFS schedule data is utilized, which provides static transit service information
 for a specified validity period, without incorporating GTFS realtime data. The GTFS reader class processes all required
-files and fields, as well as some conditionally required fields (such as transfers, bike, and accessibility
-information). The reader scans the corresponding CSV files and, in order to minimize memory usage, calls
-the `GtfsScheduleParser` to parse each record on the fly. The parser converts the string values from the CSV file into
-the appropriate data types and passes them to the `GtfsScheduleBuilder`, which constructs a valid `GtfsSchedule`.
+files and fields, as well as some optional fields (accessibility) and optional files (transfers). The reader scans the
+corresponding CSV files and, in order to minimize memory usage, calls the `GtfsScheduleParser` to parse each record on
+the fly. The parser converts the string values from the CSV file into the appropriate data types and passes them to
+the `GtfsScheduleBuilder`, which constructs a valid `GtfsSchedule`.
 
 ```plantuml
 @startuml
-package naviqore.gtfs.schedule {
+package gtfs.schedule {
     class GtfsScheduleReader {
         +read(String path): GtfsSchedule
     }
@@ -26,7 +26,7 @@ package naviqore.gtfs.schedule {
     }
 }
 
-package naviqore.gtfs.schedule.model {
+package gtfs.schedule.model {
     class GtfsSchedule {
     }
     class GtfsScheduleBuilder {
@@ -34,11 +34,11 @@ package naviqore.gtfs.schedule.model {
     }
 }
 
-package naviqore.gtfs.schedule.type {
+package gtfs.schedule.type {
     class ServiceDayTime
    }
 
-package naviqore.utils.cache {
+package utils.cache {
     class ValueObjectCache
 }
 
@@ -54,10 +54,10 @@ GtfsSchedule -> ServiceDayTime: uses
 ```
 
 The `GtfsScheduleBuilder` applies the **fail-fast principle**, ensuring that it only accepts valid inputs, and will fail
-immediately if any invalid data is encountered. Error handling is delegated to the `GtfsScheduleParser`, which catches
-and logs any errors, such as malformed data, during the parsing process. This guarantees that the builder only receives
-valid data. As a result, by the time the GTFS data is fully processed, the system can confidently expect a valid GTFS
-schedule to be stored in memory.
+immediately if any invalid or missing data is encountered. Error handling is delegated to the `GtfsScheduleParser`,
+which catches and logs any errors, such as malformed data, during the parsing process. This guarantees that the builder
+only receives valid data. As a result, by the time the GTFS data is fully processed, the system can confidently expect a
+valid GTFS schedule to be stored in memory.
 
 Since no changes are expected after reading the GTFS schedule data, the data is sorted and transformed into immutable
 data structures. This means that the various collections in the `GtfsSchedule` class, such as `ArrayLists`, are trimmed
