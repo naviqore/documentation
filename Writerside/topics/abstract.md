@@ -36,10 +36,10 @@ We would like to express our sincere gratitude to our supervisor, Thomas Letsch,
 feedback, and continuous support throughout this project. His expertise and encouragement were instrumental in shaping
 the direction of our work.
 
-Additionally, we extend our thanks to the Eastern Switzerland University of Applied Sciences for providing us with the
-resources and learning environment that made this project possible. We also want to acknowledge the open-source
-community, whose contributions to the development of tools and libraries played a significant role in the success of our
-project.
+Additionally, we extend our thanks to the Eastern Switzerland University of Applied Sciences and its dedicated lecturers
+for providing us with the resources and learning environment that made this project possible. We also want to
+acknowledge the open-source community, whose contributions to the development of tools and libraries played a
+significant role in the success of our project.
 
 Finally, we are deeply grateful to our friends and families for their unwavering support and understanding during the
 long hours and late nights spent on this thesis. Without their patience and encouragement, this work would not have been
