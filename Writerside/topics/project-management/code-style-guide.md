@@ -8,6 +8,9 @@
 - Follow the SOLID principles to structure the code (classes).
 - Adhere to the DRY (Don't Repeat Yourself) principle.
 - Avoid magic numbers or literals; use constants instead.
+- All code changes must include corresponding unit or integration tests.
+- Focus on testing the most relevant and complex features rather than achieving high line coverage.
+- Test early and often, writing tests after implementation should be avoided whenever possible.
 
 ## Java
 
@@ -39,7 +42,7 @@ public class ExampleService {
 }
 ```
 
-## Documentation
+### Documentation
 
 - Document only non-obvious public members with Javadoc (e.g., do not document getters or setters).
 - Ensure non-obvious public members are well documented.
@@ -80,7 +83,10 @@ public class ExampleServiceTest {
 
 ## C++
 
-TODO...
+- Use GoogleTest as the testing framework.
+- Test case names should be descriptive and follow the pattern `TestedFunction_ExpectedBehavior`.
+- Group thematically related test cases using test suites.
+- Mock dependencies using GoogleMock where applicable.
 
 ## Python
 

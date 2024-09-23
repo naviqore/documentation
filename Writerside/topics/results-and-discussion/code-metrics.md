@@ -1,3 +1,0 @@
-# Code Metrics
-
-TODO: Table here with: Lines of code, tests, coverage, language...
