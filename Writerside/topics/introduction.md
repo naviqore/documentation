@@ -8,8 +8,8 @@ routing and explores innovative approaches to address these challenges.
 ## Motivation
 
 This thesis is driven by several key challenges in public transit routing. In recent years, many public transit agencies
-have begun publishing their schedules using the General Transit Feed Specification (GTFS) format as open data \cite{ref:
-gtfs}. Maintaining accurate public transit schedules is a resource-intensive task. The sheer volume and complexity of
+have begun publishing their schedules using the General Transit Feed Specification (GTFS) format as open data [3].
+Maintaining accurate public transit schedules is a resource-intensive task. The sheer volume and complexity of
 GTFS data present significant challenges for developing efficient data structures and processing methodologies.
 
 Public transit routing is inherently complex due to the time-dependent nature of transit networks. Transit schedules
