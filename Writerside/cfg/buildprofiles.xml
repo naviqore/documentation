@@ -6,7 +6,7 @@
     <build-profile instance="d">
         <variables>
             <custom-favicons>favicon/favicon.ico</custom-favicons>
-            <header-logo>favicon/android-chrome-512x512.png</header-logo>
+            <header-logo>favicon/naviqore-logo-round-no-border.png</header-logo>
             <noindex-content>false</noindex-content>
         </variables>
     </build-profile>
