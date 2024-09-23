@@ -21,6 +21,8 @@ demonstration and debugging purposes. The viewer is published as image on
 the [GitHub Container Registry](https://github.com/naviqore/public-transit-viewer/pkgs/container/public-transit-viewer)
 for easy deployment.
 
+![Viewer: Connections and Isolines](public_transit_viewer.png)
+
 While Streamlit allowed us to rapidly develop the application, its limited potential for customization and linear,
 non-modular code structure makes it less ideal for a fully custom, branded frontend. For projects requiring a more
 powerful and customizable user interface, we would recommend using a JavaScript framework. However, given the objectives
