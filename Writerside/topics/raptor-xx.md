@@ -65,11 +65,10 @@ macOS. This requires conditional compilation and platform-specific code to handl
 to the project.
 
 Additionally, the C++ Standard Library (STL), while powerful, does not offer built-in support for many common tasks,
-such as logging or CSV parsing. In contrast, Java's comprehensive standard library offers out-of-the-box solutions (
-e.g., `java.util.logging` and `java.nio.file`). In C++, developers often need to rely on third-party libraries like
-`spdlog` for logging or `csv-parser` for file handling, further complicating development. Furthermore, C++ compilers do
-not universally support all C++20 features, requiring careful attention to compatibility issues for seamless
-cross-platform development.
+such as logging or CSV parsing. In contrast, Java's comprehensive standard library offers out-of-the-box solutions. In
+C++, developers often need to rely on third-party libraries like`spdlog` for logging or `csv-parser` for file handling,
+further complicating development. Furthermore, C++ compilers do not universally support all C++20 features, requiring
+careful attention to compatibility issues for seamless cross-platform development.
 
 ![https://en.cppreference.com/w/cpp/compiler_support/20](compiler_support.png)(compiler_support.png){width="650"}
 
