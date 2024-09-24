@@ -166,5 +166,5 @@ the RAPTOR engine, and post-processes the results by adding walking segments and
 user-friendly routing information.
 
 **Note:** Since we also support routing based on the latest departure, which involves routing backwards in time, we use
-the terms "source" and "target" stop in the code. However, in this explanation, we use the more traditional terms "
-origin" and "destination" for clarity.
+the terms "source" and "target" stop in the code. However, in this explanation, we use the more common terms "origin"
+and "destination" for clarity.
