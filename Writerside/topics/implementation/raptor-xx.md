@@ -1,10 +1,10 @@
-# Simple C++ RAPTOR Implementation
+# RAPTOR++
 
 This section discusses the design, implementation, and optimization of a public transport routing system, developed
 using modern C++20/C++23 standards. The project incorporates advanced data structures and algorithms to enable
 efficient route planning, with an emphasis on cross-platform compatibility and robust build configurations via CMake.
 
-The C++ implementation is heavily inspired by the [Simple Raptor](simple-raptor.md "Simple RAPTOR Implementation") and
+The C++ implementation is heavily inspired by the [Simple RAPTOR](simple-raptor.md) and
 utilizes modern C++ features. This section focuses on the C++ implementation, detailing the key components and
 challenges encountered during development.
 
@@ -49,7 +49,7 @@ using the new C++ module system, limited compiler support (primarily from MSVC o
 
 ### Challenges of Implementing in C++
 
-The implementation of Raptor in C++ was aimed at leveraging the language's potential for superior performance compared
+The implementation of RAPTOR in C++ was aimed at leveraging the language's potential for superior performance compared
 to Java. However, this endeavor turned out to be more challenging than initially expected, particularly because of
 Java's highly optimized Java Virtual Machine (JVM), which often provides excellent performance through Just-In-Time (
 JIT) compilation and other built-in optimization strategies. While C++ offers more granular control over system
@@ -124,7 +124,7 @@ builds are all more challenging in C++ than in Java. Additionally, the time and 
 performance advantages can outweigh the potential gains, especially given Java's highly optimized JVM, which often
 delivers comparable or better performance in many real-world scenarios. Ultimately, while C++ has its strengths, the
 ease of development and robust tooling in Java make it a more practical choice for many applications, including
-the "Raptor Algorithm".
+the "RAPTOR Algorithm".
 
 Further results on the comparison of the C++ implementation to Java can be found at the following reference.
 
