@@ -359,8 +359,8 @@ The Visual Studio Diagnostic Tools were utilized to analyze and optimize the per
 ## Foreign Function and Memory (FFM) API
 
 Initially, we explored the possibility of calling the C++ RAPTOR implementation from Java using the Foreign Function and
-Memory (FFM) API. However, we faced significant challenges due to the complexity of mapping intricate data structures
-between C++ and Java. Ultimately, we decided against this approach.
+Memory (FFM) API [7]. However, we faced significant challenges due to the complexity of mapping intricate data
+structures between C++ and Java. Ultimately, we decided against this approach.
 
 The FFM API (Foreign Function & Memory) was not well suited for our application. To send routing requests from Java to
 C++, C++ had to interact with a memory structure created in Java, which would have been very complex to implement. Since
