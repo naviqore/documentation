@@ -362,13 +362,13 @@ Initially, we explored the possibility of calling the C++ RAPTOR implementation 
 Memory (FFM) API [7]. However, we faced significant challenges due to the complexity of mapping intricate data
 structures between C++ and Java. Ultimately, we decided against this approach.
 
-The FFM API (Foreign Function & Memory) was not well suited for our application. To send routing requests from Java to
-C++, C++ had to interact with a memory structure created in Java, which would have been very complex to implement. Since
-Java was the primary application, the alternative would have been to recreate the schedule for each request from files
-in C++, which would have been extremely inefficient.
-A more effective approach would have been to implement a special C++ service that Java could call to forward tasks.
-While the FFM API is useful for certain types of function substitutions, it was not designed to manage the larger,
-integrated workflows we needed and was therefore unsuitable for our use case.
+The FFM API (Foreign Function & Memory) was not well suited for our application. Sending routing requests from Java to
+C++ required C++ to interact with a memory structure created in Java, which would have been highly complex to implement.
+Since Java was the primary application, the alternative would have been to recreate the schedule for each request from
+files in C++, which would have been extremely inefficient. A more effective approach would have been to implement a
+special C++ service that Java could call to forward tasks. While the FFM API is useful for certain types of function
+substitutions, it was not designed to manage the larger, integrated workflows we needed and was therefore unsuitable for
+our use case.
 
 ### Example implementation for using the FFM API and C / C++
 
