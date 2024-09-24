@@ -15,6 +15,8 @@ the `ConnectionRoutingService` interfaces.
 
 ```plantuml
 @startuml
+set namespaceSeparator none
+
 package service {
     interface PublicTransitService {
     }
@@ -22,21 +24,29 @@ package service {
     }
     interface ConnectionRoutingService {
     }
+    
+    package walk {
+       interface WalkCalculator {
+       }
+       class BeeLineWalkCalculator {
+       }
+   }
+   
+   package gtfs.raptor {
+       class GtfsRaptorService {
+       }
+       package convert {
+          class GtfsToRaptorConverter {
+          }
+          class GtfsRoutePartitioner {
+          }
+          class GtfsTripMaskProvider {
+          }
+      }
+   }
 }
 
-package service.walk {
-    interface WalkCalculator {
-    }
-    class BeeLineWalkCalculator {
-    }
-}
-
-package service.gtfs.raptor {
-    class GtfsRaptorService {
-    }
-}
-
-package gtfs.schedule.model {
+package "gtfs.schedule.model" {
     class GtfsSchedule {
     }
 }
@@ -44,29 +54,32 @@ package gtfs.schedule.model {
 package raptor {
     interface RaptorAlgorithm {
     }
+    
+    package router {
+       class RaptorRouter {
+       }
+       class StopTimeProvider {
+       }
+       interface RaptorTripMaskProvider {
+       }
+   }
 }
 
-package raptor.router {
-    class RaptorRouter {
-    }
-}
 
-package service.gtfs.raptor.convert {
-    class GtfsToRaptorConverter {
-    }
-    class GtfsRoutePartitioner {
-    }
-}
 
 PublicTransitService <|... GtfsRaptorService: <<implements>>
 PublicTransitService --|> ScheduleInformationService: <<extends>>
 PublicTransitService --|> ConnectionRoutingService: <<extends>>
 
-GtfsRaptorService --> GtfsToRaptorConverter : uses
 GtfsRaptorService *- WalkCalculator : has
+RaptorRouter *- StopTimeProvider : has
+StopTimeProvider *-- RaptorTripMaskProvider : has
 GtfsRaptorService *- GtfsSchedule : has
 GtfsRaptorService *-- RaptorAlgorithm : has
+GtfsRaptorService --> GtfsToRaptorConverter : uses
 GtfsRaptorService --> GtfsRoutePartitioner : uses
+GtfsRaptorService --> GtfsTripMaskProvider : uses
+RaptorTripMaskProvider <|.. GtfsTripMaskProvider: <<implements>>
 WalkCalculator <|.. BeeLineWalkCalculator: <<implements>>
 RaptorAlgorithm <|.. RaptorRouter: <<implements>>
 @enduml
