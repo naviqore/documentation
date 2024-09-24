@@ -9,7 +9,34 @@ using the current GTFS data for the whole of Switzerland and the results where c
 allowed to track the performance of our algorithm during development. The machine used for the benchmark meets the
 requirements outlined in **NF-RO-M2**.
 
-### Cache Locality
+![v1.0.0 - Benchmark Results](2024_09_17_benchmark_lenovo.png)
+
+The benchmark results are visualized in nine plots. Processing time is shown to increase with both the number of
+transfers and the number of connection results, with median times remaining under 100 ms for most cases. The histogram
+of processing times reveals a mean of 48 ms and a median of 50 ms per request, confirming efficient connection
+query handling. Scatter plots show a positive correlation between processing time and both beeline distance and
+connection duration. Most queries involve 1–2 transfers (80%), and departure time accuracy is high, with minimal
+deviation between requested and actual times.
+
+In regular use, on a large public transit schedule dataset on an average machine, the router performs efficiently and
+fully satisfies the requirements **UC-SE-M3** (*Efficiently request connections between two stops,in mean <250ms.*)
+and **NF-SE-M1** (*The complete service for Switzerland must be able to run on a standard machine with 8 cores and 16GB
+of RAM.*)
+
+When comparing our system to the RAPTOR implementation (*SwissRailRaptor*) by Rieser et al. [10], we found that our
+router performed comparably well, though slightly slower when tested on Switzerland's national public transit schedule.
+This performance trade-off is acceptable, given that our system is designed for real-world applications, such as
+handling diverse service days, accessibility information, multi-day trips, and latest-departure routing. In contrast,
+*SwissRailRaptor* is optimized for simulation efficiency within the MATSim framework.
+
+As specified in **NF-RO-M1**, more than five connections were manually validated using the SBB app as a reference. There
+were generally no discrepancies, and when differences did occur, they were attributable to service configuration
+settings, such as minimum transfer times or maximum walking distances. Requirement **UC-RO-M2** is also fulfilled, as
+all compared connection results are Pareto-optimal.
+
+### Performance Improvements
+
+#### Cache Locality
 
 When iterating over the stop times in the route scanner of the RAPTOR algorithm, the router needs to access a large
 number of integer values sequentially to determine whether a transfer to another trip from the currently active trip is
@@ -30,7 +57,7 @@ departure times now requires knowledge of the array structure to compute the cor
 
 TODO: Add performance increase numbers.
 
-### Hashset vs. Boolean Mask Array
+#### Hashset vs. Boolean Mask Array
 
 During profiling of connection requests, it was discovered that approximately 25% of the CPU time per routing request
 was consumed by inserting new stops into the marked stops hashset in the main loop of the RAPTOR router. Since the set
@@ -40,27 +67,6 @@ to inefficiencies. However, attempts to optimize the hash function did not resul
 To address this, we replaced the hashset with a boolean array, where each index corresponds to a stop, and stops to be
 scanned in the next round are flagged as true. This improved performance considerably, reducing the time per request
 from 76ms to 48ms, a 37% performance improvement, on the GTFS dataset for Switzerland.
-
-### v1.0.0
-
-The benchmark results are visualized in nine plots. Processing time is shown to increase with both the number of
-transfers and the number of connection results, with median times remaining under 100 ms for most cases. The histogram
-of processing times reveals a mean of 48 ms and a median of 50 ms per request, confirming efficient connection
-query handling. Scatter plots show a positive correlation between processing time and both beeline distance and
-connection duration. Most queries involve 1–2 transfers (80%), and departure time accuracy is high, with minimal
-deviation between requested and actual times.
-
-![v1.0.0 - Benchmark Results](2024_09_17_benchmark_lenovo.png)
-
-In regular use, on a large public transit schedule dataset on an average machine, the router performs efficiently and
-fully satisfies the requirements **UC-SE-M3** (*Efficiently request connections between two stops,in mean <250ms.*)
-and **NF-SE-M1** (*The complete service for Switzerland must be able to run on a standard machine with 8 cores and 16GB
-of RAM.*)
-
-As specified in **NF-RO-M1**, more than five connections were manually validated using the SBB app as a reference. There
-were generally no discrepancies, and when differences did occur, they were attributable to service configuration
-settings, such as minimum transfer times or maximum walking distances. Requirement **UC-RO-M2** is also fulfilled, as
-all compared connection results are Pareto-optimal.
 
 ## Raptor Versions for Comparison
 
@@ -182,6 +188,64 @@ less pronounced in an urban network with high-frequency service.
 Therefore, when configuring the RAPTOR algorithm, it's important to select parameters based on the characteristics of
 the typical user and the specific transit network being routed, to ensure optimal performance.
 
-## C++ Benchmarking
+## CPP Benchmarking
 
-TODO: Comparison with Java Simple Raptor
+The performance benchmarking of the C++ implementation is detailed in the following section, where it is compared
+directly to the Java version for a clearer evaluation of their relative efficiency.
+
+### JAVA vs C++ Performance
+
+In our development of the public transit routing system Raptor, we aimed to leverage the performance advantages of
+C++. However, our analysis indicated that while C++ is indeed faster in several cases, Java's performance is
+impressively close. The Java Virtual Machine (JVM) optimizations, along with its automatic memory management and
+just-in-time compilation, enabled Java to execute routing requests with competitive efficiency.
+
+The testing results showed that C++ performed better in many scenarios, often demonstrating lower elapsed times.
+However, Java consistently delivered strong performance, falling just short in a few cases. This indicates that,
+although C++ can offer high performance with fine-grained control over system resources, achieving that performance
+requires careful management of various factors, such as memory allocation and data structure handling.
+
+Additionally, potential inefficiencies or errors in the C++ implementation can affect overall performance. The
+challenges of adapting the C++ code to align with Java's memory layout further complicate the process.
+
+Ultimately, while C++ presents a powerful option for high-performance applications, Java's optimizations and robust
+ecosystem often provide a more practical and reliable solution for our routing needs. This highlights that sometimes
+high-level abstractions can lead to results that are not only competitive in speed but also more manageable in terms of
+development and maintenance.
+
+### System Specifications
+
+The following table summarizes the key specifications of the machine used for testing the performance of Java and C++
+implementations of Raptor. The tests were conducted on a high-performance Windows laptop designed for heavy
+computational tasks, ensuring a robust environment for comparing the performance of both languages.
+
+| Specification                 | Details                                 |
+|-------------------------------|-----------------------------------------|
+| **Operating System**          | Microsoft Windows 11 Pro                |
+| **System Model**              | HP ZBook Studio x360 G5                 |
+| **Processor**                 | Intel® Core™ i9-9980HK CPU @ 2.40GHz    |
+| **CPU Cores**                 | 8 physical cores                        |
+| **Logical Processors**        | 16 logical processors (Hyper-threading) |
+| **Installed Physical Memory** | 64.0 GB                                 |
+
+| From Stop                              | To Stop                             | Iterations | Java Elapsed Time (ms) | C++ Elapsed Time (ms) | Average Difference (ms) | Average Difference (%) |
+|----------------------------------------|-------------------------------------|------------|------------------------|-----------------------|-------------------------|------------------------|
+| 8589640 (St. Gallen, Vonwil)           | 8579885 (Mels, Bahnhof)             | 100        | 13                     | 19                    | -6                      | -31.6%                 |
+| 8574563 (Maienfeld, Bahnhof)           | 8587276 (Biel/Bienne, Taubenloch)   | 100        | 55                     | 38                    | 17                      | 44.7%                  |
+| 8588524 (Sion, Hôpital Sud)            | 8508896 (Stans, Bahnhof)            | 100        | 45                     | 20                    | 25                      | 125.0%                 |
+| 8510709 (Lugano, Via Domenico Fontana) | 8579255 (Lausanne, Pont-de-Chailly) | 100        | 46                     | 29                    | 17                      | 58.6%                  |
+| 8574848 (Davos Dorf, Bahnhof)          | 8576079 (Rapperswil SG, Sonnenhof)  | 100        | 12                     | 15                    | -3                      | -20.0%                 |
+
+**Summary of Average Differences**
+
+The "Difference (ms)" column reflects the absolute time difference in milliseconds between Java and C++ for each routing
+request. A negative value indicates that Java was faster than C++, while a positive value shows that C++ performed
+better.
+
+The "Difference (%)" column presents the percentage difference in performance between Java and C++. Positive percentages
+indicate that C++ performed better (was faster), while negative percentages indicate instances where Java was faster.
+
+```tex
+\frac{{\text{{Java Elapsed Time}} - \text{{C++ Elapsed Time}}}}{{\text{{Java Elapsed Time}}}} \times 100
+ ```
+
