@@ -18,10 +18,10 @@ team member also expanded their expertise in key areas such as data structures, 
 software architecture, making this project a valuable learning experience.
 
 However, there were areas for improvement. One notable challenge was the minimal overlap between the C++ and Java
-components, which led to reduced synergy during the development process. Additionally, the inconsistent implementation
-of GTFS by national transit agencies posed challenges, such as invalid ID references, mostly missing accessibility
-information, and incomplete transfer data between stops. The intense project schedule, with long hours spent coding
-during evenings and weekends, also placed considerable strain on the personal lives of the team members, highlighting a
+components, which led to reduced synergy during the development process. Additionally, the lack of optional GTFS
+components provided by national transit agencies, such as accessibility or bike information, along with incomplete
+transfer data between stops, posed further obstacles. The intense project schedule, with long hours spent coding during
+evenings and weekends, also placed considerable strain on the personal lives of the team members, highlighting a
 work-life balance issue.
 
 Looking to the future, several areas of potential development could further enhance the product. Introducing fare-based
