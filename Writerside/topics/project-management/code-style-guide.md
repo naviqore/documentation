@@ -8,9 +8,6 @@
 - Follow the SOLID principles to structure the code (classes).
 - Adhere to the DRY (Don't Repeat Yourself) principle.
 - Avoid magic numbers or literals; use constants instead.
-- All code changes must include corresponding unit or integration tests.
-- Focus on testing the most relevant and complex features rather than achieving high line coverage.
-- Test early and often, writing tests after implementation should be avoided whenever possible.
 
 ## Java
 
@@ -42,7 +39,7 @@ public class ExampleService {
 }
 ```
 
-### Documentation
+## Documentation
 
 - Document only non-obvious public members with Javadoc (e.g., do not document getters or setters).
 - Ensure non-obvious public members are well documented.
@@ -83,10 +80,98 @@ public class ExampleServiceTest {
 
 ## C++
 
-- Use GoogleTest as the testing framework.
-- Test case names should be descriptive and follow the pattern `TestedFunction_ExpectedBehavior`.
-- Group thematically related test cases using test suites.
-- Mock dependencies using GoogleMock where applicable.
+Following section outlines the C++ coding guideline focusing on formatting, naming conventions, and testing
+practices. The code example demonstrates how to implement and test a simple Example class.
+
+**Formatting**
+Always adhere to the project's defined code formatting. You should use the .clang-format file to
+enforce consistent styling across the codebase.
+
+- Use the formatter defined in the .clang-format file.
+    - example
+  ```yaml
+  Language: Cpp
+  AccessModifierOffset: -2
+  AlignAfterOpenBracket: Align
+  AlignConsecutiveAssignments: false
+  AlignConsecutiveDeclarations: false
+  AlignEscapedNewlines: Right
+  AlignOperands: true
+  BraceWrapping:
+    AfterClass: true
+    AfterControlStatement: true
+    AfterEnum: true
+    AfterFunction: false
+    AfterNamespace: false
+    AfterObjCDeclaration: false
+  ...
+  ```
+
+- Follow naming conventions: `camelCase` for methods, `UpperCamelCase` for classes, and `ALL_UPPER_CASE` for static
+  constants.
+
+```c++
+#include <string>
+#include <stdexcept>
+
+class Example {
+public:
+    explicit Example(const std::string& id) 
+    : id(id) {
+     if (this->id.empty()) {
+            throw std::invalid_argument("id must not be empty");
+        }
+    }
+
+    const std::string& getId() const { return id; }
+
+private:
+    std::string id;
+};
+```
+
+### Testing (Google Test)
+
+For testing, we use [Google Test](https://github.com/google/googletest).
+
+- Test cases should have descriptive names, starting with actions like.
+- Use the `TEST()` macro to define and name a test function.
+- When using a fixture, use `TEST_F()` instead of `TEST()` as it allows you to access objects and subroutines in the
+  test fixture.
+- Avoid underscores (_) in test case names, unless necessary for differentiation.
+- If possible create free methods, if necessary create classes (fixtures)
+
+```c++
+#include <gtest/gtest.h>
+#include "example.h" 
+
+// Test fixture for Example class
+class ExampleTest : public ::testing::Test {
+protected:
+    void SetUp() override {}
+
+    void TearDown() override {}
+};
+
+TEST_F(ExampleTest, shouldReturnIdWhenConstructedWithValidId) {
+    // Arrange
+    std::string validId = "valid_id";
+
+    // Act
+    Example example(validId);
+
+    // Assert
+    EXPECT_EQ(example.getId(), validId);
+}
+
+TEST_F(ExampleTest, shouldThrowWhenConstructedWithEmptyId) {
+    // Arrange
+    std::string emptyId = "";
+
+    // Act & Assert
+    EXPECT_THROW(Example example(emptyId), std::invalid_argument);
+}
+```
 
 ## Python
 
