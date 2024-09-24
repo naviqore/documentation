@@ -9,6 +9,8 @@ the `GtfsScheduleBuilder`, which constructs a valid `GtfsSchedule`.
 
 ```plantuml
 @startuml
+set namespaceSeparator none
+
 package gtfs.schedule {
     class GtfsScheduleReader {
         +read(String path): GtfsSchedule
@@ -24,19 +26,19 @@ package gtfs.schedule {
         +STOP_TIMES
         ...
     }
-}
-
-package gtfs.schedule.model {
-    class GtfsSchedule {
+    
+    package model {
+        class GtfsSchedule {
+        }
+        class GtfsScheduleBuilder {
+            +build(): GtfsSchedule
+        }
     }
-    class GtfsScheduleBuilder {
-        +build(): GtfsSchedule
+    
+    package type {
+        class ServiceDayTime
     }
 }
-
-package gtfs.schedule.type {
-    class ServiceDayTime
-   }
 
 package utils.cache {
     class ValueObjectCache
