@@ -175,4 +175,6 @@ Unfortunately, a setup like this sacrifices the stateless nature of the applicat
 arrays and the GTFS schedule could be stored in a database, encapsulating the state within the database rather than the
 application, allowing for stateless load balancing.
 
-TODO: Maybe move to results and discussion?
+TODO: Maybe move the section above to results and discussion?
+TODO: Modified / extended the algorithm to allow setting multiple source stops (with different source times) and target
+multiple target stops (with different handicaps)
