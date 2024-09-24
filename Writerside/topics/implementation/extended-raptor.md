@@ -68,11 +68,13 @@ Here's the simplified UML diagram for this design:
 
 ```plantuml
 @startuml
-package GTFS {
-    class GTFSSchedule
+set namespaceSeparator none
+
+package gtfs.schedule {
+    class GtfsSchedule
 }
 
-package RAPTOR {
+package raptor.router {
   class RaptorRouter {
     + routeEarliestArrival(...): List<Connection>
   }
@@ -90,12 +92,12 @@ package RAPTOR {
   RaptorRouter --> DayTripMask: "accesses"
 }
 
-package Service {
+package service.gtfs.raptor.convert {
   class GtfsTripMaskProvider
   GtfsTripMaskProvider ..|> TripMaskProvider: "<<implements>>"
 }
 
-Service o-- GTFS: has
+GtfsTripMaskProvider o-- GtfsSchedule: has
 @enduml
 ```
 
