@@ -132,8 +132,7 @@ However, RAPTOR requires that all trips associated with a route must have the ex
 is resolved by the `GtfsToRaptorConverter` by applying the `GtfsRoutePartitioner`, which splits GTFS routes into "
 sub-routes". These sub-routes group trips that share identical stop sequences, ensuring compatibility with RAPTOR’s
 routing model. During post-processing, when the routing results are returned to the user, the sub-routes are converted
-back into the original GTFS routes to maintain user-friendly responses (TODO: Where is this happening? in the RAPTOR or
-in the service?).
+back into the original GTFS routes to maintain user-friendly responses.
 
 ### Transfer Generation
 
