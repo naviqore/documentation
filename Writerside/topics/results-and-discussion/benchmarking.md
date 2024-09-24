@@ -55,8 +55,6 @@ array of integers allowed the CPU to efficiently utilize its cache. As a result,
 gain. However, this optimization came at the cost of some readability and maintainability, as accessing the arrival and
 departure times now requires knowledge of the array structure to compute the correct indices.
 
-TODO: Add performance increase numbers.
-
 #### Hashset vs. Boolean Mask Array
 
 During profiling of connection requests, it was discovered that approximately 25% of the CPU time per routing request

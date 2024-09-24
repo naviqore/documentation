@@ -176,7 +176,3 @@ stop time arrays, ensuring that the application can run efficiently without exce
 Unfortunately, a setup like this sacrifices the stateless nature of the application. To account for this, the stop time
 arrays and the GTFS schedule could be stored in a database, encapsulating the state within the database rather than the
 application, allowing for stateless load balancing.
-
-TODO: Maybe move the section above to results and discussion?
-TODO: Modified / extended the algorithm to allow setting multiple source stops (with different source times) and target
-multiple target stops (with different handicaps)

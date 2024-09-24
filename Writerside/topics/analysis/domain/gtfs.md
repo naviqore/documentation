@@ -1,89 +1,32 @@
 # GTFS
 
-GTFS, or General Transit Feed Specification, is a standardized data format used for sharing public transportation
+General Transit Feed Specification (GTFS), is a standardized data format used for sharing public transportation
 schedules and related geographic information. It was originally developed by Google in partnership with the public
-transportation agency TriMet, to enable public transit agencies to publish their data in a format
-that is easily consumed by applications like Google Maps, making public transit data more accessible and useful for
-riders.
+transportation agency TriMet, to enable public transit agencies to publish their data in a format that is easily
+consumed by applications like Google Maps, making public transit data more accessible and useful for riders.
 
-#### Key Components of GTFS
+## Key Components of GTFS
 
-GTFS consists of a series of text files collected in a ZIP archive. Each file contains specific types of information
-about the transit system, and these files are typically:
+GTFS consists of a series of text files stored in a ZIP archive, each containing specific information about different
+aspects of a public transit network. These files define various entities, such as **stops.txt** for station locations, *
+*routes.txt** for transit routes, and **trips.txt** for individual trips along those routes. Figure 1 presents the
+domain model for GTFS files provided by the Open Data Platform Mobility Switzerland [1], illustrating how the fields in
+each file interact to form a cohesive public transport network. While this example does not cover all GTFS files or
+fields, it offers a clear overview of the most essential components. For a complete list of GTFS files and their fields,
+refer to the official GTFS reference [2].
 
-**agency.txt**:
-Contains information about the transit agencies responsible for the data, including the agency name, URL,
-and timezone.
+## Usage of GTFS
 
-**stops.txt**:
-Lists all the stops where passengers can board or leave the transit vehicles. Each stop has details such as
-stop ID, name, latitude, longitude, and possibly a description.
+GTFS data is used in various ways to enhance public transit systems and improve user experience. **Public transit apps**
+like Google Maps and Apple Maps use GTFS feeds for route planning, schedule information, and real-time transit updates.
+**Transit agencies** utilize GTFS for scheduling, route optimization, and operational analysis. **Data analysts and
+urban planners** rely on GTFS for performance analysis, accessibility studies, and transit network modeling. *
+*Information systems** at stations and stops leverage GTFS data to display real-time arrival and departure information,
+route details, and service updates.
 
-**routes.txt:**
-Describes the routes that transit vehicles travel on, including route ID, short name, long name, and type of
-transportation (bus, subway, etc.).
+## File Format - Example
 
-**trips.txt:**
-Contains information about individual trips along the routes, such as trip ID, route ID, service ID, and trip
-headsign.
-
-**stop_times.txt:**
-Provides the scheduled times that transit vehicles arrive at and depart from each stop along a trip.
-This includes stop ID, trip ID, arrival time, and departure time.
-
-**calendar.txt:**
-Defines the service dates and days of the week that service is available, linking to specific trips.
-
-**calendar_dates.txt:**
-Lists exceptions to the standard schedule defined in the calendar.txt, such as holidays or special
-service days.
-
-**fare_attributes.txt:**
-Describes the fare structure for the transit services, including fare prices, payment methods, and
-transfer rules.
-
-**fare_rules.txt:**
-Defines the rules for applying fares to different routes, zones, and user categories.
-
-**shapes.txt:**
-Contains the actual geographic paths that the transit vehicles follow, described by sequences of latitude
-and longitude points.
-
-**frequencies.txt:**
-Specifies headway (time between trips) for routes that run at regular intervals.
-
-**transfers.txt:**
-Details rules for transferring between routes, including transfer points and minimum transfer times.
-
-**feed_info.txt:**
-Provides metadata about the feed, such as the feed publisher, version, and the feed's start and end
-dates.
-
-[GTFS][1].
-
-### Usage of GTFS
-
-GTFS data is utilized in various ways to improve public transit systems and user experience:
-
-**Public Transit Apps:**
-GTFS data feeds are consumed by applications like Google Maps, Apple Maps, and other transit apps
-to provide route planning, schedules, and real-time transit information.
-
-**Transit Agency Tools:**
-Transit agencies use GTFS data for planning and operations, helping them manage schedules,
-optimize routes, and analyze performance.
-
-**Data Analysis:**
-Researchers and urban planners use GTFS data to analyze transit system performance, accessibility, and to
-model changes in transit networks.
-
-**Information Systems:**
-Transit information systems at stations and stops use GTFS data to display arrival times, route
-information, and service updates.
-
-### File Format - Example
-
-#### routes.txt
+**routes.txt**:
 
 ````text
 route_id,agency_id,route_short_name,route_long_name,route_desc,route_type
@@ -97,11 +40,6 @@ route_id,agency_id,route_short_name,route_long_name,route_desc,route_type
 "91-10-Y-j22-1","82","IR","","IR","103"3
 ````
 
-### Technical description
-
 The diagram below illustrates how the different types of information interact.
 
 ![gtfs_object_diagram.png](https://opentransportdata.swiss/wp-content/uploads/2016/11/gtfs_static.png)
-
-
-[1]: https://opentransportdata.swiss/en/cookbook/gtfs/

@@ -1,206 +1,98 @@
 # RAPTOR
 
-The RAPTOR (Round-based Public Transit Routing) algorithm is an algorithm for calculating the
-optimal route in a public transportation system.
-It was specially developed to quickly and efficiently find the best routes in large and complex
-transportation networks.
+The RAPTOR (**R**ound-b**A**sed **P**ublic **T**ransit **O**ptimized **R**outer) algorithm is a powerful tool for
+computing optimal routes in public transportation systems, particularly for large and complex networks. Its primary goal
+is to efficiently determine the best route options based on factors like arrival time and the number of transfers.
+RAPTOR is especially effective for real-time journey planning due to its speed and adaptability.
 
-**Initialization**: the algorithm begins at the start station at the given start time.
-It initializes a list of stations
-that it will visit in this round (initially only the start station) and a list of already
-visited stations.
+The data used by the RAPTOR algorithm is significantly simplified compared to the full GTFS schedule. The algorithm
+focuses on just five key components. As illustrated in Figure 1, a public transit network consists of a set of routes
+and stops. Each route is made up of trips, all of which follow the same sequence of stops. A trip is essentially a
+container that includes a set of stop times, which provide the arrival and departure times for each stop along the trip.
+Additionally, stops contain information about potential transfers to other stops, facilitating passenger connections
+within the network.
 
-**Round-based search**: The algorithm performs several "rounds" of the search. In each round,
-it considers all transport
-lines that stop at the stations of the current round. For each line,
-it calculates the earliest arrival time at each
-station along the line that has not yet been visited and adds these stations to the list for
-the next round.
+```plantuml
+@startuml
+left to right direction
 
-**Updating the arrival times**: When the algorithm finds a new stop,
-it updates the earliest arrival time at this stop. If
-the new arrival time is earlier than the previous one, the route is updated.
+class Stop {
+id
+}
 
-**Check for termination**: The algorithm ends when it has reached the destination station and
-there are no more stations to
-visit in the current lap, or when a certain number of laps have been completed.
+class Route {
+id
+}
 
-**Tracing the route**: After the algorithm has finished, the optimal route can be found by
-backtracking the updated arrival
-times from the destination station to the start station.
+class Trip {
+}
 
-The **RAPTOR** algorithm is very efficient because it takes advantage of the fact that public
-transportation systems usually have regular schedules and that it is often faster to stay on
-the same line instead of switching. It is particularly well suited for real-time
-routing and planning in large transportation networks.
+class StopTime {
+arrivalTime
+departureTime
+}
 
-## Flowchart
+class Transfer {
+transferTime
+targetStop
+}
 
-```mermaid
-graph TD
-    A[Start at departure stop] --> B{Round-based search}
-    B -->|Found new stop| C[Update earliest arrival time]
-    C --> D{Check for termination}
-    D -->|Not terminated| B
-    D -->|Terminated| E[Backtrack route]
-    E --> F[End]
-
+Route "1" -- "1..*" Trip: has
+Trip "1" -- "1..*" StopTime: has
+StopTime "1" -- "1" Stop: at
+Stop "0..*" -- "0..*" Transfer: has
+@enduml
 ```
 
-- The algorithm starts at the departure stop at the given departure time. It initializes a list of stops to visit in
-  this round (initially just the departure stop), and a list of already visited stops.
-- The algorithm performs several "rounds" of search. In each round, it considers all transit lines that stop at the
-  stops in the current round. For each line, it calculates the earliest arrival time at each stop along the line that
-  hasn't been visited yet, and adds these stops to the list for the next round.
-- When the algorithm finds a new stop, it updates the earliest arrival time at this stop. If the new arrival time is
-  earlier than the previous one, it updates the route.
-- After the algorithm has terminated, the optimal route can be found by backtracking the updated arrival times from the
-  destination stop to the departure stop.
+## How RAPTOR works
 
-### Simplified python example
+- **Initialization**: The algorithm starts at the origin station and time specified by the user. Initially, it only
+  considers the starting station, marking it for the first round of exploration.
 
-```Python
-class Stop:
-    def __init__(self, name):
-        self.name = name
-        self.earliest_arrival = float('inf')
-        self.visited = False
+- **Initial Footpath Relaxation**: Before starting the main loop, the algorithm relaxes footpaths from the starting
+  station to other nearby stations. This step allows the algorithm to consider other stations that are within walking
+  distance of the starting station.
 
+- **Round-based Search**: The search process is broken into several rounds. In each round, the algorithm evaluates all
+  transport lines connected to the current list of stations. It computes the earliest possible arrival times at the
+  stations along each line and marks stops for the next round if an improvement is found.
 
-class Line:
-    def __init__(self, stops):
-        self.stops: List[Stop] = stops
+- **Footpath Relaxation**: After each round, the algorithm relaxes footpaths from the newly marked stops to other nearby
+  stations. This allows adding further stations to the list of stops to be considered in the next round.
 
+- **Termination Condition**: The algorithm stops when it reaches the destination station and none of the marked stops
+  have the ability to improve the arrival time of the destination station (all possible routes have been explored).
 
-def raptor(departure, destination, lines):
-    departure.earliest_arrival = 0
+- **Tracing the Optimal Route**: Once the algorithm concludes, the optimal route is reconstructed by tracing the updated
+  arrival times back from the destination to the start station.
 
-    stops_to_visit = [departure]
-    while stops_to_visit:
-        next_stops_to_visit = []
-        for stop in stops_to_visit:
-            stop.visited = True
-            for line in lines:
-                if stop in line.stops:
-                    for next_stop in line.stops:
-                        if not next_stop.visited:
-                            next_stop.earliest_arrival = min(
-                                next_stop.earliest_arrival,
-                                stop.earliest_arrival + 1)
-                            next_stops_to_visit.append(next_stop)
-        stops_to_visit = next_stops_to_visit
+RAPTOR is highly efficient because it operates directly on schedule information without the need to build extensive
+graphs that incorporate the complexity of transfers. This characteristic makes RAPTOR particularly suitable for networks
+of any size, as it avoids the need for time-consuming preprocessing. This efficiency allows us to enable features like
+accessibility and bike information on our routes.
 
-    route = [destination]
-    current_stop = destination
-    while current_stop != departure:
-        for line in lines:
-            if current_stop in line.stops:
-                for prev_stop in line.stops:
-                    if prev_stop.earliest_arrival
-                        == current_stop.earliest_arrival - 1:
-                        route.append(prev_stop)
-                        current_stop = prev_stop
-                        break
-    route.reverse()
+## Pareto-Optimal Connections in RAPTOR
 
-    return route
-```
+One of the core features of the native RAPTOR algorithm is its ability to compute **Pareto-optimal connections**. A
+connection is Pareto-optimal if no objective (e.g., arrival time or the number of transfers) can be improved without
+worsening the other. RAPTOR achieves this by minimizing the earliest arrival time while also considering the number of
+transfers. It processes the network in rounds, ensuring that it returns the fastest routes with the fewest transfers. As
+a result, RAPTOR guarantees that no further improvement can be made on any route without negatively impacting another
+factor, such as increasing transfers or delaying arrival time.
 
-## Elements of the Raptor algorithm
+## RAPTOR Extensions
 
-### In the context of public transit systems, the following terms are essential:
+**Range RAPTOR** is an extension of the classic RAPTOR algorithm, specifically designed to handle multiple departure
+times efficiently. Instead of calculating the optimal route for just a single departure time, it determines the best
+route over a range of potential departure times. This makes it particularly useful for trip planning within a time
+window, where the goal is to find the earliest possible arrival time given any departure between specified hours (
+e.g., "find the earliest arrival if I leave anytime between 8:00 and 10:00 AM"), ultimately reducing travel time. The
+algorithm efficiently handles these multiple scenarios by leveraging the underlying RAPTOR structure, applying it over
+the entire range while ensuring that the returned connections are still Pareto-optimal.
 
-#### Timetable
-
-- Set S: This is the **collection of stops**, which includes all train stations, platforms, bus stops, and similar
-  locations
-  where passengers can board or disembark from transit vehicles.
-- Set C: This represents the **elementary connections** within the transit network, linking the stops in Set S and
-  defining
-  the possible routes for trips.
-- Set T: This **comprises all trips** made by transit vehicles such as trains, buses, and trams. Each trip follows a
-  specific sequence of stops from Set S, connected through the elementary connections in Set C.
-
-##### Network
-
-![raptor-timetable.png](raptor-timetable.png)
-
-##### Stops
-
-![raptor-stops.png](raptor-stops.png)
-
-##### Connection
-
-A connection is represented as a 5-tuple:
-
-```tex
-c = (v_{dep}(c), v_{arr}(c), \tau_{dep}(c), \tau_{arr}(c), trip(c))
-```
-
-V = Vertex (represents a stop from the set S)
-
-- **Departure stop**:
-
-```tex 
-- v_{dep}(c) \in S
-```
-
-departure stop of the connection c is an element of the set S of stops
-
-- **Arrival stop**:
-
-```tex
-v_{arr}(c) \in S
-```
-
-- **Trip**:
-
-```tex
-trip(c) \in T
-```
-
-Example connection times:
-
-- **Departure time**:
-
-```tex
-\tau_{dep}(c): 8:00
-```
-
-- **Arrival time**:
-
-```tex
-\tau_{arr}(c): 8:30
-```
-
-![raptor-connection.png](raptor-connection.png)
-
-#### Trip
-
-- Sequence of connections
-
-```tex
-T = (c_{1} , . . . , c_{k} )
-```
-
-- Represents a single vehicle
-- driving from first to last stop
-- at specific times
-
-![raptor-trip1.png](raptor-trip1.png)
-
-![raptor-trip2.png](raptor-trip2.png)
-
-#### Route
-
-In the context of the RAPTOR algorithm, a **Route** refers to:
-
-- **Definition**: A sequence of trips that share the same sequence of stops.
-- **Function**: Vehicles like buses or trains follow these predefined lines to pick up and drop off passengers at each
-  stop.
-- **Usage**: The RAPTOR algorithm processes each route to compute arrival times and determine the fastest journey with a
-  limited number of transfers.
-- **Optimization**: Routes are scanned efficiently, with the algorithm looking at each route at most once per round,
-  contributing to RAPTOR's speed and dynamic capabilities.
-
-![raptor-route.png](raptor-route.png)
+**Multi-Criteria RAPTOR (mcRAPTOR)** extends the original RAPTOR algorithm by considering additional optimization
+criteria, such as fare, comfort, or walking distance, alongside the traditional criteria of arrival time and number of
+transfers. This multi-criteria extension computes Pareto-optimal solutions that account for these extra dimensions. The
+challenge with mcRAPTOR lies in balancing these additional criteria without sacrificing computational efficiency.
+However, it still adheres to RAPTOR's core principle of fast, round-based processing, providing more tailored route
+suggestions based on multiple user preferences.
