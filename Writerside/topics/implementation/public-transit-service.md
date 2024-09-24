@@ -46,26 +46,19 @@ package service {
    }
 }
 
+package raptor.router {
+    class RaptorRouter {
+    }
+    class StopTimeProvider {
+    }
+    interface RaptorTripMaskProvider {
+    }
+}
+
 package "gtfs.schedule.model" {
     class GtfsSchedule {
     }
 }
-
-package raptor {
-    interface RaptorAlgorithm {
-    }
-    
-    package router {
-       class RaptorRouter {
-       }
-       class StopTimeProvider {
-       }
-       interface RaptorTripMaskProvider {
-       }
-   }
-}
-
-
 
 PublicTransitService <|... GtfsRaptorService: <<implements>>
 PublicTransitService --|> ScheduleInformationService: <<extends>>
@@ -75,13 +68,12 @@ GtfsRaptorService *- WalkCalculator : has
 RaptorRouter *- StopTimeProvider : has
 StopTimeProvider *-- RaptorTripMaskProvider : has
 GtfsRaptorService *- GtfsSchedule : has
-GtfsRaptorService *-- RaptorAlgorithm : has
+GtfsRaptorService *- RaptorRouter : has
 GtfsRaptorService --> GtfsToRaptorConverter : uses
 GtfsRaptorService --> GtfsRoutePartitioner : uses
 GtfsRaptorService --> GtfsTripMaskProvider : uses
 RaptorTripMaskProvider <|.. GtfsTripMaskProvider: <<implements>>
 WalkCalculator <|.. BeeLineWalkCalculator: <<implements>>
-RaptorAlgorithm <|.. RaptorRouter: <<implements>>
 @enduml
 ```
 
