@@ -68,11 +68,13 @@ Here's the simplified UML diagram for this design:
 
 ```plantuml
 @startuml
-package GTFS {
-    class GTFSSchedule
+set namespaceSeparator none
+
+package gtfs.schedule {
+    class GtfsSchedule
 }
 
-package RAPTOR {
+package raptor.router {
   class RaptorRouter {
     + routeEarliestArrival(...): List<Connection>
   }
@@ -90,12 +92,12 @@ package RAPTOR {
   RaptorRouter --> DayTripMask: "accesses"
 }
 
-package Service {
+package service.gtfs.raptor.convert {
   class GtfsTripMaskProvider
   GtfsTripMaskProvider ..|> TripMaskProvider: "<<implements>>"
 }
 
-Service o-- GTFS: has
+GtfsTripMaskProvider o-- GtfsSchedule: has
 @enduml
 ```
 
@@ -175,4 +177,6 @@ Unfortunately, a setup like this sacrifices the stateless nature of the applicat
 arrays and the GTFS schedule could be stored in a database, encapsulating the state within the database rather than the
 application, allowing for stateless load balancing.
 
-TODO: Maybe move to results and discussion?
+TODO: Maybe move the section above to results and discussion?
+TODO: Modified / extended the algorithm to allow setting multiple source stops (with different source times) and target
+multiple target stops (with different handicaps)
