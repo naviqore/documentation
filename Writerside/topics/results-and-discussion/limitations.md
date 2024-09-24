@@ -3,13 +3,11 @@
 While this thesis demonstrates the potential and applicability of RAPTOR for public transit routing using GTFS data,
 there are several limitations to the approach and implementation that need to be acknowledged.
 
-One significant limitation is the incomplete nature of the GTFS publications by various national transit agencies.
-Though the mandatory fields are generally present, many agencies do not provide certain optional fields, which could
-enhance the service's capabilities. For example, the Swiss GTFS data lacks some footpath between stops, even
-though such transfers are possible. Additionally, there is no information regarding accessibility features or bike
-transportation, which restricts the service's adaptability for different user needs. In Germany, for instance, the
-GTFS [xx] data contains invalid references to essential components such as routes, trips, and calendar dates, which
-reduces its reliability.
+One significant limitation is the absence of useful optional components in the GTFS publications by various national
+transit agencies. While the mandatory fields are generally present, many agencies do not provide certain optional fields
+that could enhance the service's capabilities. For example, the Swiss GTFS data lacks some footpaths between stops, even
+though these transfers are possible. Additionally, there is no information regarding accessibility features
+or bike transportation, which limits the service's adaptability for users with specific needs.
 
 International routing presents another significant challenge, as it requires working with multiple GTFS feeds. Merging
 datasets from regions within the same timezone is technically feasible but introduces its own complexity, such as
