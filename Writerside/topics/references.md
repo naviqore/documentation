@@ -39,3 +39,5 @@ from [https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf](htt
 [12] Spring Framework. (n.d.). Spring Boot Reference Documentation. Retrieved May 31, 2024,
 from [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
+[xx] GTFS.DE. (n.d.). GTFS for Germany - Germany Full. Retrieved September 24, 2024,
+from [https://gtfs.de/en/feeds/de_full/](https://gtfs.de/en/feeds/de_full/)
