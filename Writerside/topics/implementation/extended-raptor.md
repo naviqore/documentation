@@ -10,6 +10,23 @@ ability to route across multiple schedules spanning different service days.
 In our extended RAPTOR implementation, we have addressed all of these gaps by incorporating these critical features,
 enhancing the algorithm’s usability for real-world transit planning.
 
+## Multi-Stop Routing
+
+As mentioned in the [Public Transit Service section](public-transit-service.md), the service can route to and from
+geographic coordinates by querying the nearest stops relative to those locations. However, the closest stops may be in
+opposite directions, and the service currently does not determine which stop is best suited for routing. To address
+this, the optimal approach is to route from multiple stops with different departure times, factoring in the varying
+walking times to each stop. Similarly, the service can route to multiple potential arrival stops, accounting for the
+walking times to the final destination from each stop.
+
+This functionality was straightforward to implement and has been integrated into the extended RAPTOR. Now, routing
+requests expect a map where stop IDs serve as keys, and the corresponding departure times or remaining walking durations
+serve as values for both the source and target stops.
+
+In the routing process, only two changes were necessary. First, in round zero, multiple stops may need to be marked as
+starting points. Second, when determining the best arrival time at the target stops, the algorithm now checks multiple
+stops, factoring in the walking times (handicaps) to each before calculating the overall best time for each round.
+
 ## Latest Departure
 
 Implementing latest departure routing, which calculates the latest possible departure from a departure stop given a
